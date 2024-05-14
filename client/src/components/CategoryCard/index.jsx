@@ -137,9 +137,16 @@ export default function CategoryCard() {
   //     throw error;
   //   }
   // };
-  setInterval(() => {
-    if (modal === true) dispatch(showModal(false));
-  }, [3000]);
+  useEffect(() => {
+    let timeout;
+    if (modal) {
+      timeout = setTimeout(() => {
+        dispatch(showModal(false));
+      }, 3000);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [modal, dispatch]);
 
   return (
     <div className="category-card">

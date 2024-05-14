@@ -19,9 +19,16 @@ export default function ProductCard() {
   const dispatch = useDispatch();
   const modal = useSelector((state) => state.Cart.modal);
 
-  setInterval(() => {
-    if (modal === true) dispatch(showModal(false));
-  }, [3000]);
+  useEffect(() => {
+    let timeout;
+    if (modal) {
+      timeout = setTimeout(() => {
+        dispatch(showModal(false));
+      }, 3000);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [modal, dispatch]);
 
   // const [imageURLs, setImageURLs] = useState({});
   // const fetchImageURLs = async () => {
