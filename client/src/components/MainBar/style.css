@@ -49,6 +49,7 @@
   font-size: 25px;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 .mobile-toggler-icon {
   vertical-align: sub;
