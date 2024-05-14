@@ -47,6 +47,14 @@ app.post("/create-checkout-session", async (req, res) => {
   }
 });
 
+app.get("/session-status", async (req, res) => {
+  const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
+  res.send({
+    status: session.status,
+    customer_email: session.customer_details.email,
+  });
+});
+
 app.listen(5174, () => {
   console.log("Server started on port 5174");
 });

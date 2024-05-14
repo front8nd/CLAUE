@@ -19,7 +19,6 @@ export default function Return() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const sessionId = urlParams.get("session_id");
-
     fetch(`/session-status?session_id=${sessionId}`)
       .then((res) => res.json())
       .then((data) => {
@@ -29,7 +28,7 @@ export default function Return() {
   }, []);
 
   if (status === "open") {
-    return <Navigate to="/cart" />;
+    return <Navigate to="/StripeCheckout" />;
   }
 
   if (status === "complete") {
@@ -44,5 +43,5 @@ export default function Return() {
     );
   }
 
-  return null;
+  return <div>Hello World</div>;
 }
