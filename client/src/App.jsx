@@ -21,6 +21,7 @@ import ScrolltoTop from "./components/ScrollTopTop/index.jsx";
 import Dashboard from "./Pages/Dashboard/index.jsx";
 import Return from "./Pages/Return/index.jsx";
 import StripeCheckout from "./Pages/StripeCheckout/index.jsx";
+import ProtectedRoutes from "./Routes/Protected/index.jsx";
 function App() {
   return (
     <Provider store={store}>
@@ -34,12 +35,18 @@ function App() {
           <Route path="/cart/" element={<Cart />} />
           <Route path="/login/" element={<Login />} />
           <Route path="/register/" element={<Register />} />
+          <Route
+            path="/dashboard/"
+            element={<ProtectedRoutes component={Dashboard} />}
+          />
+          <Route
+            path="/publish/"
+            element={<ProtectedRoutes component={PublishContent} />}
+          />
           <Route path="/category/:categoryName" element={<Category />} />
-          <Route path="/publish/" element={<PublishContent />} />
           <Route path="/Shop/" element={<Shop />} />
           <Route path="/Checkout/" element={<Checkout />} />
           <Route path="/search/:searchQuery" element={<Search />} />
-          <Route path="/dashboard/" element={<Dashboard />} />
           <Route path="/return" element={<Return />} />
           <Route path="/StripeCheckout" element={<StripeCheckout />} />
           <Route path="*" element={<NotFound404 />} />

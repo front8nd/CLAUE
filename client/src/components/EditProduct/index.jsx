@@ -181,18 +181,21 @@ export default function EditProduct() {
     "New Images to Upload: ",
     imgUpload
   );
-
+  const [imgUploading, setImgUploading] = useState("Replace Images");
   const handleImageSubmit = async (e) => {
     e.preventDefault();
+    setImgUploading("Uploading...Please Wait");
     const uploadPromises = imgUpload.map(async (image, index) => {
       const imageref = ref(storage, `/images/${data.imagesID}/${image.name}`);
       await uploadBytes(imageref, image);
       const imageUrl = await getDownloadURL(imageref);
+      setImgUploading("Still Uploading...");
       return imageUrl;
     });
     try {
       const imageUrls = await Promise.all(uploadPromises);
       console.log("new Images:", imageUrls);
+      setImgUploading("Uploading Complete, Deleting OLD Images");
 
       // // Add old URLs to imgDelete for deletion
       // const oldUrlsToDelete = data.images.filter(
@@ -209,12 +212,13 @@ export default function EditProduct() {
 
       // Delete old images
       await deleteOldImages();
-
+      setImgUploading("Old Photos Deleted Successfully");
       window.alert("Success");
     } catch (error) {
       window.alert("Failed");
       console.log(error);
     }
+    setImgUploading("Completed");
   };
 
   const deleteOldImages = async () => {
@@ -467,7 +471,7 @@ export default function EditProduct() {
                     onClick={handleImageSubmit}
                     className="pci-submit-button"
                   >
-                    Upload Images
+                    {imgUploading}
                   </button>
                 </div>
               </fieldset>

@@ -2,12 +2,11 @@
   display: none;
   position: fixed;
   background-color: rgb(255, 255, 255);
-  padding: 20px;
-  width: 40%;
+  width: 100%;
   text-decoration: none;
   z-index: 1;
   border-radius: 2px;
-  opacity: 90%;
+  opacity: 100%;
   top: 0;
   bottom: 0;
 }
@@ -18,7 +17,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20%;
+  margin: 14%;
 }
 .hide-decoration {
   text-decoration: none;
@@ -33,7 +32,7 @@
 .mobile-menu-close {
   font-size: 40px;
   position: absolute;
-  right: -1%;
+  right: 0%;
   top: 0;
   transition: transform 0.6s ease;
 }
