@@ -1,0 +1,14 @@
+.customIMGSize {
+  height: 230px;
+  width: 180px;
+  object-fit: cover;
+}
+
+.product-img-con {
+  background-color: transparent;
+}
+.category-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}

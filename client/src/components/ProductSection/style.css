@@ -1,0 +1,24 @@
+.product-section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  margin: 0px 50px;
+  grid-row-gap: 50px;
+}
+
+@media (max-width: 650px) {
+  .product-section {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media screen and (min-width: 650px) and (max-width: 860px) {
+  .product-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 860px) and (max-width: 1196px) {
+  .product-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

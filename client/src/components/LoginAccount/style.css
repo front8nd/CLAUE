@@ -1,0 +1,79 @@
+.login-d-subheading {
+  font-style: italic;
+  color: #696969;
+  font-size: 14px;
+  margin: 20px 0;
+}
+.login-d-heading {
+  font-weight: bold;
+}
+.login-input {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+}
+.login-input-label {
+  margin: 10px 0;
+  font-size: 12px;
+  font-weight: bold;
+}
+.login-input-label::after {
+  content: "*";
+  color: red;
+}
+.login-input-field {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid #696969;
+}
+.login-input-btns {
+  display: flex;
+  margin: 10px 0;
+}
+.login-input-signin {
+  padding: 10px 40px;
+  border-radius: 30px;
+  border: 1px solid transparent;
+  background-color: #2a2a2a;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-wrap: nowrap;
+}
+
+.login-input-forgot {
+  margin-left: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #696969;
+}
+
+.login-input-forgot:hover {
+  color: #cf9683;
+}
+.login-input-signin:hover {
+  background-color: #cf9683;
+  color: white;
+}
+.tos-agree {
+  margin: 10px 0;
+}
+.tos-content {
+  font-size: 12px;
+  margin-left: 10px;
+  color: black;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 900px) {
+  .login-input {
+    max-width: 100%;
+  }
+}
+.login-failed-msg {
+  color: red;
+  font-size: 14px;
+}

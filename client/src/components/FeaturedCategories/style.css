@@ -1,0 +1,217 @@
+.women-img,
+.footwear-img,
+.watches-img,
+.accessories-img {
+  position: relative;
+  transition: 0.6s all ease;
+}
+
+.women-img:hover,
+.footwear-img:hover,
+.watches-img:hover,
+.accessories-img:hover {
+  transform: scale(1.2);
+}
+
+.women-button:hover,
+.footwear-button:hover,
+.watches-button:hover,
+.accessories-button:hover {
+  background-color: #cf9683;
+  color: white;
+  border-width: 2px;
+  padding: 8px 30px;
+  border: 2px solid #cf9683;
+  border-radius: 20px;
+  margin: 10px 0;
+  font-weight: bold;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+.women-link,
+.footwear-link,
+.watches-link,
+.accessories-link {
+  text-decoration: none;
+  color: #222222;
+}
+
+.women-link:hover,
+.footwear-link:hover,
+.watches-link:hover,
+.accessories-link:hover {
+  color: #fff;
+}
+
+.women-img-div,
+.footwear-img-div,
+.watches-img-div,
+.accessories-img-div {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.women-button {
+  bottom: 2%;
+  left: 50%;
+  background-color: white;
+  color: #222222;
+  border-width: 2px;
+  padding: 8px 30px;
+  border: 2px solid #ffffff;
+  border-radius: 20px;
+  margin: 10px 0;
+  font-weight: bold;
+  position: absolute;
+  transform: translateX(-50%);
+  text-wrap: nowrap;
+}
+
+.footwear-button,
+.watches-button {
+  bottom: 2%;
+  left: 50%;
+  background-color: white;
+  color: #222222;
+  border-width: 2px;
+  padding: 8px 30px;
+  border: 2px solid #ffffff;
+  border-radius: 20px;
+  margin: 10px 0;
+  font-weight: bold;
+  position: absolute;
+  transform: translateX(-50%);
+  text-wrap: nowrap;
+}
+
+.accessories-button {
+  bottom: 2%;
+  left: 50%;
+  background-color: white;
+  color: #222222;
+  border-width: 2px;
+  padding: 8px 30px;
+  border: 2px solid #ffffff;
+  border-radius: 20px;
+  margin: 10px 0;
+  font-weight: bold;
+  position: absolute;
+  transform: translateX(-50%);
+  text-wrap: nowrap;
+}
+.women-img {
+  width: 100%;
+  height: 100%;
+}
+
+.footwear-img,
+.watches-img {
+  width: 100%;
+  height: 100%;
+}
+
+.accessories-img {
+  width: 100%;
+  height: 100%;
+}
+
+.featured-categories {
+  margin: 80px 50px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    "women women footwear watches"
+    "women women accessories accessories"
+    "women women accessories accessories";
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+.women {
+  grid-area: women;
+  position: relative;
+  max-height: 620px;
+}
+.footwear {
+  grid-area: footwear;
+  position: relative;
+  max-height: 300px;
+}
+.watches {
+  grid-area: watches;
+  position: relative;
+  max-height: 300px;
+}
+
+.accessories {
+  grid-area: accessories;
+  position: relative;
+  max-height: 300px;
+}
+
+@media only screen and (max-width: 576px) {
+  .featured-categories {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+      "women"
+      "footwear"
+      "watches"
+      "accessories";
+  }
+  .women,
+  .footwear,
+  .footwear,
+  .accessories {
+    height: auto;
+  }
+  .women-img,
+  .footwear-img,
+  .footwear-img,
+  .accessories-img {
+    object-fit: cover;
+  }
+}
+@media (min-width: 576px) and (max-width: 768px) {
+  .featured-categories {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+      "women"
+      "footwear"
+      "watches"
+      "accessories";
+    margin: 40px 100px;
+  }
+  .women,
+  .footwear,
+  .watches,
+  .accessories {
+    width: auto;
+    height: 400px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+  .featured-categories {
+    margin: 80px 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(auto, 1fr));
+    grid-template-areas:
+      "women women footwear watches"
+      "women women accessories accessories"
+      "women women accessories accessories";
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+  }
+  .footwear-button,
+  .watches-button {
+    text-wrap: nowrap;
+    font-size: 14px;
+    padding: 8px 20px;
+  }
+  .footwear-button:hover,
+  .watches-button:hover {
+    padding: 8px 20px;
+  }
+}

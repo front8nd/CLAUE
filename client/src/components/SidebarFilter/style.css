@@ -1,0 +1,30 @@
+.sidebar-filter-con {
+  height: 100vh;
+  width: 80%;
+  background-color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  overflow-y: scroll;
+}
+.close {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 10px 0px 0px;
+}
+.close-btn {
+  font-size: 30px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.close-btn-text {
+  font-size: 20px;
+  text-align: start;
+  font-style: italic;
+  font-weight: bold;
+}
+@media screen and (max-width: 900px) {
+}

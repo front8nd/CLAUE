@@ -1,0 +1,30 @@
+.login-header {
+  background-color: grey;
+  min-height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-image: url("/src/assets/breadscrumb.jpg");
+  object-fit: contain;
+}
+
+.login-content {
+  margin-top: 20px;
+  display: flex;
+}
+
+.login-bg {
+  font-size: 22px;
+  color: white;
+}
+
+.login-cur-page {
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+}
+
+.login-cur-page:hover {
+  color: #cf9683;
+}

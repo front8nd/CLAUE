@@ -1,0 +1,22 @@
+.home-p a {
+  text-decoration: none;
+  font-size: 14px;
+  color: #222;
+  margin: 0px 10px;
+}
+
+.home-p a:hover {
+  color: #cf9683;
+}
+
+.ProductPagination {
+  display: flex;
+  padding: 10px;
+}
+
+.title-p {
+  font-size: 14px;
+  color: #222;
+  margin: 2px 0;
+  text-wrap: wr;
+}

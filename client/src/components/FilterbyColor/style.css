@@ -1,0 +1,110 @@
+.filter-color-container {
+  margin: 50px 0;
+}
+.filter-color-heading {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.middle-icon {
+  vertical-align: middle;
+}
+.color-display {
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px 0px;
+}
+.dot {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot:hover {
+  box-shadow: 0px 0px 0px 3px #a1a1a1;
+  border-radius: 50%;
+}
+
+.black-dot {
+  background-color: black;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 4px;
+  border: 1px solid transparent;
+}
+
+.grey-dot {
+  background-color: grey;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 4px;
+}
+.blue-dot {
+  background-color: blue;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 4px;
+}
+.brown-dot {
+  background-color: brown;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 4px;
+}
+.green-dot {
+  background-color: green;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 4px;
+}
+.khaki-dot {
+  background-color: khaki;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 4px;
+}
+.red-dot {
+  background-color: red;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 4px;
+}
+.clear {
+  background: red;
+  padding: 0px;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+}
+
+.clear-icon {
+  margin-left: 2px;
+}
+.clear:hover {
+  background: #cf9683;
+  color: white;
+}

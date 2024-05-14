@@ -1,0 +1,105 @@
+.ca-can-outline {
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ebebeb;
+}
+
+.sa-heading {
+  text-align: left;
+  font-size: 18px;
+  font-weight: 600;
+}
+.hr {
+  margin: 10px 0;
+  color: #ebebeb;
+}
+.sa-address,
+.sa-account,
+.sa-new-account {
+  display: flex;
+  flex-direction: column;
+}
+
+.sa-input {
+  outline: 1px solid #555;
+  border-radius: 20px;
+  border: none;
+  padding: 10px;
+  text-align: start;
+  width: -webkit-fill-available;
+  padding-left: 10px;
+  margin: 10px 0;
+}
+.sa-label {
+  font-size: 14px;
+  color: black;
+  font-weight: normal;
+  margin-top: 10px;
+}
+.sa-label::after {
+  content: "*";
+  color: red;
+}
+.sa-label-radio {
+  margin-left: 10px;
+}
+.sa-account-tooltip {
+  display: flex;
+  align-items: center;
+}
+.sa-account-tooltip-box {
+  margin-left: 10px;
+  cursor: pointer;
+  position: relative;
+}
+.sa-account-icon {
+  color: #696969;
+  font-size: 24px;
+}
+
+.sa-account-icon:hover {
+  color: black;
+}
+.sa-account-icon-text {
+  position: absolute;
+  font-size: 14px;
+  background-color: #ebebeb;
+  width: 250px;
+  padding: 10px 10px;
+  border-radius: 5px;
+  visibility: visible;
+  margin: 7px 0px;
+  left: -15%;
+}
+.sa-input-dropdown {
+  outline: 1px solid #555;
+  border-radius: 20px;
+  border: none;
+  padding: 10px 0;
+  text-align: start;
+  max-width: 300px;
+  width: 100%;
+  margin: 10px 0;
+}
+.sa-account-icon:hover + .sa-account-icon-text {
+  visibility: visible;
+}
+.sa-account-icon-text::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 0px;
+  left: 6%;
+  top: 10%;
+  border: 15px solid transparent;
+  border-top: 0;
+  border-bottom: 15px solid #cf9683;
+  transform: translate(-50%, calc(-100% - 5px));
+}
+.sa-password-error {
+  color: red;
+  font-size: 12px;
+  max-width: 70%;
+  padding: 0 10px;
+}

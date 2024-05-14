@@ -1,0 +1,38 @@
+.modal-success {
+  position: fixed;
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  background-color: #e5efe5;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  transition: 0.6 all ease;
+}
+.modal-icon {
+  width: 10%;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+}
+.modal-success-msg {
+  width: 70%;
+  max-width: 250px;
+  align-content: center;
+  padding: 10px 0;
+}
+.modal-success-icon {
+  color: green;
+}
+.modal-close-icon {
+  color: black;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.modal-close-icon:hover {
+  color: red;
+  transform: rotate(90deg);
+}

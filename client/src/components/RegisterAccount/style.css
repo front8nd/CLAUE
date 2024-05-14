@@ -1,0 +1,33 @@
+.register-heading {
+  font-weight: bolder;
+}
+.register-desc {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #696969;
+}
+
+.create-new-account {
+  margin: 20px 0;
+  width: fit-content;
+  padding: 12px 34px;
+  border-radius: 30px;
+  border: 1px solid transparent;
+  background-color: #cf9683;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-wrap: nowrap;
+}
+.create-new-account:hover {
+  background-color: #2a2a2a;
+  color: white;
+}
+
+@media screen and (max-width: 900px) {
+  .register-account {
+    margin: 20px 0;
+    max-width: 100%;
+  }
+}

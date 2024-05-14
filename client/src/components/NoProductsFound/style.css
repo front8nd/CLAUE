@@ -1,0 +1,15 @@
+.NoProductsFound {
+  display: flex;
+  justify-content: center;
+  background-color: #cf9683;
+  border-radius: 30px;
+  padding: 10px 30px;
+  font-weight: bolder;
+  color: white;
+  width: fit-content;
+  margin: 10px 0;
+  height: fit-content;
+}
+.NPF-msg {
+  text-align: center;
+}

@@ -1,0 +1,137 @@
+.instagram {
+  padding: 20px 0;
+}
+
+.insta-heading {
+  text-align: center;
+  line-height: 24px;
+  color: #222;
+  font-size: 24px;
+  font-weight: 900;
+  padding: 20px;
+}
+
+.swiper-2 {
+  width: 800px;
+}
+.swiper-slide-2 {
+  height: 300px;
+  background: #882525;
+  line-height: 300px;
+  text-align: center;
+}
+.swiper-slide-2:nth-child(2) {
+  background: #8acc7d;
+}
+.swiper-slide-2:nth-child(3) {
+  background: #b7cc7d;
+}
+.swiper-slide-2:nth-child(4) {
+  background: #9eb75c;
+}
+.swiper-slide-2:nth-child(5) {
+  background: #7da8cc;
+}
+.swiper-slide-2:nth-child(6) {
+  background: #96cc7d;
+}
+.swiper-slide-2:nth-child(7) {
+  background: #cc7dae;
+}
+
+.swiper-slide-2 {
+  position: relative;
+  display: inline-block;
+}
+
+.slide-hover-img {
+  display: block;
+}
+
+.slide-hover-icon-1 {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  padding: 10px 20px;
+  color: #fff;
+  text-decoration: none;
+  background-color: #222;
+  border-radius: 50%;
+  height: 40px;
+  font-size: 25px;
+  transition: opacity 0.3s ease;
+}
+.slide-hover-icon-2 {
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #222;
+  border-radius: 50%;
+  height: 40px;
+  font-size: 25px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  margin: 0;
+}
+
+.swiper-slide-2:hover .slide-hover-icon-1 {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.swiper-slide-2:hover .slide-hover-icon-2 {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.slide-hover-icon-1:hover,
+.slide-hover-icon-2:hover {
+  background-color: #fff;
+  color: #222;
+}
+
+.icon-tooltip {
+  position: absolute;
+  top: 40%;
+  left: 60%;
+  transform: translate(-50%, -40%);
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #222;
+  border-radius: 20px;
+  font-size: 16px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  margin: 0;
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .slide-hover-icon-1 {
+    height: 25px;
+    width: 15px;
+    font-size: 25px;
+    left: 30%;
+    display: none;
+  }
+  .slide-hover-icon-2 {
+    left: 50%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+  .slide-hover-icon-1 {
+    height: 25px;
+    width: 15px;
+    font-size: 25px;
+    left: 40%;
+    display: none;
+  }
+  .slide-hover-icon-2 {
+    left: 50%;
+  }
+}

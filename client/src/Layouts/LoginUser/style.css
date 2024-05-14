@@ -1,0 +1,19 @@
+.login-page {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin: 5% 8%;
+}
+
+.already-logged-in {
+  text-align: center;
+  font-size: 36px;
+  color: red;
+  margin: 50px 0;
+  background-color: blanchedalmond;
+}
+
+@media screen and (max-width: 900px) {
+  .login-page {
+    grid-template-columns: 100%;
+  }
+}

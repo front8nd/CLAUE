@@ -1,0 +1,39 @@
+.cart-bg {
+  background-color: grey;
+  min-height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-image: url("/src/assets/breadscrumb.jpg");
+  object-fit: contain;
+}
+
+.cart-content {
+  margin-top: 20px;
+  display: flex;
+}
+
+.bg-title::after {
+  content: ">";
+  margin: 0 10px;
+  vertical-align: middle;
+}
+.cart-bg {
+  font-size: 22px;
+  color: white;
+  background-blend-mode: multiply;
+  background-position: top;
+}
+
+.bg-title,
+.bg-cur-page {
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+}
+
+.bg-title:hover,
+.bg-cur-page:hover {
+  color: #cf9683;
+}

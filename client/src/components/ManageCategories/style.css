@@ -1,0 +1,16 @@
+.pci-cat-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.pci-submit-button-custom {
+  margin: 0 !important;
+  text-wrap: nowrap !important;
+}
+
+.pci-sel-new-custom {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

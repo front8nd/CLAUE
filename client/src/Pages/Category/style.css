@@ -1,0 +1,23 @@
+.CategoryPage {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  margin: 20px 50px;
+  padding: 0 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .CategoryPage {
+    grid-template-columns: 100%;
+  }
+  .sidebar-hide-mobile {
+    display: none;
+  }
+}
+@media screen and (max-width: 576px) {
+  .CategoryPage {
+    display: grid;
+    grid-template-columns: 100%;
+    margin: 20px 0px;
+    padding: 0 20px;
+  }
+}

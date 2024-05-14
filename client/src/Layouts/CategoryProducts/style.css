@@ -1,0 +1,12 @@
+.category-products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  margin: 20px 0;
+}
+
+@media screen and (max-width: 900px) {
+  .category-products {
+    justify-content: center;
+  }
+}
