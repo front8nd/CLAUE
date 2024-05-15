@@ -42,7 +42,7 @@ export default function Recipt({ data }) {
             </div>
             <div className="r-detail-sec">
               <label className="r-label">Address:</label>
-              <p className="r-detail">
+              <p className="r-detail" style={{ textAlign: "left" }}>
                 {data.customer_details.address.city},
                 {data.customer_details.address.state}
                 {data.customer_details.address.postal_code === null
