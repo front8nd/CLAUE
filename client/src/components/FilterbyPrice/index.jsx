@@ -14,22 +14,23 @@ export default function FilterbyPrice() {
   const { categoryName } = useParams();
   const [minPrice, setMinPrice] = useState(1);
   const [maxPrice, setMaxPrice] = useState(1000);
+  console.log(minPrice, maxPrice);
 
   const handlePrice = () => {
-    // let filteredProducts = products.filter(
-    //   (product) => product.categories.category === categoryName
-    // );
     let filteredProducts = products;
 
-    let min = Infinity;
-    let max = -Infinity;
+    let min = Number.MAX_VALUE;
+    let max = Number.MIN_VALUE;
 
     filteredProducts.forEach((product) => {
-      if (product.price < min) {
-        min = product.price;
+      // Convert price from string to number
+      const price = parseFloat(product.price);
+
+      if (price < min) {
+        min = price;
       }
-      if (product.price > max) {
-        max = product.price;
+      if (price > max) {
+        max = price;
       }
     });
 
@@ -50,7 +51,6 @@ export default function FilterbyPrice() {
   useEffect(() => {
     handlePrice();
   }, []);
-
   return (
     <div>
       {index === 1 ? (
@@ -100,8 +100,8 @@ export default function FilterbyPrice() {
         <Slider
           onChange={changeHandler}
           range
-          min={1}
-          max={1000}
+          min={minPrice}
+          max={maxPrice}
           defaultValue={[minPrice, maxPrice]}
         />
       </div>
