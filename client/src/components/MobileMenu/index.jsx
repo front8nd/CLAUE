@@ -53,14 +53,14 @@ export default function MobileMenu() {
                     <ul>
                       {categoryList.map((e) => (
                         <React.Fragment key={e.id}>
-                          <li className="dropdown-list">
-                            <Link
-                              className="hide-decoration"
-                              to={`/category/${e.category}`}
-                            >
+                          <Link
+                            className="hide-decoration"
+                            to={`/category/${e.category}`}
+                          >
+                            <li className="dropdown-list">
                               {e.category.toUpperCase()}
-                            </Link>
-                          </li>
+                            </li>
+                          </Link>
                         </React.Fragment>
                       ))}
                     </ul>

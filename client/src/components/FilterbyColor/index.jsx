@@ -67,7 +67,7 @@ export default function FilterbyColor() {
           ></span>
           <span
             onClick={() => disptach(setColor("red"))}
-            className="red-dot dot"
+            className="red-dot dot "
           ></span>
           <span onClick={() => disptach(setColor(""))} className="clear dot">
             <MdOutlineClear className="clear-icon" />

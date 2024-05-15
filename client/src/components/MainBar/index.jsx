@@ -75,11 +75,11 @@ export default function MainBar() {
                 <ul>
                   {categoryList.map((e) => (
                     <React.Fragment key={e.id}>
-                      <li className="dropdown-list">
-                        <Link to={`/category/${e.category}`}>
+                      <Link to={`/category/${e.category}`}>
+                        <li className="dropdown-list">
                           {e.category.toUpperCase()}
-                        </Link>
-                      </li>
+                        </li>
+                      </Link>
                     </React.Fragment>
                   ))}
                 </ul>

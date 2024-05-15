@@ -13,7 +13,7 @@ export default function FilterbyPrice() {
   const products = useSelector((state) => state.Products.data);
   const { categoryName } = useParams();
   const [minPrice, setMinPrice] = useState(1);
-  const [maxPrice, setMaxPrice] = useState(1000);
+  const [maxPrice, setMaxPrice] = useState(999999);
   console.log(minPrice, maxPrice);
 
   const handlePrice = () => {
