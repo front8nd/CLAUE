@@ -1,0 +1,13 @@
+.reset-password {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+.add-margin {
+  margin: 10px 0;
+}
+@media screen and (max-width: 576px) {
+  .reset-password {
+    width: 100%;
+  }
+}

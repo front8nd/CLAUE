@@ -67,12 +67,22 @@
   color: black;
   font-weight: bold;
 }
+.btn-width {
+  width: 80%;
+}
 
 @media screen and (max-width: 900px) {
   .login-input {
     max-width: 100%;
   }
 }
+
+@media screen and (max-width: 576px) {
+  .btn-width {
+    width: 100%;
+  }
+}
+
 .login-failed-msg {
   color: red;
   font-size: 14px;

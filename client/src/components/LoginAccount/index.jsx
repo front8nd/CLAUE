@@ -5,7 +5,7 @@ import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { userLoggedIn } from "../../Redux/UserSlice";
 import { useDispatch, useSelector } from "react-redux";
-
+import ResetPassword from "../ResetPassword";
 export default function LoginAccount() {
   const [toast, setToast] = useState(false);
   const [loginMSG, setloginMSG] = useState("");
@@ -36,7 +36,22 @@ export default function LoginAccount() {
     }
     setBtn("Sign In");
   };
-
+  const [showResetPassword, setShowResetPassword] = useState(false);
+  if (showResetPassword) {
+    return (
+      <div>
+        <ResetPassword />
+        <button
+          className="login-input-signin btn-width"
+          onClick={() => {
+            setShowResetPassword(false);
+          }}
+        >
+          Back to Login Page
+        </button>
+      </div>
+    );
+  }
   return (
     <div className="login-account-container">
       {toast && (
@@ -86,7 +101,12 @@ export default function LoginAccount() {
             <button type="submit" className="login-input-signin">
               {btn}
             </button>
-            <button disabled className="login-input-forgot">
+            <button
+              onClick={() => {
+                setShowResetPassword(true);
+              }}
+              className="login-input-forgot"
+            >
               Forgot Your Password?
             </button>
           </div>
