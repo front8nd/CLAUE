@@ -11,7 +11,7 @@
 
 .CategoryPagination {
   display: flex;
-  padding: 10px 60px;
+  padding: 10px 5%;
   background-color: #f6f6f8;
 }
 
@@ -20,4 +20,10 @@
   color: #222;
   margin: 2px 0;
   text-wrap: nowrap;
+}
+
+@media (min-width: 1200px) {
+  .CategoryPagination {
+    padding: 10px 63px;
+  }
 }
