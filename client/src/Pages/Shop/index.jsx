@@ -4,6 +4,9 @@ import { getProductsFirebase } from "../../Redux/ProductsSlice";
 import Loading from "../../components/Loading";
 import CategorySidebar from "../../Layouts/CategorySidebar";
 import ShopProducts from "../../Layouts/ShopProducts";
+import ShopPagination from "../../components/ShopPagination";
+import CategoryPagination from "../../components/CategoryPagination";
+
 export default function ShopLayout() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.Products.data);
@@ -24,6 +27,7 @@ export default function ShopLayout() {
   }
   return (
     <div className="cat-container">
+      <ShopPagination />
       <div className="CategoryPage">
         <div className="sidebar-hide-mobile">
           <CategorySidebar />
