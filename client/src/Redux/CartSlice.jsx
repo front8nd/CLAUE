@@ -87,6 +87,11 @@ const CartSlice = createSlice({
       localStorage.setItem("cardDetails", JSON.stringify(state.cardDetails));
       console.log(action.payload);
     },
+    onOrderComplete: (state) => {
+      state.cartItems = [];
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      console.log("Cart Cleared");
+    },
   },
 });
 
@@ -99,5 +104,6 @@ export const {
   getCartItemsDetails,
   getuserDetails,
   getcardDetails,
+  onOrderComplete,
 } = CartSlice.actions;
 export default CartSlice.reducer;
