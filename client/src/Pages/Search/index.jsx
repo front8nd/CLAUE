@@ -5,6 +5,9 @@ import CategoryPagination from "../../components/CategoryPagination";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsFirebase } from "../../Redux/ProductsSlice";
 import Loading from "../../components/Loading";
+import Footer from "../../Layouts/Footer";
+import BacktoTop from "../../components/BacktoTop";
+import Header from "../../Layouts/Header";
 export default function Search() {
   const loading = useSelector((state) => state.Products.loading);
   const dispatch = useDispatch();
@@ -12,17 +15,24 @@ export default function Search() {
   useEffect(() => {
     dispatch(getProductsFirebase());
   }, [dispatch]);
-  return loading ? (
-    <Loading />
-  ) : (
-    <div className="cat-container">
-      <CategoryPagination />
-      <div className="CategoryPage">
-        <div className="sidebar-hide-mobile">
-          <CategorySidebar />
+  return (
+    <>
+      <BacktoTop />
+      <Header />
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="cat-container">
+          <CategoryPagination />
+          <div className="CategoryPage">
+            <div className="sidebar-hide-mobile">
+              <CategorySidebar />
+            </div>
+            <SearchCard />
+          </div>
         </div>
-        <SearchCard />
-      </div>
-    </div>
+      )}
+      <Footer />
+    </>
   );
 }

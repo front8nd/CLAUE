@@ -1,0 +1,32 @@
+@import "../../GlobalStyle/style";
+
+.SBsearch {
+  border: 1px solid $Input;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  text-wrap: nowrap;
+  display: flex;
+  justify-content: space-between;
+  width: -webkit-fill-available;
+  max-width: 60%;
+}
+.SBsearchInput {
+  border: none;
+  outline: none;
+  color: $Black;
+  width: -webkit-fill-available;
+  &::placeholder {
+    color: $Body-Text;
+  }
+}
+.SBsearchInputIcon {
+  vertical-align: middle;
+  font-size: 22px;
+  color: $Black;
+  font-weight: bold;
+  &:hover {
+    color: $Main;
+    cursor: pointer;
+  }
+}

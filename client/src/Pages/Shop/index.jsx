@@ -6,6 +6,9 @@ import CategorySidebar from "../../Layouts/CategorySidebar";
 import ShopProducts from "../../Layouts/ShopProducts";
 import ShopPagination from "../../components/ShopPagination";
 import CategoryPagination from "../../components/CategoryPagination";
+import Footer from "../../Layouts/Footer";
+import Header from "../../Layouts/Header";
+import BacktoTop from "../../components/BacktoTop";
 
 export default function ShopLayout() {
   const dispatch = useDispatch();
@@ -22,18 +25,25 @@ export default function ShopLayout() {
       setLoading(false);
     }
   }, [dispatch, products.length]);
-  if (loading) {
-    return <Loading />;
-  }
+
   return (
-    <div className="cat-container">
-      <ShopPagination />
-      <div className="CategoryPage">
-        <div className="sidebar-hide-mobile">
-          <CategorySidebar />
+    <>
+      <BacktoTop />
+      <Header />
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="cat-container">
+          <ShopPagination />
+          <div className="CategoryPage">
+            <div className="sidebar-hide-mobile">
+              <CategorySidebar />
+            </div>
+            <ShopProducts />
+          </div>
         </div>
-        <ShopProducts />
-      </div>
-    </div>
+      )}
+      <Footer />
+    </>
   );
 }

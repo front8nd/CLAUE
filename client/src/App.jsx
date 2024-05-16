@@ -22,13 +22,13 @@ import Dashboard from "./Pages/Dashboard/index.jsx";
 import Return from "./Pages/Return/index.jsx";
 import StripeCheckout from "./Pages/StripeCheckout/index.jsx";
 import ProtectedRoutes from "./Routes/Protected/index.jsx";
+import DashboardHomepage from "./Dashboard/Pages/Homepage/index.jsx";
+
 function App() {
   return (
     <Provider store={store}>
       <Router>
         <ScrolltoTop />
-        <BacktoTop />
-        <Header />
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/product/:productID" element={<ProductDetailsPage />} />
@@ -49,9 +49,9 @@ function App() {
           <Route path="/search/:searchQuery" element={<Search />} />
           <Route path="/return" element={<Return />} />
           <Route path="/StripeCheckout" element={<StripeCheckout />} />
+          <Route path="/admin" element={<DashboardHomepage />} />
           <Route path="*" element={<NotFound404 />} />
         </Routes>
-        <Footer />
       </Router>
     </Provider>
   );

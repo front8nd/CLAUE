@@ -6,6 +6,9 @@ import CategoryPagination from "../../components/CategoryPagination";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsFirebase } from "../../Redux/ProductsSlice";
 import Loading from "../../components/Loading";
+import BacktoTop from "../../components/BacktoTop";
+import Header from "../../Layouts/Header";
+import Footer from "../../Layouts/Footer";
 
 export default function Category() {
   const dispatch = useDispatch();
@@ -22,17 +25,25 @@ export default function Category() {
       setLoading(false);
     }
   }, [dispatch, products.length]);
-  return loading ? (
-    <Loading />
-  ) : (
-    <div className="cat-container">
-      <CategoryPagination />
-      <div className="CategoryPage">
-        <div className="sidebar-hide-mobile">
-          <CategorySidebar />
+
+  return (
+    <>
+      <BacktoTop />
+      <Header />
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="cat-container">
+          <CategoryPagination />
+          <div className="CategoryPage">
+            <div className="sidebar-hide-mobile">
+              <CategorySidebar />
+            </div>
+            <CategoryProducts />
+          </div>
         </div>
-        <CategoryProducts />
-      </div>
-    </div>
+      )}
+      <Footer />
+    </>
   );
 }

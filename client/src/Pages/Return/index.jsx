@@ -14,6 +14,9 @@ import { useDispatch } from "react-redux";
 import { onOrderComplete } from "../../Redux/CartSlice";
 import OrderCompleteHeader from "../../components/OrderCompleteHeader";
 import Recipt from "../../components/Recipt.jsx";
+import Footer from "../../Layouts/Footer/index.jsx";
+import BacktoTop from "../../components/BacktoTop/index.jsx";
+import Header from "../../Layouts/Header/index.jsx";
 export default function Return() {
   const [status, setStatus] = useState(null);
   const [data, setData] = useState({});
@@ -56,5 +59,12 @@ export default function Return() {
     );
   }
 
-  return <OrderCompleteHeader />;
+  return (
+    <>
+      <BacktoTop />
+      <Header />
+      <OrderCompleteHeader />
+      <Footer />
+    </>
+  );
 }

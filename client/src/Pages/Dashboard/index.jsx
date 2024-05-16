@@ -7,6 +7,9 @@ import Loading from "../../components/Loading";
 import DashboardHeader from "../../components/DashboardHeader";
 import { auth, db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import BacktoTop from "../../components/BacktoTop";
+import Header from "../../Layouts/Header";
+import Footer from "../../Layouts/Footer";
 
 export default function Dashboard() {
   const userState = useSelector((state) => state.User.users);
@@ -69,13 +72,18 @@ export default function Dashboard() {
   }
 
   return (
-    <div>
-      <div className="dashboard-head">
-        <DashboardHeader userDetails={userDetails} />
+    <>
+      <BacktoTop />
+      <Header />
+      <div>
+        <div className="dashboard-head">
+          <DashboardHeader userDetails={userDetails} />
+        </div>
+        <div className="dashboard">
+          <DashboardLayout />
+        </div>
       </div>
-      <div className="dashboard">
-        <DashboardLayout />
-      </div>
-    </div>
+      <Footer />
+    </>
   );
 }

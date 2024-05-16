@@ -6,6 +6,9 @@ import {
   EmbeddedCheckout,
 } from "@stripe/react-stripe-js";
 import StripeCheckoutHeader from "../../components/StripeCheckoutHeader";
+import BacktoTop from "../../components/BacktoTop";
+import Header from "../../Layouts/Header";
+import Footer from "../../Layouts/Footer";
 export default function StripeCheckout() {
   const cartItemsDetails = useSelector((state) => state.Cart.cartItemsDetails);
 
@@ -41,12 +44,15 @@ export default function StripeCheckout() {
   }, []);
   return (
     <>
+      <BacktoTop />
+      <Header />
       <StripeCheckoutHeader />
       <div id="checkout">
         <EmbeddedCheckoutProvider stripe={stripePromise} options={options}>
           <EmbeddedCheckout />
         </EmbeddedCheckoutProvider>
       </div>
+      <Footer />
     </>
   );
 }

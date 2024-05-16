@@ -3,6 +3,9 @@ import Product from "./../../Layouts/Product/index.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsFirebase } from "../../Redux/ProductsSlice";
 import Loading from "../../components/Loading";
+import BacktoTop from "../../components/BacktoTop/index.jsx";
+import Header from "../../Layouts/Header/index.jsx";
+import Footer from "../../Layouts/Footer/index.jsx";
 
 export default function ProductDetailsPage() {
   const dispatch = useDispatch();
@@ -24,5 +27,12 @@ export default function ProductDetailsPage() {
     return <Loading />;
   }
 
-  return <Product />;
+  return (
+    <>
+      <BacktoTop />
+      <Header />
+      <Product />
+      <Footer />
+    </>
+  );
 }

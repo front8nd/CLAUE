@@ -1,0 +1,110 @@
+@import "../../GlobalStyle/style.scss";
+
+.sidebar {
+  position: fixed;
+  width: 280px;
+  min-width: 280px;
+  height: 100%;
+  left: 0;
+  overflow-y: auto;
+  z-index: 20;
+  background-color: #fff;
+  box-shadow: 0 0 24px 2px rgba(20, 25, 38, 0.05);
+  padding-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.sidebarCloseIcon {
+  font-size: 26px;
+  color: $Icon;
+  vertical-align: middle;
+  margin-right: 8px;
+  cursor: pointer;
+  &:hover {
+    color: $Main;
+  }
+}
+
+.sidebarHeaderContainer {
+  border-bottom: 1px solid $backdrop;
+  padding: 0;
+  margin: 0;
+  width: -webkit-fill-available;
+}
+
+.sidebarHeader {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+.sidebarMainMenu {
+  width: -webkit-fill-available;
+  padding: 5%;
+}
+.sidebarMenu {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17px;
+  text-transform: capitalize;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  color: $Heading;
+  &:hover {
+    color: $Main;
+  }
+}
+
+.sidebarMenuActive {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17px;
+  text-transform: capitalize;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  background-color: $Palette-Blue-200;
+  color: $Main;
+  &:hover {
+    color: $Main;
+  }
+  &::before {
+    position: absolute;
+    content: "";
+    left: -14px;
+    width: 8px;
+    height: 34px;
+    background-color: $Main;
+    border-radius: 8px;
+    top: 7px;
+  }
+}
+.sidebarMenuItem {
+  display: flex;
+  align-items: center;
+}
+.sidebarMenuIcon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+.arrowIcon {
+  margin-left: 10px;
+}
