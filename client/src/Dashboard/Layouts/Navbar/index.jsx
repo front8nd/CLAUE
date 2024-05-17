@@ -17,13 +17,16 @@ export default function Navbar() {
       }
     >
       <div className={style.leftHeader}>
-        {sidebarVisible !== true ? (
-          <RiMenuUnfoldFill
-            onClick={() => {
-              toggleSidebar();
-            }}
-            className={style.sidebarOpenIcon}
-          />
+        {sidebarVisible === false ? (
+          <>
+            <span className={style.leftHeaderLOGO}></span>
+            <RiMenuUnfoldFill
+              onClick={() => {
+                toggleSidebar();
+              }}
+              className={style.sidebarOpenIcon}
+            />
+          </>
         ) : (
           ""
         )}

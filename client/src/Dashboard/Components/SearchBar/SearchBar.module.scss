@@ -31,8 +31,14 @@
   }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 612px) {
   .SBsearch {
     display: none;
+  }
+}
+
+@media (min-width: 612px) and (max-width: 968px) {
+  .SBsearch {
+    max-width: 100%;
   }
 }

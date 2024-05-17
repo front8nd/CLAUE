@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import style from "./Navbar.module.scss";
+import style from "./Sidebar.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { RiMenuFoldLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
