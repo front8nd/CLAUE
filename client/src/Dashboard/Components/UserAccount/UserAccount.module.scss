@@ -3,6 +3,7 @@
 .UserAccount {
   display: flex;
   cursor: pointer;
+  position: relative;
 }
 .adminPicture {
   height: 40px;
@@ -30,4 +31,36 @@
   display: flex;
   justify-content: space-between;
   margin-right: 30px;
+}
+.userAccountMenu {
+  position: absolute;
+  color: black;
+  background-color: white;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  border-radius: 10px;
+  top: 55px;
+  right: 0;
+  padding: 10px;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    list-style-type: none;
+    padding: 10px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: $Body-Text;
+    margin-right: 40px;
+    .UserAccountMenuIcon {
+      font-size: 24px;
+      color: $Icon;
+    }
+    &:hover {
+      color: $Main;
+      .UserAccountMenuIcon {
+        color: $Main;
+      }
+    }
+  }
 }

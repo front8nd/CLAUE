@@ -9,10 +9,9 @@ import { FiShoppingCart } from "react-icons/fi";
 import { CiUser } from "react-icons/ci";
 import { VscSymbolMisc } from "react-icons/vsc";
 import { IoIosArrowDown } from "react-icons/io";
-import { useMenuItemToggler } from "../../ContextHooks/MenuItemToggler";
 export default function Sidebar() {
   const { sidebarVisible, toggleSidebar } = useSidebarToggler();
-  const { MenuItemVisible, toggleMenuItem } = useMenuItemToggler();
+  const [expandMenuItem, setExpandMenuItem] = useState("Dashboard");
 
   if (!sidebarVisible) {
     return null;
@@ -22,7 +21,7 @@ export default function Sidebar() {
     <div className={style.sidebar}>
       <div className={style.sidebarHeaderContainer}>
         <div className={style.sidebarHeader}>
-          <img src="src/Dashboard/Assets/logo.png" alt="Logo"></img>
+          <img src="/src/Dashboard/Assets/logo.png" alt="Logo"></img>
           <RiMenuFoldLine
             onClick={() => toggleSidebar()}
             className={style.sidebarCloseIcon}
@@ -30,58 +29,154 @@ export default function Sidebar() {
         </div>
       </div>
       <div className={style.sidebarMainMenu}>
+        <div className={style.sidebarMenuLabel}>MAIN HOME</div>
         <div
           onClick={() => {
-            toggleMenuItem();
+            setExpandMenuItem("Dashboard");
           }}
-          className={style.sidebarMenuActive}
+          className={
+            expandMenuItem === "Dashboard"
+              ? style.sidebarMenuActive
+              : style.sidebarMenu
+          }
         >
-          <div
-            className={
-              MenuItemVisible === true
-                ? `${style.sidebarMenuItemActive}`
-                : `${style.sidebarMenuItem}`
-            }
-          >
+          <div className={style.sidebarMenuItem}>
             <RxDashboard className={style.sidebarMenuIcon} />
             <span>Dashboard</span>
           </div>
         </div>
-        <div className={style.sidebarMenu}>
+        <div className={style.sidebarMenuLabel}>All Pages</div>
+
+        <div
+          onClick={() => {
+            setExpandMenuItem("Products");
+          }}
+          className={
+            expandMenuItem === "Products"
+              ? style.sidebarMenuActive
+              : style.sidebarMenu
+          }
+        >
           <div className={style.sidebarMenuItem}>
             <MdOutlineInventory2 className={style.sidebarMenuIcon} />
             <span>Products</span>
           </div>
           <IoIosArrowDown className={style.arrowIcon} />
         </div>
-        <div className={style.sidebarMenu}>
+        {expandMenuItem === "Products" ? (
+          <div className={style.sidebarSubMenu}>
+            <ul>
+              <li className={style.sidebarSubMenuList}>All Products</li>
+              <li className={style.sidebarSubMenuList}>Add Products</li>
+            </ul>
+          </div>
+        ) : (
+          ""
+        )}
+        <div
+          onClick={() => {
+            setExpandMenuItem("Category");
+          }}
+          className={
+            expandMenuItem === "Category"
+              ? style.sidebarMenuActive
+              : style.sidebarMenu
+          }
+        >
           <div className={style.sidebarMenuItem}>
             <GoStack className={style.sidebarMenuIcon} />
             <span>Category</span>
           </div>
           <IoIosArrowDown className={style.arrowIcon} />
         </div>
-        <div className={style.sidebarMenu}>
+        {expandMenuItem === "Category" ? (
+          <div className={style.sidebarSubMenu}>
+            <ul>
+              <li className={style.sidebarSubMenuList}>All Products</li>
+              <li className={style.sidebarSubMenuList}>Add Products</li>
+            </ul>
+          </div>
+        ) : (
+          ""
+        )}
+        <div
+          onClick={() => {
+            setExpandMenuItem("Attributes");
+          }}
+          className={
+            expandMenuItem === "Attributes"
+              ? style.sidebarMenuActive
+              : style.sidebarMenu
+          }
+        >
           <div className={style.sidebarMenuItem}>
             <VscSymbolMisc className={style.sidebarMenuIcon} />
-            <span>Misc</span>
+            <span>Attributes</span>
           </div>
           <IoIosArrowDown className={style.arrowIcon} />
         </div>
-        <div className={style.sidebarMenu}>
+        {expandMenuItem === "Attributes" ? (
+          <div className={style.sidebarSubMenu}>
+            <ul>
+              <li className={style.sidebarSubMenuList}>All Products</li>
+              <li className={style.sidebarSubMenuList}>Add Products</li>
+            </ul>
+          </div>
+        ) : (
+          ""
+        )}
+        <div
+          onClick={() => {
+            setExpandMenuItem("Users");
+          }}
+          className={
+            expandMenuItem === "Users"
+              ? style.sidebarMenuActive
+              : style.sidebarMenu
+          }
+        >
           <div className={style.sidebarMenuItem}>
             <CiUser className={style.sidebarMenuIcon} />
             <span>Users</span>
           </div>
           <IoIosArrowDown className={style.arrowIcon} />
         </div>
-        <div className={style.sidebarMenu}>
+        {expandMenuItem === "Users" ? (
+          <div className={style.sidebarSubMenu}>
+            <ul>
+              <li className={style.sidebarSubMenuList}>All Products</li>
+              <li className={style.sidebarSubMenuList}>Add Products</li>
+            </ul>
+          </div>
+        ) : (
+          ""
+        )}
+        <div
+          onClick={() => {
+            setExpandMenuItem("Orders");
+          }}
+          className={
+            expandMenuItem === "Orders"
+              ? style.sidebarMenuActive
+              : style.sidebarMenu
+          }
+        >
           <div className={style.sidebarMenuItem}>
             <FiShoppingCart className={style.sidebarMenuIcon} />
             <span>Orders</span>
           </div>
           <IoIosArrowDown className={style.arrowIcon} />
         </div>
+        {expandMenuItem === "Orders" ? (
+          <div className={style.sidebarSubMenu}>
+            <ul>
+              <li className={style.sidebarSubMenuList}>All Products</li>
+              <li className={style.sidebarSubMenuList}>Add Products</li>
+            </ul>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

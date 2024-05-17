@@ -17,6 +17,7 @@
   flex-direction: column;
   flex-shrink: 0;
   transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 .sidebarCloseIcon {
@@ -61,6 +62,7 @@
   text-transform: capitalize;
   border-radius: 10px;
   transition: all 0.3s ease;
+  margin-left: 10px;
   color: $Heading;
   &:hover {
     color: $Main;
@@ -83,13 +85,14 @@
   border-radius: 10px;
   background-color: $Palette-Blue-200;
   color: $Main;
+  margin-left: 10px;
   &:hover {
     color: $Main;
   }
   &::before {
     position: absolute;
     content: "";
-    left: -14px;
+    left: -24px;
     width: 8px;
     height: 34px;
     background-color: $Main;
@@ -107,4 +110,27 @@
 }
 .arrowIcon {
   margin-left: 10px;
+}
+.sidebarSubMenu {
+  margin-left: 20px;
+  padding: 5px 0 5px 40px;
+  font-size: 14px;
+  color: $Body-Text;
+  transition: 0.3s all ease;
+}
+.sidebarSubMenuList {
+  list-style-type: circle;
+  cursor: pointer;
+  margin: 5px 0;
+
+  &:hover {
+    color: $Main;
+  }
+}
+.sidebarMenuLabel {
+  color: $Text-Holder;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 15px;
+  padding: 10px 0;
 }
