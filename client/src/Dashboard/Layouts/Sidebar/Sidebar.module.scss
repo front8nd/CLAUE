@@ -1,7 +1,7 @@
 @import "../../GlobalStyle/style.scss";
 
 .sidebar {
-  position: relative;
+  position: fixed;
   width: 280px;
   min-width: 280px;
   left: 0;
@@ -16,6 +16,7 @@
   flex-direction: column;
   transition: all 0.3s ease;
   overflow: hidden;
+  height: 100vh;
 }
 
 .sidebarCloseIcon {
@@ -131,4 +132,20 @@
   font-weight: bold;
   margin-left: 15px;
   padding: 10px 0;
+}
+.SidebarLink {
+  text-decoration: none;
+  color: $Black;
+  &:hover {
+    color: $Main;
+  }
+  &:active {
+    color: $Main;
+  }
+}
+@media screen and (max-width: 612px) {
+  .sidebar {
+    width: 260px;
+    min-width: 260px;
+  }
 }

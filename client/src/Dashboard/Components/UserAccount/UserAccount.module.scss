@@ -8,7 +8,9 @@
 .adminPicture {
   height: 40px;
   margin-right: 10px;
-  justify-content: center;
+  width: 40px;
+  border-radius: 50%;
+  vertical-align: middle;
 }
 .adminDetails {
   display: flex;

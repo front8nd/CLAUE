@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import style from "./Sidebar.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { RiMenuFoldLine } from "react-icons/ri";
@@ -9,10 +10,13 @@ import { FiShoppingCart } from "react-icons/fi";
 import { CiUser } from "react-icons/ci";
 import { VscSymbolMisc } from "react-icons/vsc";
 import { IoIosArrowDown } from "react-icons/io";
+import { Link } from "react-router-dom";
+
 export default function Sidebar() {
   const { sidebarVisible, toggleSidebar } = useSidebarToggler();
-  const [expandMenuItem, setExpandMenuItem] = useState("Dashboard");
-
+  const cur_URL = location.pathname.split("/").filter((segment) => segment);
+  const [expandMenuItem, setExpandMenuItem] = useState(cur_URL[0]);
+  console.log(cur_URL[0]);
   if (!sidebarVisible) {
     return null;
   }
@@ -40,10 +44,12 @@ export default function Sidebar() {
               : style.sidebarMenu
           }
         >
-          <div className={style.sidebarMenuItem}>
-            <RxDashboard className={style.sidebarMenuIcon} />
-            <span>Dashboard</span>
-          </div>
+          <Link className={style.SidebarLink} to={"/admin/"}>
+            <div className={style.sidebarMenuItem}>
+              <RxDashboard className={style.sidebarMenuIcon} />
+              <span>Dashboard</span>
+            </div>
+          </Link>
         </div>
         <div className={style.sidebarMenuLabel}>All Pages</div>
 
@@ -66,8 +72,12 @@ export default function Sidebar() {
         {expandMenuItem === "Products" ? (
           <div className={style.sidebarSubMenu}>
             <ul>
-              <li className={style.sidebarSubMenuList}>All Products</li>
-              <li className={style.sidebarSubMenuList}>Add Products</li>
+              <Link className={style.SidebarLink} to={"/AddProducts/"}>
+                <li className={style.sidebarSubMenuList}>All Products</li>
+              </Link>
+              <Link className={style.SidebarLink} to={"/AllProducts/"}>
+                <li className={style.sidebarSubMenuList}>Add Products</li>
+              </Link>
             </ul>
           </div>
         ) : (

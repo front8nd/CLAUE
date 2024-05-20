@@ -11,7 +11,7 @@ export default function Navbar() {
   return (
     <div
       className={
-        sidebarVisible !== true
+        sidebarVisible === false
           ? `${style.Navbar} ${style.NavbarFull} `
           : style.Navbar
       }

@@ -4,9 +4,6 @@ import Homepage from "./Pages/Homepage";
 import ProductDetailsPage from "./Pages/ProductDetailsPage";
 import Cart from "./Pages/Cart";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Header from "./Layouts/Header/index.jsx";
-import Footer from "./Layouts/Footer/index.jsx";
-import BacktoTop from "./components/BacktoTop/index.jsx";
 import Login from "./Pages/Login/index.jsx";
 import Register from "./Pages/Register/index.jsx";
 import Category from "./Pages/Category/index.jsx";
@@ -23,6 +20,8 @@ import Return from "./Pages/Return/index.jsx";
 import StripeCheckout from "./Pages/StripeCheckout/index.jsx";
 import ProtectedRoutes from "./Routes/Protected/index.jsx";
 import DashboardHomepage from "./Dashboard/Pages/Homepage/index.jsx";
+import AddProducts from "./Dashboard/Pages/AddProducts/index.jsx";
+import AllProducts from "./Dashboard/Pages/AllProducts/index.jsx";
 
 function App() {
   return (
@@ -50,6 +49,9 @@ function App() {
           <Route path="/return" element={<Return />} />
           <Route path="/StripeCheckout" element={<StripeCheckout />} />
           <Route path="/admin" element={<DashboardHomepage />} />
+          <Route path="/AddProducts" element={<AddProducts />} />
+          <Route path="/AllProducts" element={<AllProducts />} />
+
           <Route path="*" element={<NotFound404 />} />
         </Routes>
       </Router>
