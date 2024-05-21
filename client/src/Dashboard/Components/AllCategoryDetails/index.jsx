@@ -1,45 +1,37 @@
 import React, { useRef, useState } from "react";
-import style from "./AllProductsDetails.module.scss";
+import style from "./AllCategoryDetails.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { GoNote } from "react-icons/go";
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Space, Table, Row, Col, Tooltip } from "antd";
 import Highlighter from "react-highlight-words";
 import { AiOutlineDelete } from "react-icons/ai";
-import { FaRegEdit } from "react-icons/fa";
 
 const data = [
   {
     key: "1",
-    image: "https://remosnextjs.vercel.app/images/products/1.png",
     title: "John Brown",
     ID: 32,
-    Price: 3200,
   },
   {
     key: "2",
-    image: "https://remosnextjs.vercel.app/images/products/1.png",
     title: "Lorem Ipsum",
     ID: 32,
     Price: 3200,
   },
   {
     key: "3",
-    image: "https://remosnextjs.vercel.app/images/products/1.png",
     title: "Whie Nuwnw",
     ID: 32,
-    Price: 3200,
   },
   {
     key: "4",
-    image: "https://remosnextjs.vercel.app/images/products/1.png",
     title: "Kikur Idjs",
     ID: 32,
-    Price: 3200,
   },
 ];
 
-export default function AllProductsDetails() {
+export default function AllCategoryDetails() {
   const { sidebarVisible } = useSidebarToggler();
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -139,7 +131,7 @@ export default function AllProductsDetails() {
             padding: 0,
           }}
           searchWords={[searchText]}
-          autoEscape
+          autoEscace
           textToHighlight={text ? text.toString() : ""}
         />
       ) : (
@@ -158,15 +150,6 @@ export default function AllProductsDetails() {
       sortDirections: ["descend", "ascend"],
     },
     {
-      title: "Image",
-      dataIndex: "image",
-      key: "image",
-      width: "8%",
-      render: (text) => (
-        <img src={text} alt="product" style={{ width: 50, height: 50 }} />
-      ),
-    },
-    {
       title: "Title",
       dataIndex: "title",
       key: "title",
@@ -177,22 +160,11 @@ export default function AllProductsDetails() {
       sortDirections: ["descend", "ascend"],
     },
     {
-      title: "Price",
-      dataIndex: "Price",
-      key: "Price",
-      width: "8%",
-      sorter: (a, b) => a.title.localeCompare(b.title),
-      sortDirections: ["descend", "ascend"],
-    },
-    {
       title: "Action",
       key: "action",
       width: "8%",
       render: () => (
         <Space size="middle">
-          <Tooltip title="Delete" color={"blue"}>
-            <FaRegEdit className={style.alaICONEdit} />
-          </Tooltip>
           <Tooltip title="Delete" color={"red"}>
             <AiOutlineDelete className={style.alaICON} />
           </Tooltip>
@@ -205,17 +177,17 @@ export default function AllProductsDetails() {
     <div
       className={
         sidebarVisible === false
-          ? `${style.AllProductDetails} ${style.AllProductDetailsFull} `
-          : style.AllProductDetails
+          ? `${style.AllCategoryDetails} ${style.AllCategoryDetailsFull} `
+          : style.AllCategoryDetails
       }
     >
       <p className={style.cardTitle}>All Attributes</p>
       <div className={style.cardBG}>
-        <div className={style.apContainer}>
-          <GoNote className={style.apICON} />
-          <p className={style.apNote}>
-            Tip search by Product ID: Each product is provided with a unique ID,
-            which you can rely on to find the exact product you need.
+        <div className={style.acContainer}>
+          <GoNote className={style.acICON} />
+          <p className={style.acNote}>
+            Tip search by Category ID: Each product is provided with a unique
+            ID, which you can rely on to find the exact product you need.
           </p>
         </div>
         <Table

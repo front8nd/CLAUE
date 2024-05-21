@@ -1,6 +1,6 @@
 @import "../../GlobalStyle/style.scss";
 
-.AddProductDetails {
+.AllCategoryDetails {
   margin-left: 280px;
   width: calc(100% - 320px);
   padding: 20px;
@@ -10,7 +10,7 @@
   background-color: $backdrop;
 }
 
-.AddProductDetailsFull {
+.AllCategoryDetailsFull {
   margin-left: 0;
   width: 100%;
   transition: margin-left 0.6s ease, width 0.6s ease;
@@ -24,6 +24,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   margin: 10px;
 }
+
 .cardTitle {
   padding-bottom: 10px;
   padding-left: 5px;
@@ -32,41 +33,29 @@
   font-weight: bold;
 }
 
-.apdTitle {
-  font-size: 14px;
-  margin: 10px 0;
-  font-weight: bold;
-  &::after {
-    content: " *";
-    color: red;
-  }
-}
-.apdNote {
+.acNote {
   margin-top: 5px;
   font-style: italic;
   color: $Body-Text;
-  font-size: 12px;
+  font-size: 14px;
+  margin-left: 5px;
 }
-.apdContainer {
-  display: flex;
-  justify-content: space-around;
+
+.acContainer {
+  width: 50%;
 }
-.antDropdownFull {
-  width: 45%;
-}
-.apdDatePicker {
-  display: flex;
-  margin: 20px 0;
-  justify-content: space-around;
-}
-.adpButton {
+.acButton {
   height: 50px;
-  width: -webkit-fill-available;
+  width: 100%;
   margin: 10px 0;
 }
+
 @media screen and (max-width: 612px) {
-  .AddProductDetails {
+  .AllCategoryDetails {
     margin-left: 0;
+    width: 100%;
+  }
+  .acContainer {
     width: 100%;
   }
 }

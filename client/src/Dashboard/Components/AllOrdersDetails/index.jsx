@@ -1,12 +1,10 @@
 import React, { useRef, useState } from "react";
-import style from "./AllProductsDetails.module.scss";
+import style from "./AllOrdersDetails.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { GoNote } from "react-icons/go";
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Space, Table, Row, Col, Tooltip } from "antd";
 import Highlighter from "react-highlight-words";
-import { AiOutlineDelete } from "react-icons/ai";
-import { FaRegEdit } from "react-icons/fa";
 
 const data = [
   {
@@ -15,6 +13,7 @@ const data = [
     title: "John Brown",
     ID: 32,
     Price: 3200,
+    Status: "Complete",
   },
   {
     key: "2",
@@ -22,24 +21,25 @@ const data = [
     title: "Lorem Ipsum",
     ID: 32,
     Price: 3200,
+    Status: "Pending",
   },
   {
     key: "3",
     image: "https://remosnextjs.vercel.app/images/products/1.png",
     title: "Whie Nuwnw",
     ID: 32,
-    Price: 3200,
+    Status: "Pending",
   },
   {
     key: "4",
     image: "https://remosnextjs.vercel.app/images/products/1.png",
     title: "Kikur Idjs",
     ID: 32,
-    Price: 3200,
+    Status: "Pending",
   },
 ];
 
-export default function AllProductsDetails() {
+export default function AllOrdersDetails() {
   const { sidebarVisible } = useSidebarToggler();
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -185,19 +185,10 @@ export default function AllProductsDetails() {
       sortDirections: ["descend", "ascend"],
     },
     {
-      title: "Action",
-      key: "action",
-      width: "8%",
-      render: () => (
-        <Space size="middle">
-          <Tooltip title="Delete" color={"blue"}>
-            <FaRegEdit className={style.alaICONEdit} />
-          </Tooltip>
-          <Tooltip title="Delete" color={"red"}>
-            <AiOutlineDelete className={style.alaICON} />
-          </Tooltip>
-        </Space>
-      ),
+      title: "Order Status",
+      dataIndex: "Order Status",
+      key: "Order Status",
+      width: "16%",
     },
   ];
 
@@ -205,16 +196,16 @@ export default function AllProductsDetails() {
     <div
       className={
         sidebarVisible === false
-          ? `${style.AllProductDetails} ${style.AllProductDetailsFull} `
-          : style.AllProductDetails
+          ? `${style.AllOrdersDetails} ${style.AllOrdersDetails} `
+          : style.AllOrdersDetails
       }
     >
       <p className={style.cardTitle}>All Attributes</p>
       <div className={style.cardBG}>
-        <div className={style.apContainer}>
-          <GoNote className={style.apICON} />
-          <p className={style.apNote}>
-            Tip search by Product ID: Each product is provided with a unique ID,
+        <div className={style.aoContainer}>
+          <GoNote className={style.aoICON} />
+          <p className={style.aoNote}>
+            Tip search by order ID: Each product is provided with a unique ID,
             which you can rely on to find the exact product you need.
           </p>
         </div>

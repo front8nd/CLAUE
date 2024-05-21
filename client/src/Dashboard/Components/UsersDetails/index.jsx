@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import style from "./AllProductsDetails.module.scss";
+import style from "./UsersDetails.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { GoNote } from "react-icons/go";
 import { SearchOutlined } from "@ant-design/icons";
@@ -11,35 +11,31 @@ import { FaRegEdit } from "react-icons/fa";
 const data = [
   {
     key: "1",
-    image: "https://remosnextjs.vercel.app/images/products/1.png",
+    image: "https://remosnextjs.vercel.app/images/avatar/user-9.png",
     title: "John Brown",
     ID: 32,
-    Price: 3200,
   },
   {
     key: "2",
-    image: "https://remosnextjs.vercel.app/images/products/1.png",
+    image: "https://remosnextjs.vercel.app/images/avatar/user-9.png",
     title: "Lorem Ipsum",
     ID: 32,
-    Price: 3200,
   },
   {
     key: "3",
-    image: "https://remosnextjs.vercel.app/images/products/1.png",
+    image: "https://remosnextjs.vercel.app/images/avatar/user-9.png",
     title: "Whie Nuwnw",
     ID: 32,
-    Price: 3200,
   },
   {
     key: "4",
-    image: "https://remosnextjs.vercel.app/images/products/1.png",
+    image: "https://remosnextjs.vercel.app/images/avatar/user-9.png",
     title: "Kikur Idjs",
     ID: 32,
-    Price: 3200,
   },
 ];
 
-export default function AllProductsDetails() {
+export default function UsersDetails() {
   const { sidebarVisible } = useSidebarToggler();
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -163,7 +159,11 @@ export default function AllProductsDetails() {
       key: "image",
       width: "8%",
       render: (text) => (
-        <img src={text} alt="product" style={{ width: 50, height: 50 }} />
+        <img
+          src={text}
+          alt="product"
+          style={{ width: 50, height: 50, borderRadius: "50%  " }}
+        />
       ),
     },
     {
@@ -176,25 +176,18 @@ export default function AllProductsDetails() {
       sorter: (a, b) => a.title.localeCompare(b.title),
       sortDirections: ["descend", "ascend"],
     },
-    {
-      title: "Price",
-      dataIndex: "Price",
-      key: "Price",
-      width: "8%",
-      sorter: (a, b) => a.title.localeCompare(b.title),
-      sortDirections: ["descend", "ascend"],
-    },
+
     {
       title: "Action",
       key: "action",
       width: "8%",
       render: () => (
         <Space size="middle">
-          <Tooltip title="Delete" color={"blue"}>
-            <FaRegEdit className={style.alaICONEdit} />
+          <Tooltip title="Edit User Account" color={"blue"}>
+            <FaRegEdit className={style.udICONEdit} />
           </Tooltip>
-          <Tooltip title="Delete" color={"red"}>
-            <AiOutlineDelete className={style.alaICON} />
+          <Tooltip title="Delete User Account" color={"red"}>
+            <AiOutlineDelete className={style.udICON} />
           </Tooltip>
         </Space>
       ),
@@ -205,17 +198,17 @@ export default function AllProductsDetails() {
     <div
       className={
         sidebarVisible === false
-          ? `${style.AllProductDetails} ${style.AllProductDetailsFull} `
-          : style.AllProductDetails
+          ? `${style.UsersDetails} ${style.UsersDetailsFull} `
+          : style.UsersDetails
       }
     >
-      <p className={style.cardTitle}>All Attributes</p>
+      <p className={style.cardTitle}>All Users</p>
       <div className={style.cardBG}>
-        <div className={style.apContainer}>
-          <GoNote className={style.apICON} />
-          <p className={style.apNote}>
-            Tip search by Product ID: Each product is provided with a unique ID,
-            which you can rely on to find the exact product you need.
+        <div className={style.udContainer}>
+          <GoNote className={style.udICON} />
+          <p className={style.udNote}>
+            Tip search by User ID: Each user is provided with a unique ID, which
+            you can rely on to find the exact product you need.
           </p>
         </div>
         <Table

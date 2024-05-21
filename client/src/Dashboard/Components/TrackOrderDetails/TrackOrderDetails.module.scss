@@ -1,6 +1,6 @@
 @import "../../GlobalStyle/style.scss";
 
-.AddProductDetails {
+.TrackOrderDetails {
   margin-left: 280px;
   width: calc(100% - 320px);
   padding: 20px;
@@ -10,7 +10,7 @@
   background-color: $backdrop;
 }
 
-.AddProductDetailsFull {
+.TrackOrderDetailsFull {
   margin-left: 0;
   width: 100%;
   transition: margin-left 0.6s ease, width 0.6s ease;
@@ -32,7 +32,7 @@
   font-weight: bold;
 }
 
-.apdTitle {
+.toTitle {
   font-size: 14px;
   margin: 10px 0;
   font-weight: bold;
@@ -41,32 +41,26 @@
     color: red;
   }
 }
-.apdNote {
-  margin-top: 5px;
-  font-style: italic;
-  color: $Body-Text;
-  font-size: 12px;
+
+.toContainer {
+  width: 50%;
 }
-.apdContainer {
-  display: flex;
-  justify-content: space-around;
-}
-.antDropdownFull {
-  width: 45%;
-}
-.apdDatePicker {
-  display: flex;
-  margin: 20px 0;
-  justify-content: space-around;
-}
-.adpButton {
+
+.toButton {
   height: 50px;
   width: -webkit-fill-available;
   margin: 10px 0;
 }
 @media screen and (max-width: 612px) {
-  .AddProductDetails {
+  .TrackOrderDetails {
     margin-left: 0;
+    width: 100%;
+  }
+  .cardBG {
+    margin-left: 0;
+    width: 100%;
+  }
+  .toContainer {
     width: 100%;
   }
 }

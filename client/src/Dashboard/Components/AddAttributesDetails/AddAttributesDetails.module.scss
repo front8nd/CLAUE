@@ -1,6 +1,6 @@
 @import "../../GlobalStyle/style.scss";
 
-.AddProductDetails {
+.AddAttributesDetails {
   margin-left: 280px;
   width: calc(100% - 320px);
   padding: 20px;
@@ -10,7 +10,7 @@
   background-color: $backdrop;
 }
 
-.AddProductDetailsFull {
+.AddAttributesDetailsFull {
   margin-left: 0;
   width: 100%;
   transition: margin-left 0.6s ease, width 0.6s ease;
@@ -32,7 +32,7 @@
   font-weight: bold;
 }
 
-.apdTitle {
+.adTitle {
   font-size: 14px;
   margin: 10px 0;
   font-weight: bold;
@@ -41,31 +41,34 @@
     color: red;
   }
 }
-.apdNote {
+.adNote {
   margin-top: 5px;
   font-style: italic;
   color: $Body-Text;
   font-size: 12px;
 }
-.apdContainer {
-  display: flex;
-  justify-content: space-around;
+.adContainer {
+  width: 100%;
 }
 .antDropdownFull {
   width: 45%;
 }
-.apdDatePicker {
+.adDatePicker {
   display: flex;
   margin: 20px 0;
   justify-content: space-around;
 }
-.adpButton {
+.adButton {
   height: 50px;
   width: -webkit-fill-available;
   margin: 10px 0;
 }
 @media screen and (max-width: 612px) {
-  .AddProductDetails {
+  .AddAttributesDetails {
+    margin-left: 0;
+    width: 100%;
+  }
+  .cardBG {
     margin-left: 0;
     width: 100%;
   }

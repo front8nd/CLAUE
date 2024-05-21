@@ -7,7 +7,6 @@ import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 
 export default function Navbar() {
   const { sidebarVisible, toggleSidebar } = useSidebarToggler();
-  console.log(sidebarVisible);
   return (
     <div
       className={

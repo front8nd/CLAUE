@@ -22,6 +22,13 @@ import ProtectedRoutes from "./Routes/Protected/index.jsx";
 import DashboardHomepage from "./Dashboard/Pages/Homepage/index.jsx";
 import AddProducts from "./Dashboard/Pages/AddProducts/index.jsx";
 import AllProducts from "./Dashboard/Pages/AllProducts/index.jsx";
+import AddCategory from "./Dashboard/Pages/AddCategory/index.jsx";
+import AllCategory from "./Dashboard/Pages/AllCategory/index.jsx";
+import AddAttributes from "./Dashboard/Pages/AddAttributes/index.jsx";
+import AllAttributes from "./Dashboard/Pages/AllAttributes/index.jsx";
+import Users from "./Dashboard/Pages/Users/index.jsx";
+import AllOrders from "./Dashboard/Pages/AllOrders/index.jsx";
+import TrackOrder from "./Dashboard/Pages/TrackOrder/index.jsx";
 
 function App() {
   return (
@@ -51,6 +58,13 @@ function App() {
           <Route path="/admin" element={<DashboardHomepage />} />
           <Route path="/AddProducts" element={<AddProducts />} />
           <Route path="/AllProducts" element={<AllProducts />} />
+          <Route path="/AddCategory" element={<AddCategory />} />
+          <Route path="/AllCategory" element={<AllCategory />} />
+          <Route path="/AddAttributes" element={<AddAttributes />} />
+          <Route path="/AllAttributes" element={<AllAttributes />} />
+          <Route path="/Users" element={<Users />} />
+          <Route path="/AllOrders" element={<AllOrders />} />
+          <Route path="/TrackOrder" element={<TrackOrder />} />
 
           <Route path="*" element={<NotFound404 />} />
         </Routes>
