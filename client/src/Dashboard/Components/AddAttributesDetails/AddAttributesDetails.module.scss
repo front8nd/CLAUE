@@ -3,7 +3,7 @@
 .AddAttributesDetails {
   margin-left: 280px;
   width: calc(100% - 320px);
-  padding: 20px;
+  padding: 30px;
   position: relative;
   top: 75px;
   transition: margin-left 0.6s ease, width 0.6s ease;
@@ -26,9 +26,10 @@
 }
 .cardTitle {
   padding-bottom: 10px;
-  padding-left: 5px;
-  font-size: 18px;
-  color: $Body-Text;
+  margin-left: 10px;
+  font-size: 22px;
+  line-height: 37px;
+  color: black;
   font-weight: bold;
 }
 
@@ -45,7 +46,8 @@
   margin-top: 5px;
   font-style: italic;
   color: $Body-Text;
-  font-size: 12px;
+  font-size: 14px;
+  margin-left: 5px;
 }
 .adContainer {
   width: 100%;

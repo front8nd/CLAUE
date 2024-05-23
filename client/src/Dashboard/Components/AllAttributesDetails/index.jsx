@@ -183,10 +183,10 @@ export default function AllAttributesDetails() {
       <p className={style.cardTitle}>All Attributes</p>
       <div className={style.cardBG}>
         <div className={style.alaContainer}>
-          <GoNote className={style.alaICON} />
+          <GoNote className={style.alaNoteICON} />
           <p className={style.alaNote}>
-            Tip search by Brand ID: Each product is provided with a unique ID,
-            which you can rely on to find the exact product you need.
+            Tip search by specific ID: Each product is provided with a unique
+            ID, which you can rely on to find the exact product you need.
           </p>
         </div>
       </div>

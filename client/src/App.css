@@ -1,5 +1,114 @@
+@import "./Dashboard//GlobalStyle/style.scss";
 * {
   padding: 0;
   margin: 0;
   font-family: "poppins";
+}
+
+/* Ant design image uploader */
+.apdImgSize .ant-upload-list-item-container,
+.ant-upload-list-item ant-upload-list-item-uploading {
+  width: 140px !important;
+  height: 200px !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.apdImgSize .ant-upload-list-item,
+.ant-upload-list-item-uploading {
+  width: 140px !important;
+  height: 200px !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+@media screen and (max-width: 912px) {
+  .apdImgSize .ant-upload-list,
+  .ant-upload-list-picture-card {
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
+.apdImgSize .ant-upload-list-item-image {
+  object-fit: cover !important;
+}
+
+.apdImgSize .ant-upload,
+.ant-upload-select {
+  width: 140px !important;
+  height: 200px !important;
+  padding: 0 5px;
+  text-align: center;
+}
+
+.apdImgSize .ant-upload {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Ant design table layout */
+
+/* .ant-table-row:hover {
+  background-color: rgb(255, 145, 0) !important;
+} */
+.ant-table-wrapper thead > tr > td {
+  background-color: blue !important;
+}
+.ant-table-wrapper .ant-table-cell,
+.ant-table-wrapper .ant-table-thead > tr > th,
+.ant-table-wrapper .ant-table-tbody > tr > th,
+.ant-table-wrapper .ant-table-tbody > tr > td,
+.ant-table-wrapper tfoot > tr > th,
+.ant-table-wrapper tfoot > tr > td {
+  padding: 12px;
+}
+
+.ant-table-tbody > tr.ant-table-row-level-0:hover > td {
+  background-color: #edf1f5 !important;
+}
+
+tbody:before {
+  content: "@";
+  display: block;
+  line-height: 20px;
+  text-indent: -99999px;
+}
+
+td {
+  border-bottom: none !important;
+}
+td:first-child {
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+}
+
+td:last-child {
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+}
+
+thead th {
+  position: relative;
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 600;
+  text-align: start;
+  background-color: #f6f8fbcc !important;
+  border: none !important;
+}
+thead th:first-child {
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+}
+
+thead th:last-child {
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+}
+
+table tr:nth-child(odd) {
+  background-color: #f6f8fbcc;
+}
+
+table tr:nth-child(even) {
+  background-color: white;
 }

@@ -13,6 +13,7 @@ import {
   Divider,
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import Pagination from "../Pagination";
 export default function AddCategoryDetails() {
   const { sidebarVisible } = useSidebarToggler();
 
@@ -20,19 +21,33 @@ export default function AddCategoryDetails() {
     <div
       className={
         sidebarVisible === false
-          ? `${style.AllCategoryDetails} ${style.AllCategoryDetailsFull} `
-          : style.AllCategoryDetails
+          ? `${style.AddCategoryDetails} ${style.AddCategoryDetailsFull} `
+          : style.AddCategoryDetails
       }
     >
-      <p className={style.cardTitle}>All Attributes</p>
+      <div className={style.pageHeader}>
+        <p className={style.cardTitle}>Add New Category</p>
+        <Pagination />
+      </div>
       <div className={style.cardBG}>
         <div className={style.acContainer}>
           <p className={style.acTitle}>Add Category:</p>
-          <Input placeholder="Enter Category Title"></Input>
+          <Input
+            placeholder="Enter Category Title"
+            className={style.acInput}
+          ></Input>
+        </div>
+        <div className={style.acContainer}>
           <p className={style.acTitle}>Add Category Description:</p>
-          <TextArea rows={4} />
+          <TextArea
+            placeholder="Enter description.."
+            className={style.acInput}
+            rows={4}
+          />
+        </div>
+        <div className={style.acSubmit}>
           <Button type="primary" className={style.acButton}>
-            Add Product
+            Add Category
           </Button>
         </div>
       </div>

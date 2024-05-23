@@ -205,7 +205,7 @@ export default function UsersDetails() {
       <p className={style.cardTitle}>All Users</p>
       <div className={style.cardBG}>
         <div className={style.udContainer}>
-          <GoNote className={style.udICON} />
+          <GoNote className={style.udNoteICON} />
           <p className={style.udNote}>
             Tip search by User ID: Each user is provided with a unique ID, which
             you can rely on to find the exact product you need.

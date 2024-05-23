@@ -3,11 +3,14 @@ import style from "./AllProductsDetails.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { GoNote } from "react-icons/go";
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Space, Table, Row, Col, Tooltip } from "antd";
+import { Button, Input, Space, Table, Tooltip } from "antd";
 import Highlighter from "react-highlight-words";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaRegEdit } from "react-icons/fa";
-
+import { CiSearch } from "react-icons/ci";
+import { TfiPlus } from "react-icons/tfi";
+import { Link, useNavigate } from "react-router-dom";
+import Pagination from "../Pagination";
 const data = [
   {
     key: "1",
@@ -44,7 +47,7 @@ export default function AllProductsDetails() {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
-
+  const navigation = useNavigate();
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -149,30 +152,31 @@ export default function AllProductsDetails() {
 
   const columns = [
     {
-      title: "ID",
-      dataIndex: "ID",
-      key: "ID",
-      width: "8%",
-      ...getColumnSearchProps("title"),
-      sorter: (a, b) => a.title.localeCompare(b.title),
-      sortDirections: ["descend", "ascend"],
-    },
-    {
-      title: "Image",
-      dataIndex: "image",
-      key: "image",
-      width: "8%",
-      render: (text) => (
-        <img src={text} alt="product" style={{ width: 50, height: 50 }} />
-      ),
-    },
-    {
-      title: "Title",
+      title: "Product",
       dataIndex: "title",
       key: "title",
       width: "50%",
-
       ...getColumnSearchProps("title"),
+      sorter: (a, b) => a.title.localeCompare(b.title),
+      sortDirections: ["descend", "ascend"],
+      render: (text, record) => (
+        <div
+          style={{ display: "flex", alignItems: "center", fontWeight: "bold" }}
+        >
+          <img
+            src={record.image}
+            alt="product"
+            style={{ width: 40, height: 40, marginRight: 10 }}
+          />
+          {text}
+        </div>
+      ),
+    },
+    {
+      title: "ID",
+      dataIndex: "ID",
+      key: "ID",
+      width: "5%",
       sorter: (a, b) => a.title.localeCompare(b.title),
       sortDirections: ["descend", "ascend"],
     },
@@ -180,21 +184,21 @@ export default function AllProductsDetails() {
       title: "Price",
       dataIndex: "Price",
       key: "Price",
-      width: "8%",
+      width: "5%",
       sorter: (a, b) => a.title.localeCompare(b.title),
       sortDirections: ["descend", "ascend"],
     },
     {
       title: "Action",
       key: "action",
-      width: "8%",
+      width: "5%",
       render: () => (
         <Space size="middle">
-          <Tooltip title="Delete" color={"blue"}>
-            <FaRegEdit className={style.alaICONEdit} />
+          <Tooltip title="Edit" color={"blue"}>
+            <FaRegEdit className={style.apICONEdit} />
           </Tooltip>
           <Tooltip title="Delete" color={"red"}>
-            <AiOutlineDelete className={style.alaICON} />
+            <AiOutlineDelete className={style.apICON} />
           </Tooltip>
         </Space>
       ),
@@ -209,17 +213,38 @@ export default function AllProductsDetails() {
           : style.AllProductDetails
       }
     >
-      <p className={style.cardTitle}>All Attributes</p>
+      <div className={style.pageHeader}>
+        <p className={style.cardTitle}>All Products</p>
+        <Pagination />
+      </div>
       <div className={style.cardBG}>
-        <div className={style.apContainer}>
-          <GoNote className={style.apICON} />
+        <div className={style.apTextContainer}>
+          <GoNote className={style.apNoteICON} />
           <p className={style.apNote}>
             Tip search by Product ID: Each product is provided with a unique ID,
             which you can rely on to find the exact product you need.
           </p>
         </div>
+        <div className={style.apContainer}>
+          <div className={style.apInputBox}>
+            <input
+              placeholder="Search here..."
+              className={style.apInput}
+            ></input>
+            <CiSearch className={style.apInputIcon} />
+          </div>
+          <Button
+            onClick={() => {
+              localStorage.setItem("expandSubMenuItem", "AddProducts");
+              navigation("/AddProducts");
+            }}
+            className={style.apButton}
+          >
+            <TfiPlus className={style.apICON} />
+            Add New Product
+          </Button>
+        </div>
         <Table
-          className={style.tableContainer}
           columns={columns}
           dataSource={data}
           pagination={{ pageSize: 3 }}

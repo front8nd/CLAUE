@@ -3,7 +3,7 @@
 .AllProductDetails {
   margin-left: 280px;
   width: calc(100% - 320px);
-  padding: 20px;
+  padding: 30px;
   position: relative;
   top: 75px;
   transition: margin-left 0.6s ease, width 0.6s ease;
@@ -24,68 +24,152 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   margin: 10px;
 }
-
 .cardTitle {
   padding-bottom: 10px;
-  padding-left: 5px;
-  font-size: 18px;
-  color: $Body-Text;
+  margin-left: 10px;
+  font-size: 22px;
+  line-height: 37px;
+  color: black;
   font-weight: bold;
+  display: contents;
 }
 
 .apNote {
-  margin-top: 5px;
-  font-style: italic;
-  color: $Body-Text;
   font-size: 14px;
-  margin-left: 5px;
+  font-weight: 400;
+  line-height: 20px;
+  color: $Body-Text;
+  min-width: 18px;
+  min-height: 18px;
+  text-wrap: wrap;
+}
+
+.apTextContainer {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+  margin: 20px 0;
 }
 .apContainer {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin: 20px 0;
+  gap: 10px;
 }
 
-.alaICON {
+.apNoteICON {
+  font-size: 18px;
+  color: $Main;
+  flex-shrink: 0;
+  min-width: 18px;
+  min-height: 18px;
+}
+
+.apInputBox {
+  outline: 0;
+  box-shadow: none;
+  width: 100%;
+  padding: 14px 22px;
+  font-size: 14px;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  line-height: 20px;
+  background-color: transparent;
+  border: 1px solid $Input;
+  border-radius: 12px;
+  color: $Heading;
+  overflow: hidden;
+  margin-bottom: 0;
+  max-width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+.apInput {
+  outline: none;
+  border: none;
+  width: 100%;
+}
+.apInputIcon {
+  vertical-align: middle;
+  font-size: 22px;
+  color: $Black;
+  font-weight: bold;
+  &:hover {
+    color: $Main;
+    cursor: pointer;
+  }
+}
+
+.apButton {
+  width: 100%;
+  max-width: 200px;
+  height: 50px;
+  padding: 15px 20px;
+  color: $Main;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  border: 1px solid $Main;
+  border-radius: 12px;
+  background-color: white;
+  background-size: 100%;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: $Main !important;
+    color: white !important;
+  }
+  &:hover .apICON {
+    color: white !important;
+  }
+  .apICON {
+    color: $Main;
+    font-size: 18px;
+    flex-shrink: 0;
+    min-width: 18px;
+    min-height: 18px;
+  }
+}
+
+.apICON {
   color: black;
   font-size: 20px;
   cursor: pointer;
+  flex-shrink: 0;
+  min-width: 20px;
+  min-height: 20px;
   &:hover {
     color: red;
   }
 }
 
-.alaICONEdit {
+.apICONEdit {
   color: black;
   font-size: 20px;
   cursor: pointer;
   &:hover {
-    color: blue;
+    color: $Main;
   }
 }
 
-.tableContainer {
-  background-color: white;
+.apLink {
+  text-decoration: none;
+}
 
-  table {
-    border-collapse: collapse;
-    border-radius: 12px;
-  }
-
-  thead > tr > th {
-    padding: 12px;
-    background: $bg-table;
-  }
-
-  thead > tr {
-    border-width: 2px;
-    border-radius: 12px;
-    border-color: transparent;
-    border-style: solid;
-  }
-  &:hover {
-    border-radius: 12px;
-  }
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-wrap: nowrap;
+  margin-bottom: 30px;
+  padding: 0 15px;
 }
 
 @media screen and (max-width: 612px) {
@@ -97,16 +181,17 @@
     display: flex;
     align-items: center;
     margin: 20px 0;
-    .apICON {
-      color: black;
-      font-size: 36px;
-    }
   }
-  .apNote {
-    margin-top: 5px;
-    font-style: italic;
-    color: $Body-Text;
-    font-size: 12px;
-    margin-left: 5px;
+  .cardBG {
+    margin: 0;
+  }
+  .pageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-wrap: nowrap;
+    margin-bottom: 20px;
+    padding: 0 15px;
+    flex-direction: column;
   }
 }

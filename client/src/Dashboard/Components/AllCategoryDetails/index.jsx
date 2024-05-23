@@ -3,9 +3,13 @@ import style from "./AllCategoryDetails.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { GoNote } from "react-icons/go";
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Space, Table, Row, Col, Tooltip } from "antd";
+import { Button, Input, Space, Table, Tooltip } from "antd";
 import Highlighter from "react-highlight-words";
 import { AiOutlineDelete } from "react-icons/ai";
+import Pagination from "../Pagination";
+import { TfiPlus } from "react-icons/tfi";
+import { CiSearch } from "react-icons/ci";
+import { Link, useNavigate } from "react-router-dom";
 
 const data = [
   {
@@ -36,6 +40,7 @@ export default function AllCategoryDetails() {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
+  const navigation = useNavigate();
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -131,7 +136,7 @@ export default function AllCategoryDetails() {
             padding: 0,
           }}
           searchWords={[searchText]}
-          autoEscace
+          autoEscape
           textToHighlight={text ? text.toString() : ""}
         />
       ) : (
@@ -144,9 +149,9 @@ export default function AllCategoryDetails() {
       title: "ID",
       dataIndex: "ID",
       key: "ID",
-      width: "8%",
-      ...getColumnSearchProps("title"),
-      sorter: (a, b) => a.title.localeCompare(b.title),
+      width: "5%",
+      ...getColumnSearchProps("ID"),
+      sorter: (a, b) => a.ID - b.ID,
       sortDirections: ["descend", "ascend"],
     },
     {
@@ -154,7 +159,6 @@ export default function AllCategoryDetails() {
       dataIndex: "title",
       key: "title",
       width: "50%",
-
       ...getColumnSearchProps("title"),
       sorter: (a, b) => a.title.localeCompare(b.title),
       sortDirections: ["descend", "ascend"],
@@ -162,7 +166,7 @@ export default function AllCategoryDetails() {
     {
       title: "Action",
       key: "action",
-      width: "8%",
+      width: "5%",
       render: () => (
         <Space size="middle">
           <Tooltip title="Delete" color={"red"}>
@@ -177,18 +181,40 @@ export default function AllCategoryDetails() {
     <div
       className={
         sidebarVisible === false
-          ? `${style.AllCategoryDetails} ${style.AllCategoryDetailsFull} `
+          ? `${style.AllCategoryDetails} ${style.AllCategoryDetailsFull}`
           : style.AllCategoryDetails
       }
     >
-      <p className={style.cardTitle}>All Attributes</p>
+      <div className={style.pageHeader}>
+        <p className={style.cardTitle}>All Categories</p>
+        <Pagination />
+      </div>
       <div className={style.cardBG}>
         <div className={style.acContainer}>
           <GoNote className={style.acICON} />
           <p className={style.acNote}>
-            Tip search by Category ID: Each product is provided with a unique
-            ID, which you can rely on to find the exact product you need.
+            Tip search by Category ID: Each category is provided with a unique
+            ID, which you can rely on to find the exact category you need.
           </p>
+        </div>
+        <div className={style.apContainer}>
+          <div className={style.apInputBox}>
+            <input
+              placeholder="Search here..."
+              className={style.apInput}
+            ></input>
+            <CiSearch className={style.apInputIcon} />
+          </div>
+          <Button
+            onClick={() => {
+              localStorage.setItem("expandSubMenuItem", "AddCategory");
+              navigation("/AddCategory");
+            }}
+            className={style.apButton}
+          >
+            <TfiPlus className={style.apICON} />
+            Add New Category
+          </Button>
         </div>
         <Table
           className={style.tableContainer}
