@@ -16,6 +16,9 @@ import {
   Steps,
 } from "antd";
 import Pagination from "../Pagination";
+import { TfiPlus } from "react-icons/tfi";
+import { CiSearch } from "react-icons/ci";
+import { GoNote } from "react-icons/go";
 export default function TrackOrderDetails() {
   const { sidebarVisible } = useSidebarToggler();
   const description = "This is a description";
@@ -33,14 +36,34 @@ export default function TrackOrderDetails() {
         <Pagination />
       </div>
       <div className={style.cardBG}>
-        <div className={style.toContainer}>
-          <p className={style.toTitle}>Type Order ID:</p>
-          <Input placeholder="Enter Tracking ID"></Input>
-          <Button type="primary" className={style.toButton}>
+        <div className={style.apTextContainer}>
+          <GoNote className={style.apNoteICON} />
+          <p className={style.apNote}>
+            Tip: search by Order ID: Each order is provided with a unique ID,
+            which you can rely on to find the exact order you need.
+          </p>
+        </div>
+        <div className={style.apContainer}>
+          <div className={style.apInputBox}>
+            <input
+              placeholder="Search here..."
+              className={style.apInput}
+            ></input>
+            <CiSearch className={style.apInputIcon} />
+          </div>
+          <Button type="primary" className={style.apButton}>
             Submit
           </Button>
         </div>
-        <div style={{ padding: "20px" }}>
+        <Divider />
+        <div className={style.apTextContainer}>
+          <GoNote className={style.apNoteICON} />
+          <p className={style.apNote}>
+            Tip: search by Order ID: Each order is provided with a unique ID,
+            which you can rely on to find the exact order you need.
+          </p>
+        </div>
+        <div style={{ padding: "0 30px", marginBottom: "20px" }}>
           <Steps
             current={1}
             status="wait"

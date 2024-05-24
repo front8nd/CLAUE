@@ -1,5 +1,74 @@
 @import "../../GlobalStyle/style";
 
+.apButton {
+  width: 100%;
+  max-width: 200px;
+  height: 50px;
+  padding: 15px 20px;
+  color: $Main;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  border: 1px solid $Main;
+  border-radius: 12px;
+  background-color: white;
+  background-size: 100%;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: $Main !important;
+    color: white !important;
+  }
+  &:hover .apICON {
+    color: white !important;
+  }
+  .apICON {
+    color: $Main;
+    font-size: 18px;
+    flex-shrink: 0;
+    min-width: 18px;
+    min-height: 18px;
+  }
+}
+.apInputBox {
+  outline: 0;
+  box-shadow: none;
+  width: 100%;
+  padding: 14px 22px;
+  font-size: 14px;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  line-height: 20px;
+  background-color: transparent;
+  border: 1px solid $Input;
+  border-radius: 12px;
+  color: $Heading;
+  overflow: hidden;
+  margin-bottom: 0;
+  max-width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+.apInput {
+  outline: none;
+  border: none;
+  width: 100%;
+}
+.apInputIcon {
+  vertical-align: middle;
+  font-size: 22px;
+  color: $Black;
+  font-weight: bold;
+  &:hover {
+    color: $Main;
+    cursor: pointer;
+  }
+}
 .SBsearch {
   border: 1px solid $Input;
   border-radius: 5px;

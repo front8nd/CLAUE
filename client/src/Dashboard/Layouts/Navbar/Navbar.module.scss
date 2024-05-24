@@ -5,33 +5,42 @@
   top: 0;
   right: 0;
   width: calc(100% - 320px);
-  padding: 15px 13px 15px 30px;
+  padding: 15px 20px;
   background: white;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   z-index: 19;
   transition: all 0.3s ease;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 }
 .NavbarFull {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 15px 20px;
+  background: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  z-index: 19;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-sizing: border-box;
   width: 100%;
-  .leftHeader {
-    margin-left: 3%;
-  }
-  .rightHeader {
-    margin-right: 3%;
-  }
 }
 
 .leftHeader {
   width: 50%;
-  margin: 0 10px;
   display: flex;
   align-items: center;
 }
 
 .rightHeader {
-  width: 50%;
+  display: flex;
+}
+.navbarAccount {
+  margin: 0 20px;
 }
 .sidebarOpenIcon {
   font-size: 26px;
@@ -44,15 +53,103 @@
   margin-right: 16px;
 }
 
+.navbarIconGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbarIcon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // width: 36px;
+  // height: 36px;
+  padding: 8px;
+  border-radius: 50%;
+  font-size: 20px;
+  background: rgba(203, 213, 225, 0.3);
+  &:hover {
+    color: $Main;
+  }
+}
+
+.apButton {
+  width: 100%;
+  max-width: 200px;
+  height: 50px;
+  padding: 15px 20px;
+  color: $Main;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  border: 1px solid $Main;
+  border-radius: 12px;
+  background-color: white;
+  background-size: 100%;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: $Main !important;
+    color: white !important;
+  }
+  &:hover .apICON {
+    color: white !important;
+  }
+  .apICON {
+    color: $Main;
+    font-size: 18px;
+    flex-shrink: 0;
+    min-width: 18px;
+    min-height: 18px;
+  }
+}
+.hide {
+  display: none;
+}
 @media (min-width: 612px) and (max-width: 968px) {
+  .Navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: calc(100% - 320px);
+    padding: 15px 20px;
+    background: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    z-index: 19;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
   .NavbarFull {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 15px 20px;
+    background: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    z-index: 19;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
     width: 100%;
-    .leftHeader {
-      margin-left: 10%;
-    }
-    .rightHeader {
-      margin-right: 10%;
-    }
+  }
+  .leftHeader {
+    margin-left: 10px;
+    width: 100%;
+  }
+  .navbarIconGroup {
+    display: none;
   }
 }
 
@@ -85,5 +182,8 @@
     vertical-align: middle;
     margin: 0 10px;
     margin-top: 5px;
+  }
+  .navbarIconGroup {
+    display: none;
   }
 }

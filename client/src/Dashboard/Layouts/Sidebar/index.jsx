@@ -10,6 +10,12 @@ import { FiShoppingCart } from "react-icons/fi";
 import { CiUser } from "react-icons/ci";
 import { VscSymbolMisc } from "react-icons/vsc";
 import { IoIosArrowDown } from "react-icons/io";
+import ContactSVG from "../../Assets/contact.svg";
+import { Divider } from "antd";
+import { FiFacebook } from "react-icons/fi";
+import { CiTwitter } from "react-icons/ci";
+import { FiLinkedin } from "react-icons/fi";
+import { FaInstagram } from "react-icons/fa";
 
 export default function Sidebar() {
   const { sidebarVisible, toggleSidebar } = useSidebarToggler();
@@ -251,6 +257,32 @@ export default function Sidebar() {
             </div>
           </div>
         </Link>
+        <div style={{ margin: "10px" }} className={style.sidebarMenuLabel}>
+          Contact Us
+        </div>
+        <div className={style.sidebarSocial}>
+          <div className={style.sidebarSocialIcon}>
+            <FiFacebook />
+          </div>
+          <div className={style.sidebarSocialIcon}>
+            <CiTwitter />
+          </div>
+          <div className={style.sidebarSocialIcon}>
+            <FiLinkedin />
+          </div>
+          <div className={style.sidebarSocialIcon}>
+            <FaInstagram />
+          </div>
+        </div>
+        <div className={style.sidebarContact}>
+          <img src={ContactSVG} height="250px" width="150px"></img>
+          <h6 className={style.sidebarContactHeading}> Hi, how can we help?</h6>
+          <p className={style.sidebarContactContent}>
+            Contact us if you have any assistance, we will contact you as soon
+            as possible
+          </p>
+          <button className={style.sidebarButton}>Contact</button>
+        </div>
       </div>
     </div>
   );

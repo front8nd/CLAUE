@@ -5,7 +5,6 @@
   width: 280px;
   min-width: 280px;
   left: 0;
-  overflow-y: auto;
   z-index: 20;
   background-color: #fff;
   box-shadow: 0 0 24px 2px rgba(20, 25, 38, 0.05);
@@ -15,7 +14,7 @@
   justify-content: start;
   flex-direction: column;
   transition: all 0.3s ease;
-  overflow: hidden;
+  overflow: auto;
   height: 100vh;
 }
 
@@ -41,8 +40,9 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin-bottom: 10px;
+  gap: 12%;
 }
 .sidebarMainMenu {
   width: -webkit-fill-available;
@@ -91,7 +91,7 @@
   &::before {
     position: absolute;
     content: "";
-    left: -24px;
+    left: -26px;
     width: 8px;
     height: 34px;
     background-color: $Main;
@@ -146,6 +146,75 @@
 .SidebarLinkActive {
   text-decoration: none;
   color: $Main;
+}
+.sidebarContact {
+  display: flex;
+  margin: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+.sidebarContactHeading {
+  font-size: 18px;
+  line-height: 25px;
+  color: black;
+  text-align: center;
+}
+.sidebarContactContent {
+  color: #575864;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  margin-top: 8px;
+  text-align: center;
+}
+.sidebarButton {
+  cursor: pointer;
+  width: 100%;
+  max-width: 200px;
+  height: 50px;
+  padding: 15px 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  border: 1px solid $Main;
+  border-radius: 12px;
+  background-color: $Main;
+  background-size: 100%;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin: 10px 0;
+  &:hover {
+    background-color: white !important;
+    color: $Main !important;
+  }
+}
+.sidebarSocial {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.sidebarSocialIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.102);
+  font-size: 18px;
+  color: #bcc6d1;
+  cursor: pointer;
+
+  &:hover {
+    color: $Main;
+  }
 }
 @media screen and (max-width: 612px) {
   .sidebar {
