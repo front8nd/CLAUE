@@ -15,6 +15,7 @@ import {
   Col,
   Steps,
 } from "antd";
+import Pagination from "../Pagination";
 export default function TrackOrderDetails() {
   const { sidebarVisible } = useSidebarToggler();
   const description = "This is a description";
@@ -27,7 +28,10 @@ export default function TrackOrderDetails() {
           : style.TrackOrderDetails
       }
     >
-      <p className={style.cardTitle}>Add Attributes</p>
+      <div className={style.pageHeader}>
+        <p className={style.cardTitle}>Track Order</p>
+        <Pagination />
+      </div>
       <div className={style.cardBG}>
         <div className={style.toContainer}>
           <p className={style.toTitle}>Type Order ID:</p>
@@ -36,7 +40,7 @@ export default function TrackOrderDetails() {
             Submit
           </Button>
         </div>
-        <div style={{ padding: "20px" }} className={style.cardBG}>
+        <div style={{ padding: "20px" }}>
           <Steps
             current={1}
             status="wait"

@@ -3,11 +3,12 @@
 .TrackOrderDetails {
   margin-left: 280px;
   width: calc(100% - 320px);
-  padding: 20px;
+  padding: 30px;
   position: relative;
   top: 75px;
   transition: margin-left 0.6s ease, width 0.6s ease;
   background-color: $backdrop;
+  height: 80vh;
 }
 
 .TrackOrderDetailsFull {
@@ -26,10 +27,12 @@
 }
 .cardTitle {
   padding-bottom: 10px;
-  padding-left: 5px;
-  font-size: 18px;
-  color: $Body-Text;
+  margin-left: 10px;
+  font-size: 22px;
+  line-height: 37px;
+  color: black;
   font-weight: bold;
+  display: contents;
 }
 
 .toTitle {
@@ -51,6 +54,15 @@
   width: -webkit-fill-available;
   margin: 10px 0;
 }
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-wrap: nowrap;
+  margin-bottom: 30px;
+  padding: 0 15px;
+}
 @media screen and (max-width: 612px) {
   .TrackOrderDetails {
     margin-left: 0;
@@ -62,5 +74,14 @@
   }
   .toContainer {
     width: 100%;
+  }
+  .pageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-wrap: nowrap;
+    margin-bottom: 20px;
+    padding: 0 15px;
+    flex-direction: column;
   }
 }

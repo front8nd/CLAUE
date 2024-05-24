@@ -14,6 +14,8 @@ import {
   Row,
   Col,
 } from "antd";
+import Pagination from "../Pagination";
+import TextArea from "antd/es/input/TextArea";
 export default function AddAttributesDetails() {
   const { sidebarVisible } = useSidebarToggler();
 
@@ -25,15 +27,31 @@ export default function AddAttributesDetails() {
           : style.AddAttributesDetails
       }
     >
-      <p className={style.cardTitle}>Add Attributes</p>
+      <div className={style.pageHeader}>
+        <p className={style.cardTitle}>Add Attributes</p>
+        <Pagination />
+      </div>
       <Row gutter={[16, 16]}>
         <Col xs={24} md={12} lg={12}>
           <div className={style.cardBG}>
             <div className={style.adContainer}>
-              <p className={style.adTitle}>Add Color:</p>
-              <Input placeholder="Enter Color Title"></Input>
+              <p className={style.adTitle}>Add Size:</p>
+              <Input
+                placeholder="Enter Category Title"
+                className={style.adInput}
+              ></Input>
+            </div>
+            <div className={style.adContainer}>
+              <p className={style.adTitle}>Add Size Description:</p>
+              <TextArea
+                placeholder="Enter description.."
+                className={style.adInput}
+                rows={4}
+              />
+            </div>
+            <div className={style.adSubmit}>
               <Button type="primary" className={style.adButton}>
-                Add Color
+                Add Size
               </Button>
             </div>
           </div>
@@ -41,10 +59,23 @@ export default function AddAttributesDetails() {
         <Col xs={24} md={12} lg={12}>
           <div className={style.cardBG}>
             <div className={style.adContainer}>
-              <p className={style.adTitle}>Add Size:</p>
-              <Input placeholder="Enter Size Title"></Input>
+              <p className={style.adTitle}>Add Color:</p>
+              <Input
+                placeholder="Enter Category Title"
+                className={style.adInput}
+              ></Input>
+            </div>
+            <div className={style.adContainer}>
+              <p className={style.adTitle}>Add Color Description:</p>
+              <TextArea
+                placeholder="Enter description.."
+                className={style.adInput}
+                rows={4}
+              />
+            </div>
+            <div className={style.adSubmit}>
               <Button type="primary" className={style.adButton}>
-                Add Size
+                Add Color
               </Button>
             </div>
           </div>
@@ -54,8 +85,21 @@ export default function AddAttributesDetails() {
         <Col xs={24} md={12} lg={12}>
           <div className={style.cardBG}>
             <div className={style.adContainer}>
-              <p className={style.adTitle}>Add Size:</p>
-              <Input placeholder="Enter Brand Title"></Input>
+              <p className={style.adTitle}>Add Brand:</p>
+              <Input
+                placeholder="Enter Category Title"
+                className={style.adInput}
+              ></Input>
+            </div>
+            <div className={style.adContainer}>
+              <p className={style.adTitle}>Add Brand Description:</p>
+              <TextArea
+                placeholder="Enter description.."
+                className={style.adInput}
+                rows={4}
+              />
+            </div>
+            <div className={style.adSubmit}>
               <Button type="primary" className={style.adButton}>
                 Add Brand
               </Button>

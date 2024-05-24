@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "./AllAttributesDetails.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { GoNote } from "react-icons/go";
@@ -6,7 +6,10 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Space, Table, Row, Col, Tooltip } from "antd";
 import Highlighter from "react-highlight-words";
 import { AiOutlineDelete } from "react-icons/ai";
-
+import { CiSearch } from "react-icons/ci";
+import { TfiPlus } from "react-icons/tfi";
+import { Navigate, useNavigate } from "react-router-dom";
+import Pagination from "../Pagination";
 const data = [
   {
     key: "1",
@@ -32,119 +35,13 @@ const data = [
 
 export default function AllAttributesDetails() {
   const { sidebarVisible } = useSidebarToggler();
-  const [searchText, setSearchText] = useState("");
-  const [searchedColumn, setSearchedColumn] = useState("");
-  const searchInput = useRef(null);
-
-  const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    confirm();
-    setSearchText(selectedKeys[0]);
-    setSearchedColumn(dataIndex);
-  };
-
-  const handleReset = (clearFilters) => {
-    clearFilters();
-    setSearchText("");
-  };
-
-  const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-      close,
-    }) => (
-      <div
-        style={{
-          padding: 8,
-        }}
-        onKeyDown={(e) => e.stopPropagation()}
-      >
-        <Input
-          ref={searchInput}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={(e) =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{
-            marginBottom: 8,
-            display: "block",
-          }}
-        />
-        <Space>
-          <Button
-            type="primary"
-            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            icon={<SearchOutlined />}
-            size="small"
-            style={{
-              width: 90,
-            }}
-          >
-            Search
-          </Button>
-          <Button
-            onClick={() => clearFilters && handleReset(clearFilters)}
-            size="small"
-            style={{
-              width: 90,
-            }}
-          >
-            Reset
-          </Button>
-
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              close();
-            }}
-          >
-            close
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: (filtered) => (
-      <SearchOutlined
-        style={{
-          color: filtered ? "#1677ff" : undefined,
-        }}
-      />
-    ),
-    onFilter: (value, record) =>
-      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-        setTimeout(() => searchInput.current?.select(), 100);
-      }
-    },
-    render: (text) =>
-      searchedColumn === dataIndex ? (
-        <Highlighter
-          highlightStyle={{
-            backgroundColor: "#ffc069",
-            padding: 0,
-          }}
-          searchWords={[searchText]}
-          autoEscace
-          textToHighlight={text ? text.toString() : ""}
-        />
-      ) : (
-        text
-      ),
-  });
-
+  const navigation = useNavigate();
   const columns = [
     {
       title: "ID",
       dataIndex: "ID",
       key: "ID",
       width: "8%",
-      ...getColumnSearchProps("title"),
       sorter: (a, b) => a.title.localeCompare(b.title),
       sortDirections: ["descend", "ascend"],
     },
@@ -153,10 +50,20 @@ export default function AllAttributesDetails() {
       dataIndex: "title",
       key: "title",
       width: "50%",
-
-      ...getColumnSearchProps("title"),
       sorter: (a, b) => a.title.localeCompare(b.title),
       sortDirections: ["descend", "ascend"],
+      render: (text) => (
+        <div
+          style={{ display: "flex", alignItems: "center", fontWeight: "bold" }}
+        >
+          <Highlighter
+            highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+            searchWords={[searchText]}
+            autoEscape
+            textToHighlight={text ? text.toString() : ""}
+          />
+        </div>
+      ),
     },
     {
       title: "Action",
@@ -171,7 +78,17 @@ export default function AllAttributesDetails() {
       ),
     },
   ];
+  // Custom Search Bar
+  const [searchText, setSearchText] = useState("");
+  const [filteredData, setFilteredData] = useState(data);
 
+  useEffect(() => {
+    setFilteredData(
+      data.filter((item) =>
+        item.title.toLowerCase().includes(searchText.toLowerCase())
+      )
+    );
+  }, [searchText]);
   return (
     <div
       className={
@@ -180,7 +97,10 @@ export default function AllAttributesDetails() {
           : style.AllAttributesDetails
       }
     >
-      <p className={style.cardTitle}>All Attributes</p>
+      <div className={style.pageHeader}>
+        <p className={style.cardTitle}>All Attributes</p>
+        <Pagination />
+      </div>
       <div className={style.cardBG}>
         <div className={style.alaContainer}>
           <GoNote className={style.alaNoteICON} />
@@ -194,11 +114,32 @@ export default function AllAttributesDetails() {
         <Col xs={24} md={12} lg={12}>
           <div className={style.cardBG}>
             <p className={style.alaTitle}>All Colors</p>
+            <div className={style.apContainer}>
+              <div className={style.apInputBox}>
+                <input
+                  placeholder="Search here..."
+                  className={style.apInput}
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                ></input>
+                <CiSearch className={style.apInputIcon} />
+              </div>
+              <Button
+                onClick={() => {
+                  localStorage.setItem("expandSubMenuItem", "AddAttributes");
+                  navigation("/AddAttributes");
+                }}
+                className={style.apButton}
+              >
+                <TfiPlus className={style.apICON} />
+                Add New
+              </Button>
+            </div>
 
             <Table
               className={style.tableContainer}
               columns={columns}
-              dataSource={data}
+              dataSource={filteredData}
               pagination={{ pageSize: 3 }}
             />
           </div>
@@ -206,11 +147,31 @@ export default function AllAttributesDetails() {
         <Col xs={24} md={12} lg={12}>
           <div className={style.cardBG}>
             <p className={style.alaTitle}>All Sizes</p>
-
+            <div className={style.apContainer}>
+              <div className={style.apInputBox}>
+                <input
+                  placeholder="Search here..."
+                  className={style.apInput}
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                ></input>
+                <CiSearch className={style.apInputIcon} />
+              </div>
+              <Button
+                onClick={() => {
+                  localStorage.setItem("expandSubMenuItem", "AddAttributes");
+                  navigation("/AddAttributes");
+                }}
+                className={style.apButton}
+              >
+                <TfiPlus className={style.apICON} />
+                Add New
+              </Button>
+            </div>
             <Table
               className={style.tableContainer}
               columns={columns}
-              dataSource={data}
+              dataSource={filteredData}
               pagination={{ pageSize: 3 }}
             />
           </div>
@@ -220,11 +181,31 @@ export default function AllAttributesDetails() {
         <Col xs={24} md={12} lg={12}>
           <div className={style.cardBG}>
             <p className={style.alaTitle}>All Brands</p>
-
+            <div className={style.apContainer}>
+              <div className={style.apInputBox}>
+                <input
+                  placeholder="Search here..."
+                  className={style.apInput}
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                ></input>
+                <CiSearch className={style.apInputIcon} />
+              </div>
+              <Button
+                onClick={() => {
+                  localStorage.setItem("expandSubMenuItem", "AddAttributes");
+                  navigation("/AddAttributes");
+                }}
+                className={style.apButton}
+              >
+                <TfiPlus className={style.apICON} />
+                Add New
+              </Button>
+            </div>
             <Table
               className={style.tableContainer}
               columns={columns}
-              dataSource={data}
+              dataSource={filteredData}
               pagination={{ pageSize: 3 }}
             />
           </div>

@@ -1,10 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "./AllOrdersDetails.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { GoNote } from "react-icons/go";
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Space, Table, Row, Col, Tooltip } from "antd";
 import Highlighter from "react-highlight-words";
+import Pagination from "../Pagination";
+import { TfiPlus } from "react-icons/tfi";
+import { CiSearch } from "react-icons/ci";
 
 const data = [
   {
@@ -41,166 +44,80 @@ const data = [
 
 export default function AllOrdersDetails() {
   const { sidebarVisible } = useSidebarToggler();
-  const [searchText, setSearchText] = useState("");
-  const [searchedColumn, setSearchedColumn] = useState("");
-  const searchInput = useRef(null);
-
-  const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    confirm();
-    setSearchText(selectedKeys[0]);
-    setSearchedColumn(dataIndex);
-  };
-
-  const handleReset = (clearFilters) => {
-    clearFilters();
-    setSearchText("");
-  };
-
-  const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-      close,
-    }) => (
-      <div
-        style={{
-          padding: 8,
-        }}
-        onKeyDown={(e) => e.stopPropagation()}
-      >
-        <Input
-          ref={searchInput}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={(e) =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{
-            marginBottom: 8,
-            display: "block",
-          }}
-        />
-        <Space>
-          <Button
-            type="primary"
-            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            icon={<SearchOutlined />}
-            size="small"
-            style={{
-              width: 90,
-            }}
-          >
-            Search
-          </Button>
-          <Button
-            onClick={() => clearFilters && handleReset(clearFilters)}
-            size="small"
-            style={{
-              width: 90,
-            }}
-          >
-            Reset
-          </Button>
-
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              close();
-            }}
-          >
-            close
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: (filtered) => (
-      <SearchOutlined
-        style={{
-          color: filtered ? "#1677ff" : undefined,
-        }}
-      />
-    ),
-    onFilter: (value, record) =>
-      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-        setTimeout(() => searchInput.current?.select(), 100);
-      }
-    },
-    render: (text) =>
-      searchedColumn === dataIndex ? (
-        <Highlighter
-          highlightStyle={{
-            backgroundColor: "#ffc069",
-            padding: 0,
-          }}
-          searchWords={[searchText]}
-          autoEscape
-          textToHighlight={text ? text.toString() : ""}
-        />
-      ) : (
-        text
-      ),
-  });
 
   const columns = [
     {
       title: "ID",
       dataIndex: "ID",
       key: "ID",
-      width: "8%",
-      ...getColumnSearchProps("title"),
+      width: "5%",
       sorter: (a, b) => a.title.localeCompare(b.title),
       sortDirections: ["descend", "ascend"],
-    },
-    {
-      title: "Image",
-      dataIndex: "image",
-      key: "image",
-      width: "8%",
-      render: (text) => (
-        <img src={text} alt="product" style={{ width: 50, height: 50 }} />
-      ),
     },
     {
       title: "Title",
       dataIndex: "title",
       key: "title",
       width: "50%",
-
-      ...getColumnSearchProps("title"),
       sorter: (a, b) => a.title.localeCompare(b.title),
       sortDirections: ["descend", "ascend"],
+      render: (text, record) => (
+        <div
+          style={{ display: "flex", alignItems: "center", fontWeight: "bold" }}
+        >
+          <img
+            src={record.image}
+            alt="product"
+            style={{ width: 40, height: 40, marginRight: 10 }}
+          />
+          <Highlighter
+            highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+            searchWords={[searchText]}
+            autoEscape
+            textToHighlight={text ? text.toString() : ""}
+          />
+        </div>
+      ),
     },
     {
       title: "Price",
       dataIndex: "Price",
       key: "Price",
-      width: "8%",
+      width: "5%",
       sorter: (a, b) => a.title.localeCompare(b.title),
       sortDirections: ["descend", "ascend"],
     },
     {
       title: "Order Status",
-      dataIndex: "Order Status",
-      key: "Order Status",
-      width: "16%",
+      dataIndex: "Status",
+      key: "Status",
+      width: "20%",
     },
   ];
 
+  // Custom Search Bar
+  const [searchText, setSearchText] = useState("");
+  const [filteredData, setFilteredData] = useState(data);
+
+  useEffect(() => {
+    setFilteredData(
+      data.filter((item) =>
+        item.title.toLowerCase().includes(searchText.toLowerCase())
+      )
+    );
+  }, [searchText]);
   return (
     <div
       className={
         sidebarVisible === false
-          ? `${style.AllOrdersDetails} ${style.AllOrdersDetails} `
+          ? `${style.AllOrdersDetails} ${style.AllOrdersDetailsFull} `
           : style.AllOrdersDetails
       }
     >
-      <p className={style.cardTitle}>All Attributes</p>
+      <div className={style.pageHeader}>
+        <p className={style.cardTitle}>All Attributes</p>
+        <Pagination />
+      </div>
       <div className={style.cardBG}>
         <div className={style.aoContainer}>
           <GoNote className={style.aoICON} />
@@ -209,10 +126,21 @@ export default function AllOrdersDetails() {
             which you can rely on to find the exact product you need.
           </p>
         </div>
+        <div className={style.apContainer}>
+          <div className={style.apInputBox}>
+            <input
+              placeholder="Search here..."
+              className={style.apInput}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            ></input>
+            <CiSearch className={style.apInputIcon} />
+          </div>
+        </div>
         <Table
           className={style.tableContainer}
           columns={columns}
-          dataSource={data}
+          dataSource={filteredData}
           pagination={{ pageSize: 3 }}
         />
       </div>
