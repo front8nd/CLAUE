@@ -108,6 +108,16 @@ export default function CartTable() {
   if (!products) {
     return <Loading />;
   }
+
+  const customTable = {
+    color: "#2a2a2a",
+    fontWeight: "400",
+    fontSize: "16px",
+    border: "none",
+    verticalAlign: "middle",
+    padding: "14px 30px 11px",
+    backgroundColor: "black",
+  };
   return (
     <>
       <div className="cart-table-container">
