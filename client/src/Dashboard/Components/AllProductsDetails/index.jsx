@@ -241,7 +241,7 @@ export default function AllProductsDetails() {
             className={style.apButton}
           >
             <TfiPlus className={style.apICON} />
-            Add New Product
+            Add New
           </Button>
         </div>
         <Table

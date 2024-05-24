@@ -213,7 +213,7 @@ export default function AllCategoryDetails() {
             className={style.apButton}
           >
             <TfiPlus className={style.apICON} />
-            Add New Category
+            Add New
           </Button>
         </div>
         <Table

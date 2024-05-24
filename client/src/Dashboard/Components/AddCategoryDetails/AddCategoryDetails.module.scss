@@ -114,6 +114,8 @@
   }
   .acContainer {
     width: 100%;
+    display: flex;
+    flex-direction: column;
   }
   .pageHeader {
     display: flex;
