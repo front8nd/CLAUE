@@ -29,11 +29,7 @@ export default function Navbar() {
         ) : (
           ""
         )}
-        <div
-          className={sidebarVisible === false ? style.navbarSearch : style.hide}
-        >
-          <SearchBar />
-        </div>
+        <SearchBar />
       </div>
       <div className={style.rightHeader}>
         <div className={style.navbarIconGroup}>
@@ -50,16 +46,10 @@ export default function Navbar() {
             <RxDashboard />
           </Badge>
         </div>
-
-        <div
-          className={
-            sidebarVisible === false ? style.navbarAccount : style.hide
-          }
-        >
+        <div className={style.navbarAccount}>
           <UserAccount />
         </div>
         <div className={style.navbarIconGroup}>
-          <Divider type="vertical" style={{ height: "3em" }} />
           <div className={style.navbarIcon}>
             <CiSettings />
           </div>

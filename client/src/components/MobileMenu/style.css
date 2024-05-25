@@ -18,7 +18,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20%;
+  margin: 25%;
 }
 .hide-decoration {
   text-decoration: none;
@@ -31,10 +31,10 @@
   text-align: center;
 }
 .mobile-menu-close {
-  font-size: 40px;
+  font-size: 60px;
   position: absolute;
-  right: 0%;
-  top: 0;
+  right: 20px;
+  top: 10px;
   transition: transform 0.6s ease;
   cursor: pointer;
 }
