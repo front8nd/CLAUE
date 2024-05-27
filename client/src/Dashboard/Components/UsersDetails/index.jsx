@@ -145,7 +145,7 @@ export default function UsersDetails() {
           </div>
         </div>
         <Table
-          className={style.tableContainer}
+          className="customTable"
           columns={columns}
           dataSource={filteredData}
           pagination={{ pageSize: 3 }}

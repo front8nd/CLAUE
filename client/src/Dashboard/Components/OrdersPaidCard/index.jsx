@@ -9,7 +9,7 @@ export default function OrdersPaidCard() {
       var option = {
         color: ["#cbd5e1"],
         title: {
-          text: "Total Orders",
+          text: "Orders",
         },
         tooltip: {
           trigger: "axis",

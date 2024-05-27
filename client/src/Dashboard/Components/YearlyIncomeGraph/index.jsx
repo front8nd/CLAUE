@@ -9,7 +9,7 @@ export default function YearlyIncomeGraph() {
       var option = {
         color: ["#30ff5c"],
         title: {
-          text: "Yearly Income",
+          text: "Yearly Revenue",
         },
         tooltip: {
           trigger: "axis",
@@ -79,8 +79,8 @@ export default function YearlyIncomeGraph() {
               focus: "series",
             },
             data: [
-              1000, 1040, 2020, 3060, 4080, 4100, 1020, 1260, 1920, 4120, 4100,
-              1220,
+              4000, 3040, 4020, 3060, 4080, 4100, 4020, 3360, 3920, 4120, 4100,
+              3220,
             ],
           },
         ],

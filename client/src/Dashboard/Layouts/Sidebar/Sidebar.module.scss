@@ -19,11 +19,13 @@
 }
 
 .sidebarCloseIcon {
-  font-size: 26px;
-  color: $Icon;
+  font-size: 30px;
+  color: $Note;
   vertical-align: middle;
-  margin-right: 8px;
+  margin-right: 10px;
   cursor: pointer;
+  margin-top: 5px;
+
   &:hover {
     color: $Main;
   }

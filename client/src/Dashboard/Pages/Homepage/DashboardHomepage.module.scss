@@ -1,5 +1,6 @@
 @import "../../GlobalStyle/style.scss";
 .DashboardHomepage {
   display: flex;
-  background-color: $backdrop;
+  background: $backdrop;
+  height: 170vh;
 }

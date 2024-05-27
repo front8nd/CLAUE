@@ -137,7 +137,7 @@ export default function AllAttributesDetails() {
             </div>
 
             <Table
-              className={style.tableContainer}
+              className="customTable"
               columns={columns}
               dataSource={filteredData}
               pagination={{ pageSize: 3 }}
@@ -169,7 +169,7 @@ export default function AllAttributesDetails() {
               </Button>
             </div>
             <Table
-              className={style.tableContainer}
+              className="customTable"
               columns={columns}
               dataSource={filteredData}
               pagination={{ pageSize: 3 }}
@@ -203,7 +203,7 @@ export default function AllAttributesDetails() {
               </Button>
             </div>
             <Table
-              className={style.tableContainer}
+              className="customTable"
               columns={columns}
               dataSource={filteredData}
               pagination={{ pageSize: 3 }}

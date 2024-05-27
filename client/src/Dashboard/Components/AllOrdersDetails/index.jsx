@@ -138,9 +138,9 @@ export default function AllOrdersDetails() {
           </div>
         </div>
         <Table
-          className={style.tableContainer}
           columns={columns}
           dataSource={filteredData}
+          className="customTable"
           pagination={{ pageSize: 3 }}
         />
       </div>

@@ -10,7 +10,8 @@ import { LuMessageSquare } from "react-icons/lu";
 import { RxDashboard } from "react-icons/rx";
 import { CiSettings } from "react-icons/ci";
 import { Badge, Divider } from "antd";
-
+import { CiSearch } from "react-icons/ci";
+import { FaRegUserCircle } from "react-icons/fa";
 export default function Navbar() {
   const { sidebarVisible, toggleSidebar } = useSidebarToggler();
   return (
@@ -29,7 +30,9 @@ export default function Navbar() {
         ) : (
           ""
         )}
-        <SearchBar />
+        <div className={style.searchBar}>
+          <SearchBar />
+        </div>
       </div>
       <div className={style.rightHeader}>
         <div className={style.navbarIconGroup}>

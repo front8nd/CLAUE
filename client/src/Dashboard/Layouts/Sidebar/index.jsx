@@ -7,38 +7,39 @@ import { RxDashboard } from "react-icons/rx";
 import { MdOutlineInventory2 } from "react-icons/md";
 import { GoStack } from "react-icons/go";
 import { FiShoppingCart } from "react-icons/fi";
-import { CiUser } from "react-icons/ci";
+import { FaRegUser } from "react-icons/fa";
 import { VscSymbolMisc } from "react-icons/vsc";
 import { IoIosArrowDown } from "react-icons/io";
-import ContactSVG from "../../Assets/contact.svg";
-import { Divider } from "antd";
 import { FiFacebook } from "react-icons/fi";
 import { CiTwitter } from "react-icons/ci";
 import { FiLinkedin } from "react-icons/fi";
 import { FaInstagram } from "react-icons/fa";
 
+import ContactSVG from "../../Assets/contact.svg";
+import Logo from "../../Assets/logo.png";
+
 export default function Sidebar() {
   const { sidebarVisible, toggleSidebar } = useSidebarToggler();
-  const [expandMenuItem, setExpandMenuItem] = useState("Dashboard");
-  const [expandSubMenuItem, setExpandSubMenuItem] = useState("");
+  const [expandMenuItem, setExpandMenuItem] = useState(null);
+  const [expandSubMenuItem, setExpandSubMenuItem] = useState(null);
 
-  // Retrieve menu state from local storage
   useEffect(() => {
-    const savedMenuItem = localStorage.getItem("expandMenuItem");
-    const savedSubMenuItem = localStorage.getItem("expandSubMenuItem");
+    // Retrieve menu state from session storage
+    const savedMenuItem = sessionStorage.getItem("expandMenuItem");
+    const savedSubMenuItem = sessionStorage.getItem("expandSubMenuItem");
     if (savedMenuItem) setExpandMenuItem(savedMenuItem);
     if (savedSubMenuItem) setExpandSubMenuItem(savedSubMenuItem);
   }, []);
 
-  // Save menu state to local storage
+  // Save menu state to session storage
   const handleMenuItemClick = (menuItem) => {
     setExpandMenuItem(menuItem);
-    localStorage.setItem("expandMenuItem", menuItem);
+    sessionStorage.setItem("expandMenuItem", menuItem);
   };
 
   const handleSubMenuItemClick = (subMenuItem) => {
     setExpandSubMenuItem(subMenuItem);
-    localStorage.setItem("expandSubMenuItem", subMenuItem);
+    sessionStorage.setItem("expandSubMenuItem", subMenuItem);
   };
 
   if (!sidebarVisible) {
@@ -49,7 +50,7 @@ export default function Sidebar() {
     <div className={style.sidebar}>
       <div className={style.sidebarHeaderContainer}>
         <div className={style.sidebarHeader}>
-          <img src="/src/Dashboard/Assets/logo.png" alt="Logo" />
+          <img src={Logo} alt="Logo" style={{ marginLeft: "20px" }} />
           <RiMenuFoldLine
             onClick={() => toggleSidebar()}
             className={style.sidebarCloseIcon}
@@ -252,7 +253,7 @@ export default function Sidebar() {
             }
           >
             <div className={style.sidebarMenuItem}>
-              <CiUser className={style.sidebarMenuIcon} />
+              <FaRegUser className={style.sidebarMenuIcon} />
               <span>Users</span>
             </div>
           </div>
@@ -275,8 +276,8 @@ export default function Sidebar() {
           </div>
         </div>
         <div className={style.sidebarContact}>
-          <img src={ContactSVG} height="250px" width="150px"></img>
-          <h6 className={style.sidebarContactHeading}> Hi, how can we help?</h6>
+          <img src={ContactSVG} height="250px" width="150px" alt="Contact" />
+          <h6 className={style.sidebarContactHeading}>Hi, how can we help?</h6>
           <p className={style.sidebarContactContent}>
             Contact us if you have any assistance, we will contact you as soon
             as possible

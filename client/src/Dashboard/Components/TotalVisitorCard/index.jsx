@@ -9,7 +9,7 @@ export default function TotalVisitorCard() {
       var option = {
         color: ["#93c5fd"],
         title: {
-          text: "Total Visitors",
+          text: "Visitors",
         },
         tooltip: {
           trigger: "axis",

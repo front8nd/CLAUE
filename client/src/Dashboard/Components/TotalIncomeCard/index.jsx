@@ -9,7 +9,7 @@ export default function TotalIncomeCard() {
       var option = {
         color: ["#fb923c"],
         title: {
-          text: "Total Income",
+          text: "Revenue",
         },
         tooltip: {
           trigger: "axis",

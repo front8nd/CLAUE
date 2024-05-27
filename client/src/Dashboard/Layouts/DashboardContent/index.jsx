@@ -45,7 +45,7 @@ export default function DashboardContent() {
           </div>
         </Col>
       </Row>
-      <Row gutter={8}>
+      {/* <Row gutter={8}>
         <Col span={24}>
           <div className={style.cardBG}>
             <YearlySalesGraph />
@@ -58,7 +58,7 @@ export default function DashboardContent() {
             <YearlyIncomeGraph />
           </div>
         </Col>
-      </Row>
+      </Row> */}
       <Row gutter={8}>
         <Col xs={24} sm={12} lg={12}>
           <div className={style.cardBG}>

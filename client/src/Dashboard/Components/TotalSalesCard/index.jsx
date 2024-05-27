@@ -9,7 +9,7 @@ export default function TotalSalesCard() {
       var option = {
         color: ["#22c55e"],
         title: {
-          text: "Total Sales",
+          text: "Sales",
         },
         tooltip: {
           trigger: "axis",

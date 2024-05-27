@@ -162,6 +162,7 @@ export default function AllProductsDetails() {
           columns={columns}
           dataSource={filteredData}
           pagination={{ pageSize: 3 }}
+          className="customTable"
         />
       </div>
     </div>
