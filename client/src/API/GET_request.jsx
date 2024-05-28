@@ -43,9 +43,21 @@ async function getSize() {
     );
     return res.data;
   } catch (error) {
-    console.error("Error fetching categories:", error);
+    console.error("Error fetching size:", error);
     throw error;
   }
 }
 
-export { getProducts, getCategories, getColors, getSize };
+async function getBrands() {
+  try {
+    const res = await axios.get(
+      "https://ecommerce-cde88-default-rtdb.firebaseio.com/brand.json"
+    );
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching brands:", error);
+    throw error;
+  }
+}
+
+export { getProducts, getCategories, getColors, getSize, getBrands };

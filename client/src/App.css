@@ -147,3 +147,6 @@
   display: inline-block;
   width: fit-content;
 }
+.bgColor {
+  background-color: #f2f7fb;
+}

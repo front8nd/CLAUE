@@ -5,6 +5,7 @@ import {
   getCategories,
   getColors,
   getSize,
+  getBrands,
 } from "../API/GET_request";
 
 export const getProductsFirebase = createAsyncThunk(
@@ -15,7 +16,8 @@ export const getProductsFirebase = createAsyncThunk(
       const categories = await getCategories();
       const colors = await getColors();
       const sizes = await getSize();
-      return { products, categories, colors, sizes };
+      const brands = await getBrands();
+      return { products, categories, colors, sizes, brands };
     } catch (error) {
       throw error;
     }
@@ -29,6 +31,7 @@ const ProductsSlice = createSlice({
     rawData: [],
     arrayColors: [],
     arraySizes: [],
+    arrayBrands: [],
     arrayCategory: [],
     handleSidebar: false,
     filteredPrice: {
@@ -108,6 +111,7 @@ const ProductsSlice = createSlice({
           rating: product.rating,
           size: product.size,
           title: product.title,
+          brand: product.brand,
         })
       );
 
@@ -121,6 +125,10 @@ const ProductsSlice = createSlice({
       state.arraySizes = Object.values(action.payload.sizes).map((e) => ({
         id: e.id,
         size: e.name,
+      }));
+      state.arrayBrands = Object.values(action.payload.brands).map((e) => ({
+        id: e.id,
+        brand: e.name,
       }));
       state.arrayCategory = Object.entries(action.payload.categories).map(
         ([firebaseId, category]) => ({
