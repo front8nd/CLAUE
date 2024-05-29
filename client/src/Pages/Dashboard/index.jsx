@@ -59,30 +59,34 @@ export default function Dashboard() {
     }
   }, [dispatch, products.length]);
 
-  if (!authChecked) {
-    return <Loading />;
-  }
+  // if (!authChecked || loading) {
+  //   return <Loading />;
+  // }
 
-  if (!userState || !userDetails) {
-    return (
-      <div className="already-logged-in">
-        <p className="already-logged-in-msg">User Not Logged In</p>
-      </div>
-    );
-  }
+  // if (!userState || !userDetails) {
+  //   return (
+  //     <div className="already-logged-in">
+  //       <p className="already-logged-in-msg">User Not Logged In</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
       <BacktoTop />
       <Header />
-      <div>
-        <div className="dashboard-head">
-          <DashboardHeader userDetails={userDetails} />
+      {!authChecked || loading ? (
+        <Loading />
+      ) : (
+        <div>
+          <div className="dashboard-head">
+            <DashboardHeader userDetails={userDetails} />
+          </div>
+          <div className="dashboard">
+            <DashboardLayout />
+          </div>
         </div>
-        <div className="dashboard">
-          <DashboardLayout />
-        </div>
-      </div>
+      )}
       <Footer />
     </>
   );

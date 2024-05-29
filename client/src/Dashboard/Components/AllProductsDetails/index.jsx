@@ -2,50 +2,25 @@ import React, { useEffect, useRef, useState } from "react";
 import style from "./AllProductsDetails.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { GoNote } from "react-icons/go";
-import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Space, Table, Tooltip } from "antd";
+import { Button, Space, Table, Tooltip, message } from "antd";
 import Highlighter from "react-highlight-words";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaRegEdit } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 import { TfiPlus } from "react-icons/tfi";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Pagination from "../Pagination";
-const data = [
-  {
-    key: "1",
-    image: "https://remosnextjs.vercel.app/images/products/1.png",
-    title: "John Brown",
-    ID: 32,
-    Price: 3200,
-  },
-  {
-    key: "2",
-    image: "https://remosnextjs.vercel.app/images/products/1.png",
-    title: "Lorem Ipsum",
-    ID: 32,
-    Price: 3200,
-  },
-  {
-    key: "3",
-    image: "https://remosnextjs.vercel.app/images/products/1.png",
-    title: "Whie Nuwnw",
-    ID: 32,
-    Price: 3200,
-  },
-  {
-    key: "4",
-    image: "https://remosnextjs.vercel.app/images/products/1.png",
-    title: "Kikur Idjs",
-    ID: 32,
-    Price: 3200,
-  },
-];
-
+import { useDispatch, useSelector } from "react-redux";
+import { remove, ref as dbRef } from "firebase/database";
+import { database, storage } from "../../../firebase";
+import { deleteObject, ref, listAll } from "firebase/storage";
+import { getProductsFirebase } from "../../../Redux/ProductsSlice";
 export default function AllProductsDetails() {
+  const dispatch = useDispatch();
+
+  const products = useSelector((state) => state.Products.data);
   const { sidebarVisible } = useSidebarToggler();
   const navigation = useNavigate();
-
   const columns = [
     {
       title: "Product",
@@ -56,12 +31,18 @@ export default function AllProductsDetails() {
       sortDirections: ["descend", "ascend"],
       render: (text, record) => (
         <div
+          className={style.truncate}
           style={{ display: "flex", alignItems: "center", fontWeight: "bold" }}
         >
           <img
-            src={record.image}
+            src={record.images}
             alt="product"
-            style={{ width: 40, height: 40, marginRight: 10 }}
+            style={{
+              width: 40,
+              height: 40,
+              marginRight: 10,
+              borderRadius: "50%",
+            }}
           />
           <Highlighter
             highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
@@ -74,31 +55,84 @@ export default function AllProductsDetails() {
     },
     {
       title: "ID",
-      dataIndex: "ID",
-      key: "ID",
-      width: "5%",
-      sorter: (a, b) => a.title.localeCompare(b.title),
-      sortDirections: ["descend", "ascend"],
+      dataIndex: products.id,
+      key: products.id,
+      render: (text) => {
+        return <div className={style.truncate}>{text.id}</div>;
+      },
     },
     {
       title: "Price",
-      dataIndex: "Price",
-      key: "Price",
-      width: "5%",
-      sorter: (a, b) => a.title.localeCompare(b.title),
-      sortDirections: ["descend", "ascend"],
+      dataIndex: products?.price,
+      key: products?.price,
+      render: (text) => {
+        return <div className={style.truncate}>{text.price}</div>;
+      },
+    },
+    {
+      title: "Brand",
+      dataIndex: products?.brand,
+      key: products?.brand,
+      render: (text) => {
+        return <div className={style.truncate}>{text.brand}</div>;
+      },
+    },
+    {
+      title: "Color",
+      dataIndex: products?.color,
+      key: products?.color,
+      render: (text) => {
+        return <div className={style.truncate}>{text.color.toUpperCase()}</div>;
+      },
+    },
+    {
+      title: "Size",
+      dataIndex: products?.size,
+      key: products?.size,
+      render: (text) => {
+        return <div className={style.truncate}>{text.size}</div>;
+      },
+    },
+    {
+      title: "Category",
+      dataIndex: products.categories?.category,
+      key: products.categories?.category,
+      render: (text) => {
+        return (
+          <div className={style.truncate}>
+            {text?.categories?.category.toUpperCase()}
+          </div>
+        );
+      },
+    },
+    {
+      title: "Sub Category",
+      dataIndex: products.categories?.subCategory,
+      key: products.categories?.subCategory,
+      render: (text) => {
+        return (
+          <div className={style.truncate}>
+            {text?.categories?.subCategory.toUpperCase()}
+          </div>
+        );
+      },
     },
     {
       title: "Action",
-      key: "action",
-      width: "5%",
-      render: () => (
+      key: products.id,
+      dataIndex: products.id,
+      render: (text) => (
         <Space size="middle">
           <Tooltip title="Edit" color={"blue"}>
             <FaRegEdit className={style.apICONEdit} />
           </Tooltip>
           <Tooltip title="Delete" color={"red"}>
-            <AiOutlineDelete className={style.apICON} />
+            <AiOutlineDelete
+              onClick={() => {
+                handleDelete(text);
+              }}
+              className={style.apICON}
+            />
           </Tooltip>
         </Space>
       ),
@@ -107,15 +141,43 @@ export default function AllProductsDetails() {
 
   // Custom Search Bar
   const [searchText, setSearchText] = useState("");
-  const [filteredData, setFilteredData] = useState(data);
+  const [filteredData, setFilteredData] = useState(products);
 
   useEffect(() => {
     setFilteredData(
-      data.filter((item) =>
+      products.filter((item) =>
         item.title.toLowerCase().includes(searchText.toLowerCase())
       )
     );
   }, [searchText]);
+
+  // Delete Data
+  const handleDelete = async (post) => {
+    message.loading("Deletion in Progress..");
+    try {
+      const productRef = dbRef(database, `products/${post.id}`);
+      await remove(productRef);
+      const directoryRef = ref(storage, `images/${post.imagesID}`);
+      await deleteFilesInDirectory(directoryRef);
+      dispatch(getProductsFirebase());
+      message.info("Deleted Successfully");
+    } catch (error) {
+      console.log(error);
+      message.info("Deletion Failed", error);
+    }
+  };
+
+  const deleteFilesInDirectory = async (directoryRef) => {
+    const { items } = await listAll(directoryRef);
+    const deletePromises = items.map(async (item) => {
+      if (item.isDirectory) {
+        await deleteFilesInDirectory(item);
+      } else {
+        await deleteObject(item);
+      }
+    });
+    await Promise.all(deletePromises);
+  };
 
   return (
     <div
@@ -161,8 +223,9 @@ export default function AllProductsDetails() {
         <Table
           columns={columns}
           dataSource={filteredData}
-          pagination={{ pageSize: 3 }}
+          pagination={{ pageSize: 10 }}
           className="customTable"
+          virtual
         />
       </div>
     </div>

@@ -125,11 +125,11 @@
 }
 
 .customTable table tr:nth-child(odd) {
-  background-color: #f6f8fbcc;
+  background-color: white;
 }
 
 .customTable table tr:nth-child(even) {
-  background-color: white;
+  background-color: #f6f8fbcc;
 }
 
 .ant-badge {
