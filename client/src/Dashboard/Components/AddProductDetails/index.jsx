@@ -2,7 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Col, Row, Select } from "antd";
 import style from "./AddProductDetails.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
-import { Input, Button, message, Space, Image, Upload, DatePicker } from "antd";
+import {
+  Input,
+  Button,
+  message,
+  Space,
+  Image,
+  Upload,
+  DatePicker,
+  Spin,
+} from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import { FiUploadCloud } from "react-icons/fi";
 import Pagination from "../Pagination";
 import { useSelector } from "react-redux";
@@ -12,6 +22,8 @@ import {
   uploadBytes,
   getDownloadURL,
   uploadBytesResumable,
+  listAll,
+  deleteObject,
 } from "firebase/storage";
 import { storage } from "../../../firebase";
 import { v4 as uuidv4 } from "uuid";
@@ -23,15 +35,16 @@ const getBase64 = (file) =>
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
+import ImageNotAvaiable from "./../../../assets/no-image.jpg";
 
 export default function AddProductDetails() {
   const { TextArea } = Input;
   const { sidebarVisible } = useSidebarToggler();
+  const [isLoading, setLoading] = useState(false);
   const colorsArray = useSelector((state) => state.Products.arrayColors);
   const sizesArray = useSelector((state) => state.Products.arraySizes);
   const categoryArray = useSelector((state) => state.Products.arrayCategory);
   const brandArray = useSelector((state) => state.Products.arrayBrands);
-
   const [data, setData] = useState({
     id: "",
     title: "",
@@ -46,7 +59,7 @@ export default function AddProductDetails() {
       subCategory: "",
     },
     imagesID: "",
-    images: [],
+    images: [ImageNotAvaiable],
     rating: "5",
   });
   console.log(data);
@@ -181,9 +194,39 @@ export default function AddProductDetails() {
     );
   };
 
+  // Delete Images
+
+  const handleDeleteImages = async (file) => {
+    try {
+      message.loading("Deleting, Please wait..");
+      const folderRef = ref(storage, `images/${data.imagesID}`);
+      const result = await listAll(folderRef);
+      const filesToDelete = result.items.filter((item) =>
+        item.name.includes(file.name)
+      );
+      const deletePromises = filesToDelete.map(async (fileRef) => {
+        const url = await getDownloadURL(fileRef);
+        await deleteObject(fileRef);
+        return url;
+      });
+
+      const deletedUrls = await Promise.all(deletePromises);
+
+      setData((prevData) => ({
+        ...prevData,
+        images: prevData.images.filter((image) => !deletedUrls.includes(image)),
+      }));
+
+      message.info("Deletion Successful");
+    } catch (error) {
+      console.error(`Error deleting old images`, error);
+    }
+  };
+
   // Submit Post
   const submitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const newData = { ...data, id: uuidv4() };
     await POST_Products(newData);
     message.info("Post Added");
@@ -204,6 +247,8 @@ export default function AddProductDetails() {
       images: [],
       rating: "5",
     });
+    setFileList([]);
+    setLoading(false);
   };
   return (
     <div
@@ -333,6 +378,7 @@ export default function AddProductDetails() {
                   fileList={fileList}
                   onPreview={handlePreview}
                   onChange={handleChange}
+                  onRemove={handleDeleteImages}
                 >
                   {fileList.length === 4 ? null : uploadButton}
                 </Upload>
@@ -388,6 +434,8 @@ export default function AddProductDetails() {
                 type="primary"
                 className={style.adpButton}
                 htmlType="submit"
+                loading={isLoading}
+                iconPosition="end"
               >
                 Add Product
               </Button>

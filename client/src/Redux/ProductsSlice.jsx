@@ -7,7 +7,6 @@ import {
   getSize,
   getBrands,
 } from "../API/GET_request";
-
 export const getProductsFirebase = createAsyncThunk(
   "Products/getProductsFirebase",
   async () => {
@@ -112,6 +111,7 @@ const ProductsSlice = createSlice({
           size: product.size,
           title: product.title,
           brand: product.brand,
+          date: product.date,
         })
       );
 
