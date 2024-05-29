@@ -137,9 +137,19 @@
     min-height: 18px;
   }
 }
-
+.apICONView {
+  color: $Main;
+  font-size: 20px;
+  cursor: pointer;
+  flex-shrink: 0;
+  min-width: 20px;
+  min-height: 20px;
+  &:hover {
+    color: $Main;
+  }
+}
 .apICON {
-  color: black;
+  color: red;
   font-size: 20px;
   cursor: pointer;
   flex-shrink: 0;
@@ -151,11 +161,11 @@
 }
 
 .apICONEdit {
-  color: black;
+  color: green;
   font-size: 20px;
   cursor: pointer;
   &:hover {
-    color: $Main;
+    color: green;
   }
 }
 

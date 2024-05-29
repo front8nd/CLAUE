@@ -29,6 +29,7 @@ import AllAttributes from "./Dashboard/Pages/AllAttributes/index.jsx";
 import Users from "./Dashboard/Pages/Users/index.jsx";
 import AllOrders from "./Dashboard/Pages/AllOrders/index.jsx";
 import TrackOrder from "./Dashboard/Pages/TrackOrder/index.jsx";
+import EditProducts from "./Dashboard/Pages/EditProducts/index.jsx";
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
           <Route path="/StripeCheckout" element={<StripeCheckout />} />
           <Route path="/admin" element={<DashboardHomepage />} />
           <Route path="/AddProducts" element={<AddProducts />} />
+          <Route path="/EditProduct/:ProductID" element={<EditProducts />} />
           <Route path="/AllProducts" element={<AllProducts />} />
           <Route path="/AddCategory" element={<AddCategory />} />
           <Route path="/AllCategory" element={<AllCategory />} />

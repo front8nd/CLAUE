@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row, Select } from "antd";
-import style from "./AddProductDetails.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { Input, Button, message, Space, Image, Upload, DatePicker } from "antd";
 import { FiUploadCloud } from "react-icons/fi";
 import Pagination from "../Pagination";
 import { useSelector } from "react-redux";
-import { POST_Products } from "../../../API/POST_request";
 import {
   ref,
   getDownloadURL,
@@ -14,8 +12,10 @@ import {
   listAll,
   deleteObject,
 } from "firebase/storage";
-import { storage } from "../../../firebase";
-import { v4 as uuidv4 } from "uuid";
+import { database, storage } from "../../../firebase";
+import { ref as dbRef, update } from "firebase/database";
+import style from "./EditProductsDetails.module.scss";
+import dayjs from "dayjs";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -25,7 +25,7 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-export default function AddProductDetails() {
+export default function EditProductDetails({ product }) {
   const { TextArea } = Input;
   const { sidebarVisible } = useSidebarToggler();
   const [isLoading, setLoading] = useState(false);
@@ -34,22 +34,24 @@ export default function AddProductDetails() {
   const categoryArray = useSelector((state) => state.Products.arrayCategory);
   const brandArray = useSelector((state) => state.Products.arrayBrands);
   const [data, setData] = useState({
-    id: "",
-    title: "",
-    brand: "",
-    date: "",
-    description: "",
-    price: "",
-    color: "",
-    size: "",
+    firebaseId: product.firebaseId,
+    id: product.id,
+    title: product.title,
+    brand: product.brand,
+    date: product.date,
+    description: product.description,
+    price: product.price,
+    color: product.color,
+    size: product.size,
     categories: {
-      category: "",
-      subCategory: "",
+      category: product.categories.category,
+      subCategory: product.categories.subCategory,
     },
-    imagesID: "",
-    images: [],
+    imagesID: product.imagesID,
+    images: product.images,
     rating: "5",
   });
+  console.log(data, product);
 
   // Dropdown Data
 
@@ -131,6 +133,18 @@ export default function AddProductDetails() {
 
   const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
 
+  useEffect(() => {
+    if (data.images.length !== 0) {
+      const transformedFileList = data.images.map((url, index) => ({
+        uid: index.toString(),
+        name: `image-${index}.png`,
+        status: "done",
+        url: url,
+      }));
+      setFileList(transformedFileList);
+    }
+  }, []);
+
   const uploadButton = (
     <div>
       <FiUploadCloud style={{ fontSize: "30px", color: "#2275fc" }} />
@@ -146,7 +160,7 @@ export default function AddProductDetails() {
     onSuccess,
     onError,
   }) => {
-    const imageUUID = uuidv4();
+    const imageUUID = data.imagesID;
     const imageref = ref(storage, `/images/${imageUUID}/${file.name}`);
     const uploadTask = uploadBytesResumable(imageref, file);
 
@@ -182,27 +196,28 @@ export default function AddProductDetails() {
   };
 
   // Delete Images
-
+  console.log(fileList);
   const handleDeleteImages = async (file) => {
     try {
       message.loading("Deleting, Please wait..");
-      const folderRef = ref(storage, `images/${data.imagesID}`);
-      const result = await listAll(folderRef);
-      const filesToDelete = result.items.filter((item) =>
-        item.name.includes(file.name)
-      );
-      const deletePromises = filesToDelete.map(async (fileRef) => {
-        const url = await getDownloadURL(fileRef);
-        await deleteObject(fileRef);
-        return url;
-      });
+      console.log(file);
+      // const folderRef = ref(storage, `images/${data.imagesID}`);
+      // const result = await listAll(folderRef);
+      // const filesToDelete = result.items.filter((item) =>
+      //   item.name.includes(file.name)
+      // );
+      // const deletePromises = filesToDelete.map(async (fileRef) => {
+      //   const url = await getDownloadURL(fileRef);
+      //   await deleteObject(fileRef);
+      //   return url;
+      // });
 
-      const deletedUrls = await Promise.all(deletePromises);
+      // const deletedUrls = await Promise.all(deletePromises);
 
-      setData((prevData) => ({
-        ...prevData,
-        images: prevData.images.filter((image) => !deletedUrls.includes(image)),
-      }));
+      // setData((prevData) => ({
+      //   ...prevData,
+      //   images: prevData.images.filter((image) => !deletedUrls.includes(image)),
+      // }));
 
       message.info("Deletion Successful");
     } catch (error) {
@@ -217,8 +232,15 @@ export default function AddProductDetails() {
       return message.error("Please Upload Images to add post");
     }
     setLoading(true);
-    const newData = { ...data, id: uuidv4() };
-    await POST_Products(newData);
+    const productRef = dbRef(database, `products/${data.firebaseId}`);
+    try {
+      await update(productRef, data);
+      dispatch(getProductsFirebase());
+      dispatch(setShowEditPage(false));
+      console.log("Data updated successfully!");
+    } catch (error) {
+      console.log("Error updating data:", error);
+    }
     message.info("Post Added");
     setData({
       id: "",
@@ -240,7 +262,6 @@ export default function AddProductDetails() {
     setFileList([]);
     setLoading(false);
   };
-  console.log(data);
 
   return (
     <div
@@ -251,7 +272,7 @@ export default function AddProductDetails() {
       }
     >
       <div className={style.pageHeader}>
-        <p className={style.cardTitle}>Add New Product</p>
+        <p className={style.cardTitle}>Update Product</p>
         <Pagination />
       </div>
       <form onSubmit={submitHandler}>
@@ -285,6 +306,7 @@ export default function AddProductDetails() {
                       onChange={(value) => changeHandler("category", value)}
                       required
                       placeholder="Select a Category"
+                      defaultValue={product.categories.category}
                     ></Select>
                     <Select
                       className={style.antDropdown}
@@ -297,6 +319,7 @@ export default function AddProductDetails() {
                       value={data.categories.subCategory}
                       required
                       placeholder="Select SubCategory"
+                      defaultValue={product.subCategory}
                     ></Select>
                   </Space>
                 </div>
@@ -312,6 +335,7 @@ export default function AddProductDetails() {
                     onChange={(value) => changeHandler("color", value)}
                     required
                     placeholder="Select a Color"
+                    defaultValue={product.color}
                   ></Select>
                 </div>
               </div>
@@ -328,6 +352,7 @@ export default function AddProductDetails() {
                     onChange={(value) => changeHandler("size", value)}
                     required
                     placeholder="Select a Size"
+                    defaultValue={product.size}
                   ></Select>
                 </div>
                 <div className={style.apdContainer}>
@@ -342,6 +367,7 @@ export default function AddProductDetails() {
                     onChange={(value) => changeHandler("brand", value)}
                     required
                     placeholder="Select a Brand"
+                    defaultValue={product.brand}
                   ></Select>
                 </div>
               </div>
@@ -405,6 +431,8 @@ export default function AddProductDetails() {
                       className={style.apdDatePickerBox}
                       placeholder="YYYY-MM-DD"
                       required
+                      name="date"
+                      value={data.date ? dayjs(data.date, "YYYY-MM-DD") : null}
                     />
                   </Space>
                 </div>
@@ -430,7 +458,7 @@ export default function AddProductDetails() {
                 loading={isLoading}
                 iconPosition="end"
               >
-                Add Product
+                Update Product
               </Button>
             </div>
           </Col>

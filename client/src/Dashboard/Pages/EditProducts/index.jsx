@@ -2,15 +2,21 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../Layouts/Navbar";
 import Sidebar from "../../Layouts/Sidebar";
 import { SidebarToggler } from "../../ContextHooks/sidebarToggler";
-import style from "./AllProducts.module.scss";
-import AllProductsDetails from "../../Components/AllProductsDetails";
+import style from "./EditProducts.module.scss";
+import EditProductDetails from "../../Components/EditProductsDetails";
+
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Loading from "../../../components/Loading";
 import { getProductsFirebase } from "../../../Redux/ProductsSlice";
-export default function AllProducts() {
+import Loading from "../../../components/Loading";
+
+export default function EditProducts() {
+  const location = useLocation();
+  const { product } = location.state;
   const dispatch = useDispatch();
   const products = useSelector((state) => state.Products.data);
   const [loading, setLoading] = useState(null);
+
   useEffect(() => {
     if (products.length === 0) {
       setLoading(true);
@@ -21,9 +27,8 @@ export default function AllProducts() {
       setLoading(false);
     }
   }, [dispatch, products.length]);
-  console.log(products);
   return (
-    <div className={style.AllProducts}>
+    <div className={style.EditProducts}>
       <SidebarToggler>
         <Navbar />
         <Sidebar />
@@ -33,7 +38,7 @@ export default function AllProducts() {
           </div>
         ) : (
           <>
-            <AllProductsDetails />
+            <EditProductDetails product={product} />
           </>
         )}
       </SidebarToggler>

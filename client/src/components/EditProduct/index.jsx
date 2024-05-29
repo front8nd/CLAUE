@@ -10,10 +10,10 @@ import {
   ref,
   getDownloadURL,
 } from "firebase/storage";
-import { POST_Category, POST_Color } from "../../API/POST_request";
-import { getProductsFirebase } from "../../Redux/ProductsSlice";
 import { database, storage } from "../../firebase";
 import { ref as dbRef, update, push, set } from "firebase/database";
+import { POST_Category, POST_Color } from "../../API/POST_request";
+import { getProductsFirebase } from "../../Redux/ProductsSlice";
 import { v4 as uuidv4 } from "uuid";
 import IMGLoader from "../IMGLoader";
 

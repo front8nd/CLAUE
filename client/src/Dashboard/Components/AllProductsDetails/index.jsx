@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./AllProductsDetails.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { GoNote } from "react-icons/go";
-import { Button, Space, Table, Tooltip, message } from "antd";
+import { Button, ConfigProvider, Space, Table, Tooltip, message } from "antd";
 import Highlighter from "react-highlight-words";
 import { AiOutlineDelete } from "react-icons/ai";
-import { FaRegEdit } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 import { TfiPlus } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
@@ -15,12 +14,14 @@ import { remove, ref as dbRef } from "firebase/database";
 import { database, storage } from "../../../firebase";
 import { deleteObject, ref, listAll } from "firebase/storage";
 import { getProductsFirebase } from "../../../Redux/ProductsSlice";
+import { FaEye } from "react-icons/fa";
+import { CiEdit } from "react-icons/ci";
+
 export default function AllProductsDetails() {
   const dispatch = useDispatch();
-
+  const navigation = useNavigate();
   const products = useSelector((state) => state.Products.data);
   const { sidebarVisible } = useSidebarToggler();
-  const navigation = useNavigate();
   const columns = [
     {
       title: "Product",
@@ -121,15 +122,31 @@ export default function AllProductsDetails() {
       title: "Action",
       key: products.id,
       dataIndex: products.id,
-      render: (text) => (
-        <Space size="middle">
-          <Tooltip title="Edit" color={"blue"}>
-            <FaRegEdit className={style.apICONEdit} />
+      render: (record) => (
+        <Space size="large">
+          <Tooltip
+            onClick={() => {
+              navigation(`/product/${record.id}`);
+            }}
+            title="View"
+            color={"blue"}
+          >
+            <FaEye className={style.apICONView} />
+          </Tooltip>
+          <Tooltip title="Edit" color={"green"}>
+            <CiEdit
+              onClick={() => {
+                navigation(`/EditProduct/${record.id}`, {
+                  state: { product: record },
+                });
+              }}
+              className={style.apICONEdit}
+            />
           </Tooltip>
           <Tooltip title="Delete" color={"red"}>
             <AiOutlineDelete
               onClick={() => {
-                handleDelete(text);
+                handleDelete(record);
               }}
               className={style.apICON}
             />
@@ -149,14 +166,15 @@ export default function AllProductsDetails() {
         item.title.toLowerCase().includes(searchText.toLowerCase())
       )
     );
-  }, [searchText]);
+  }, [searchText, products]);
 
   // Delete Data
   const handleDelete = async (post) => {
     message.loading("Deletion in Progress..");
     try {
-      const productRef = dbRef(database, `products/${post.id}`);
+      const productRef = dbRef(database, `products/${post.firebaseId}`);
       await remove(productRef);
+      console.log(productRef);
       const directoryRef = ref(storage, `images/${post.imagesID}`);
       await deleteFilesInDirectory(directoryRef);
       dispatch(getProductsFirebase());
@@ -178,7 +196,6 @@ export default function AllProductsDetails() {
     });
     await Promise.all(deletePromises);
   };
-
   return (
     <div
       className={
@@ -220,13 +237,23 @@ export default function AllProductsDetails() {
             Add New
           </Button>
         </div>
-        <Table
-          columns={columns}
-          dataSource={filteredData}
-          pagination={{ pageSize: 10 }}
-          className="customTable"
-          virtual
-        />
+        <ConfigProvider
+          theme={{
+            components: {
+              Table: {
+                bodySortBg: "#edf1f5",
+              },
+            },
+          }}
+        >
+          <Table
+            columns={columns}
+            dataSource={filteredData}
+            pagination={{ pageSize: 10 }}
+            className="customTable"
+            virtual
+          />
+        </ConfigProvider>
       </div>
     </div>
   );
