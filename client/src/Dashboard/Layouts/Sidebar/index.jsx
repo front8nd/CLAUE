@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import style from "./Sidebar.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { RiMenuFoldLine } from "react-icons/ri";
@@ -14,32 +14,23 @@ import { FiFacebook } from "react-icons/fi";
 import { CiTwitter } from "react-icons/ci";
 import { FiLinkedin } from "react-icons/fi";
 import { FaInstagram } from "react-icons/fa";
-
 import ContactSVG from "../../Assets/contact.svg";
 import Logo from "../../Assets/logo.png";
 
 export default function Sidebar() {
+  const url = useLocation();
+  const urlParent = url.pathname.split("/").filter(Boolean)[0];
+  const urlSub = url.pathname.split("/").filter(Boolean)[1];
   const { sidebarVisible, toggleSidebar } = useSidebarToggler();
-  const [expandMenuItem, setExpandMenuItem] = useState(null);
-  const [expandSubMenuItem, setExpandSubMenuItem] = useState(null);
+  const [expandMenuItem, setExpandMenuItem] = useState(urlParent);
+  const [expandSubMenuItem, setExpandSubMenuItem] = useState(urlSub);
 
-  useEffect(() => {
-    // Retrieve menu state from session storage
-    const savedMenuItem = sessionStorage.getItem("expandMenuItem");
-    const savedSubMenuItem = sessionStorage.getItem("expandSubMenuItem");
-    if (savedMenuItem) setExpandMenuItem(savedMenuItem);
-    if (savedSubMenuItem) setExpandSubMenuItem(savedSubMenuItem);
-  }, []);
-
-  // Save menu state to session storage
   const handleMenuItemClick = (menuItem) => {
     setExpandMenuItem(menuItem);
-    sessionStorage.setItem("expandMenuItem", menuItem);
   };
 
   const handleSubMenuItemClick = (subMenuItem) => {
     setExpandSubMenuItem(subMenuItem);
-    sessionStorage.setItem("expandSubMenuItem", subMenuItem);
   };
 
   if (!sidebarVisible) {
@@ -59,11 +50,11 @@ export default function Sidebar() {
       </div>
       <div className={style.sidebarMainMenu}>
         <div className={style.sidebarMenuLabel}>MAIN HOME</div>
-        <Link className={style.SidebarLink} to="/admin/">
+        <Link className={style.SidebarLink} to="/Admin/">
           <div
-            onClick={() => handleMenuItemClick("Dashboard")}
+            onClick={() => handleMenuItemClick("Admin")}
             className={
-              expandMenuItem === "Dashboard"
+              expandMenuItem === "Admin"
                 ? style.sidebarMenuActive
                 : style.sidebarMenu
             }
@@ -99,7 +90,7 @@ export default function Sidebar() {
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/AddProducts/"
+                to="/Products/AddProducts/"
               >
                 <li className={style.sidebarSubMenuList}>Add New Product</li>
               </Link>
@@ -110,7 +101,7 @@ export default function Sidebar() {
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/AllProducts/"
+                to="/Products/AllProducts/"
               >
                 <li className={style.sidebarSubMenuList}>All Products</li>
               </Link>
@@ -141,7 +132,7 @@ export default function Sidebar() {
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/AddCategory/"
+                to="/Category/AddCategory/"
               >
                 <li className={style.sidebarSubMenuList}>Add New Category</li>
               </Link>
@@ -152,7 +143,7 @@ export default function Sidebar() {
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/AllCategory/"
+                to="/Category/AllCategory/"
               >
                 <li className={style.sidebarSubMenuList}>All Categories</li>
               </Link>
@@ -183,7 +174,7 @@ export default function Sidebar() {
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/AddAttributes/"
+                to="/Attributes/AddAttributes/"
               >
                 <li className={style.sidebarSubMenuList}>Add Attributes</li>
               </Link>
@@ -194,7 +185,7 @@ export default function Sidebar() {
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/AllAttributes/"
+                to="/Attributes/AllAttributes/"
               >
                 <li className={style.sidebarSubMenuList}>All Attributes</li>
               </Link>
@@ -225,7 +216,7 @@ export default function Sidebar() {
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/AllOrders/"
+                to="/Orders/AllOrders/"
               >
                 <li className={style.sidebarSubMenuList}>All Orders</li>
               </Link>
@@ -236,7 +227,7 @@ export default function Sidebar() {
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/TrackOrder/"
+                to="/Orders/TrackOrder/"
               >
                 <li className={style.sidebarSubMenuList}>Track Order</li>
               </Link>

@@ -16,6 +16,8 @@ import { database, storage } from "../../../firebase";
 import { ref as dbRef, update } from "firebase/database";
 import style from "./EditProductsDetails.module.scss";
 import dayjs from "dayjs";
+import { Navigate, useNavigate } from "react-router-dom";
+import { getProductsFirebase } from "../../../Redux/ProductsSlice";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -29,6 +31,7 @@ export default function EditProductDetails({ product }) {
   const { TextArea } = Input;
   const { sidebarVisible } = useSidebarToggler();
   const [isLoading, setLoading] = useState(false);
+  const navigation = useNavigate();
   const colorsArray = useSelector((state) => state.Products.arrayColors);
   const sizesArray = useSelector((state) => state.Products.arraySizes);
   const categoryArray = useSelector((state) => state.Products.arrayCategory);
@@ -196,28 +199,35 @@ export default function EditProductDetails({ product }) {
   };
 
   // Delete Images
-  console.log(fileList);
+  function extractFileName(url) {
+    const parts = url.split("/");
+    const fileName = parts[parts.length - 1];
+    const fileNameWithoutParams = fileName.split("?")[0];
+    const splitFileName = fileNameWithoutParams.split("%2F");
+    return splitFileName[splitFileName.length - 1];
+  }
   const handleDeleteImages = async (file) => {
     try {
       message.loading("Deleting, Please wait..");
-      console.log(file);
-      // const folderRef = ref(storage, `images/${data.imagesID}`);
-      // const result = await listAll(folderRef);
-      // const filesToDelete = result.items.filter((item) =>
-      //   item.name.includes(file.name)
-      // );
-      // const deletePromises = filesToDelete.map(async (fileRef) => {
-      //   const url = await getDownloadURL(fileRef);
-      //   await deleteObject(fileRef);
-      //   return url;
-      // });
+      const newFile = extractFileName(file.url);
+      console.log(newFile);
+      const folderRef = ref(storage, `images/${data.imagesID}`);
+      const result = await listAll(folderRef);
+      const filesToDelete = result.items.filter((item) =>
+        item.name.includes(newFile)
+      );
+      const deletePromises = filesToDelete.map(async (fileRef) => {
+        const url = await getDownloadURL(fileRef);
+        await deleteObject(fileRef);
+        return url;
+      });
 
-      // const deletedUrls = await Promise.all(deletePromises);
+      const deletedUrls = await Promise.all(deletePromises);
 
-      // setData((prevData) => ({
-      //   ...prevData,
-      //   images: prevData.images.filter((image) => !deletedUrls.includes(image)),
-      // }));
+      setData((prevData) => ({
+        ...prevData,
+        images: prevData.images.filter((image) => !deletedUrls.includes(image)),
+      }));
 
       message.info("Deletion Successful");
     } catch (error) {
@@ -236,12 +246,11 @@ export default function EditProductDetails({ product }) {
     try {
       await update(productRef, data);
       dispatch(getProductsFirebase());
-      dispatch(setShowEditPage(false));
       console.log("Data updated successfully!");
     } catch (error) {
       console.log("Error updating data:", error);
     }
-    message.info("Post Added");
+    message.info("Post Updated");
     setData({
       id: "",
       title: "",
@@ -261,6 +270,7 @@ export default function EditProductDetails({ product }) {
     });
     setFileList([]);
     setLoading(false);
+    navigation("/AddProducts/");
   };
 
   return (

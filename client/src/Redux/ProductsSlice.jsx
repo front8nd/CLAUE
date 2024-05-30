@@ -141,12 +141,14 @@ const ProductsSlice = createSlice({
                   firebaseId: subCategory.id,
                   id: subCategory.id,
                   subCategory: subCategory.name,
+                  parentfirebaseId: firebaseId,
                 }))
               : Object.entries(category.subcategories).map(
                   ([subFirebaseId, subCategory]) => ({
                     firebaseId: subFirebaseId,
                     id: subCategory.id,
                     subCategory: subCategory.name,
+                    parentfirebaseId: firebaseId,
                   })
                 )
             : [], // Empty array if subcategories do not exist

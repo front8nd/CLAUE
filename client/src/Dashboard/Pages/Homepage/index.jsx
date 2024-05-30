@@ -12,7 +12,6 @@ export default function DashboardHomepage() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.Products.data);
   const [loading, setLoading] = useState(null);
-
   useEffect(() => {
     if (products.length === 0) {
       setLoading(true);

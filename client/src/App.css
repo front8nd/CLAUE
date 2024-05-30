@@ -132,6 +132,12 @@
   background-color: #f6f8fbcc;
 }
 
+.expandTable .ant-table {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+/* Ant Design Badge */
+
 .ant-badge {
   box-sizing: border-box;
   margin: 0;

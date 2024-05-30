@@ -119,6 +119,14 @@ export default function AllProductsDetails() {
       },
     },
     {
+      title: "Published",
+      dataIndex: products.date,
+      key: products.date,
+      render: (text) => {
+        return <div className={style.truncate}>{text?.date}</div>;
+      },
+    },
+    {
       title: "Action",
       key: products.id,
       dataIndex: products.id,
@@ -136,9 +144,7 @@ export default function AllProductsDetails() {
           <Tooltip title="Edit" color={"green"}>
             <CiEdit
               onClick={() => {
-                navigation(`/EditProduct/${record.id}`, {
-                  state: { product: record },
-                });
+                navigation(`/EditProduct/${record.id}`);
               }}
               className={style.apICONEdit}
             />
@@ -170,7 +176,7 @@ export default function AllProductsDetails() {
 
   // Delete Data
   const handleDelete = async (post) => {
-    message.loading("Deletion in Progress..");
+    message.open({ content: "Deletion in Progress..", type: "loading" });
     try {
       const productRef = dbRef(database, `products/${post.firebaseId}`);
       await remove(productRef);
@@ -178,10 +184,10 @@ export default function AllProductsDetails() {
       const directoryRef = ref(storage, `images/${post.imagesID}`);
       await deleteFilesInDirectory(directoryRef);
       dispatch(getProductsFirebase());
-      message.info("Deleted Successfully");
+      message.open({ content: "Deleted Successfully", type: "success" });
     } catch (error) {
       console.log(error);
-      message.info("Deletion Failed", error);
+      message.open({ content: "Deletion Failed", type: "error" });
     }
   };
 
@@ -196,6 +202,17 @@ export default function AllProductsDetails() {
     });
     await Promise.all(deletePromises);
   };
+
+  // Custom Message Pop
+
+  const [messageApi, contextHolder] = message.useMessage();
+  const openMessage = ({ content, type }) => {
+    messageApi.open({
+      key: "messageBox",
+      type: type,
+      content: content,
+    });
+  };
   return (
     <div
       className={
@@ -204,6 +221,7 @@ export default function AllProductsDetails() {
           : style.AllProductDetails
       }
     >
+      {contextHolder}
       <div className={style.pageHeader}>
         <p className={style.cardTitle}>All Products</p>
         <Pagination />
@@ -228,8 +246,7 @@ export default function AllProductsDetails() {
           </div>
           <Button
             onClick={() => {
-              localStorage.setItem("expandSubMenuItem", "AddProducts");
-              navigation("/AddProducts");
+              navigation("/Products/AddProducts");
             }}
             className={style.apButton}
           >

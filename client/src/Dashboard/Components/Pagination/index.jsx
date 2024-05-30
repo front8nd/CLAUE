@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import style from "./Pagination.module.scss";
 import { Breadcrumb } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Pagination() {
-  const parentMenu = localStorage.getItem("expandMenuItem");
-  const subMenu = localStorage.getItem("expandSubMenuItem");
-
+  const url = useLocation();
+  const urlParent = url.pathname.split("/").filter(Boolean)[0];
+  const urlSub = url.pathname.split("/").filter(Boolean)[1];
   return (
     <Breadcrumb
       items={[
@@ -14,10 +14,10 @@ export default function Pagination() {
           title: "Home",
         },
         {
-          title: <Link href={`/${subMenu}`}>{parentMenu}</Link>,
+          title: <p>{urlParent} </p>,
         },
         {
-          title: <a>{subMenu}</a>,
+          title: <p>{urlSub}</p>,
         },
       ]}
     />

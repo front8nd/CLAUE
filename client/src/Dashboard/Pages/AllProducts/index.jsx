@@ -32,9 +32,7 @@ export default function AllProducts() {
             <Loading />
           </div>
         ) : (
-          <>
-            <AllProductsDetails />
-          </>
+          <AllProductsDetails />
         )}
       </SidebarToggler>
     </div>

@@ -59,18 +59,6 @@ export default function Dashboard() {
     }
   }, [dispatch, products.length]);
 
-  // if (!authChecked || loading) {
-  //   return <Loading />;
-  // }
-
-  // if (!userState || !userDetails) {
-  //   return (
-  //     <div className="already-logged-in">
-  //       <p className="already-logged-in-msg">User Not Logged In</p>
-  //     </div>
-  //   );
-  // }
-
   return (
     <>
       <BacktoTop />

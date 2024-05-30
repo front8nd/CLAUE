@@ -56,18 +56,20 @@ function App() {
           <Route path="/search/:searchQuery" element={<Search />} />
           <Route path="/return" element={<Return />} />
           <Route path="/StripeCheckout" element={<StripeCheckout />} />
-          <Route path="/admin" element={<DashboardHomepage />} />
-          <Route path="/AddProducts" element={<AddProducts />} />
-          <Route path="/EditProduct/:ProductID" element={<EditProducts />} />
-          <Route path="/AllProducts" element={<AllProducts />} />
-          <Route path="/AddCategory" element={<AddCategory />} />
-          <Route path="/AllCategory" element={<AllCategory />} />
-          <Route path="/AddAttributes" element={<AddAttributes />} />
-          <Route path="/AllAttributes" element={<AllAttributes />} />
+          <Route path="/Admin" element={<DashboardHomepage />} />
+          <Route path="/Products/AddProducts" element={<AddProducts />} />
+          <Route
+            path="/Products/EditProduct/:ProductID"
+            element={<EditProducts />}
+          />
+          <Route path="/Products/AllProducts" element={<AllProducts />} />
+          <Route path="/Category/AddCategory" element={<AddCategory />} />
+          <Route path="/Category/AllCategory" element={<AllCategory />} />
+          <Route path="/Attributes/AddAttributes" element={<AddAttributes />} />
+          <Route path="/Attributes/AllAttributes" element={<AllAttributes />} />
+          <Route path="/Orders/AllOrders" element={<AllOrders />} />
+          <Route path="/Orders/TrackOrder" element={<TrackOrder />} />
           <Route path="/Users" element={<Users />} />
-          <Route path="/AllOrders" element={<AllOrders />} />
-          <Route path="/TrackOrder" element={<TrackOrder />} />
-
           <Route path="*" element={<NotFound404 />} />
         </Routes>
       </Router>
