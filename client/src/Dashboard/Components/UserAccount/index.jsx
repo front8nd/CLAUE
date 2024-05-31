@@ -3,7 +3,7 @@ import style from "./UserAccount.module.scss";
 import { AiOutlineUser } from "react-icons/ai";
 import { TbLogout2 } from "react-icons/tb";
 
-export default function UserAccount() {
+export default function UserAccount({ userDetails }) {
   const [showAccount, setShowAccount] = useState(false);
   return (
     <div className={style.alignAdmin}>
@@ -21,7 +21,9 @@ export default function UserAccount() {
           ></img>
         </div>
         <div className={style.adminDetails}>
-          <label className={style.adminUsername}>Kristine Watson</label>
+          <label
+            className={style.adminUsername}
+          >{`${userDetails.firstName} ${userDetails.lastName} `}</label>
           <label className={style.adminRole}>Admin</label>
         </div>
         {showAccount && (
