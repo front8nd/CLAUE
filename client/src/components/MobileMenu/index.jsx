@@ -1,16 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { IoIosCloseCircleOutline } from "react-icons/io";
+import { IoIosCloseCircleOutline, IoIosLogOut } from "react-icons/io";
 import { setShowMobileMenu } from "../../Redux/ProductsSlice";
 import { IoIosArrowDown } from "react-icons/io";
+import { VscAccount } from "react-icons/vsc";
 
 export default function MobileMenu() {
+  const userState = useSelector((state) => state.User.users);
   const categoryList = useSelector((state) => state.Products.arrayCategory);
   const showMobileMenu = useSelector((state) => state.Products.showMobileMenu);
   const dispatch = useDispatch();
   const [hide, setHide] = useState(false);
+  const logoutUser = async () => {
+    try {
+      const res = await auth.signOut();
+      dispatch(userLoggedIn(false));
+      window.location.href = "/";
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {}, [dispatch]);
+
   return (
     showMobileMenu && (
       <>
@@ -43,7 +57,7 @@ export default function MobileMenu() {
                   href="#"
                   className="hide-decoration"
                 >
-                  <span className="cat-with-icon">
+                  <span className="mm-withICON">
                     Categories
                     <IoIosArrowDown />
                   </span>
@@ -84,9 +98,27 @@ export default function MobileMenu() {
               </Link>
             </li>
             <li className="mobilemenu-list-items ">
-              <Link className="red " href="#">
-                Buy Now
-              </Link>
+              {userState === false ? (
+                <Link to={"/login/"}>
+                  <button className="icon-menu-item hideMobile">
+                    <VscAccount />
+                  </button>
+                </Link>
+              ) : (
+                <Link to={"/Admin/"}>
+                  <button className="icon-menu-item hideMobile">
+                    <VscAccount />
+                  </button>
+                </Link>
+              )}
+              {userState && (
+                <button onClick={logoutUser} className="icon-menu-item">
+                  <span className="mm-withICON ">
+                    Logout
+                    <IoIosLogOut />
+                  </span>
+                </button>
+              )}
             </li>
           </ul>
         </div>

@@ -119,7 +119,7 @@ export default function MainBar() {
             </button>
           </Link>
         ) : (
-          <Link to={"/dashboard/"}>
+          <Link to={"/Admin/"}>
             <button className="icon-menu-item hideMobile">
               <VscAccount />
             </button>

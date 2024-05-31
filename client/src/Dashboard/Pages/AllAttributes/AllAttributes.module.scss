@@ -1,3 +1,21 @@
 .AllAttributes {
   display: flex;
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    place-content: center;
+    margin-left: 280px;
+    width: calc(100% - 320px);
+  }
+  .loadingFull {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    place-content: center;
+    margin-left: 280px;
+    width: 100%;
+  }
 }

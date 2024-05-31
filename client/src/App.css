@@ -154,5 +154,5 @@
   width: fit-content;
 }
 .bgColor {
-  background-color: #f2f7fb;
+  background-color: #f2f7fb !important;
 }

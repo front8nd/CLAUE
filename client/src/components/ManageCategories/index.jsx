@@ -3,7 +3,7 @@ import { POST_Category } from "../../API/POST_request";
 import { v4 as uuidv4 } from "uuid";
 import { getProductsFirebase } from "../../Redux/ProductsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { database, storage } from "../../firebase";
+import { database } from "../../firebase";
 import { remove, ref as dbRef, push, set } from "firebase/database";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import "./style.css";

@@ -117,19 +117,26 @@ const ProductsSlice = createSlice({
 
       state.arrayColors = Object.entries(action.payload.colors).map(
         ([firebaseId, e]) => ({
-          firebaseID: firebaseId,
+          firebaseId: firebaseId,
           id: e.id,
           color: e.name,
         })
       );
-      state.arraySizes = Object.values(action.payload.sizes).map((e) => ({
-        id: e.id,
-        size: e.name,
-      }));
-      state.arrayBrands = Object.values(action.payload.brands).map((e) => ({
-        id: e.id,
-        brand: e.name,
-      }));
+      state.arraySizes = Object.entries(action.payload.sizes).map(
+        ([firebaseId, e]) => ({
+          firebaseId: firebaseId,
+          id: e.id,
+          size: e.name,
+        })
+      );
+      state.arrayBrands = Object.entries(action.payload.brands).map(
+        ([firebaseId, e]) => ({
+          firebaseId: firebaseId,
+          id: e.id,
+          brand: e.name,
+        })
+      );
+
       state.arrayCategory = Object.entries(action.payload.categories).map(
         ([firebaseId, category]) => ({
           firebaseId: firebaseId,

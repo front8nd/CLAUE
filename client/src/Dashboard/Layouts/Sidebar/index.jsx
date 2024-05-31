@@ -16,6 +16,7 @@ import { FiLinkedin } from "react-icons/fi";
 import { FaInstagram } from "react-icons/fa";
 import ContactSVG from "../../Assets/contact.svg";
 import Logo from "../../Assets/logo.png";
+import { IoHomeOutline } from "react-icons/io5";
 
 export default function Sidebar() {
   const url = useLocation();
@@ -62,6 +63,17 @@ export default function Sidebar() {
             <div className={style.sidebarMenuItem}>
               <RxDashboard className={style.sidebarMenuIcon} />
               <span>Dashboard</span>
+            </div>
+          </div>
+        </Link>
+        <Link className={style.SidebarLink} to="/">
+          <div
+            onClick={() => handleMenuItemClick("Admin")}
+            className={style.sidebarMenu}
+          >
+            <div className={style.sidebarMenuItem}>
+              <IoHomeOutline className={style.sidebarMenuIcon} />
+              <span>Homepage</span>
             </div>
           </div>
         </Link>

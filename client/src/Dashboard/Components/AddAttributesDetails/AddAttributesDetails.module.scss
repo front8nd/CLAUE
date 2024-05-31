@@ -137,8 +137,11 @@
 }
 @media screen and (max-width: 612px) {
   .AddAttributesDetails {
-    margin-left: 0;
+    margin: 0;
     width: 100%;
+  }
+  .AddAttributesDetailsFull {
+    margin: 0;
   }
   .cardBG {
     margin-left: 0;

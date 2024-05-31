@@ -42,6 +42,12 @@ function App() {
           <Route path="/cart/" element={<Cart />} />
           <Route path="/login/" element={<Login />} />
           <Route path="/register/" element={<Register />} />
+          <Route path="/category/:categoryName" element={<Category />} />
+          <Route path="/Shop/" element={<Shop />} />
+          <Route path="/Checkout/" element={<Checkout />} />
+          <Route path="/search/:searchQuery" element={<Search />} />
+          <Route path="/return" element={<Return />} />
+          <Route path="/StripeCheckout" element={<StripeCheckout />} />
           <Route
             path="/dashboard/"
             element={<ProtectedRoutes component={Dashboard} />}
@@ -50,26 +56,50 @@ function App() {
             path="/publish/"
             element={<ProtectedRoutes component={PublishContent} />}
           />
-          <Route path="/category/:categoryName" element={<Category />} />
-          <Route path="/Shop/" element={<Shop />} />
-          <Route path="/Checkout/" element={<Checkout />} />
-          <Route path="/search/:searchQuery" element={<Search />} />
-          <Route path="/return" element={<Return />} />
-          <Route path="/StripeCheckout" element={<StripeCheckout />} />
-          <Route path="/Admin" element={<DashboardHomepage />} />
-          <Route path="/Products/AddProducts" element={<AddProducts />} />
+          <Route
+            path="/Admin"
+            element={<ProtectedRoutes component={DashboardHomepage} />}
+          />
+          <Route
+            path="/Products/AddProducts"
+            element={<ProtectedRoutes component={AddProducts} />}
+          />
           <Route
             path="/Products/EditProduct/:ProductID"
-            element={<EditProducts />}
+            element={<ProtectedRoutes component={EditProducts} />}
           />
-          <Route path="/Products/AllProducts" element={<AllProducts />} />
-          <Route path="/Category/AddCategory" element={<AddCategory />} />
-          <Route path="/Category/AllCategory" element={<AllCategory />} />
-          <Route path="/Attributes/AddAttributes" element={<AddAttributes />} />
-          <Route path="/Attributes/AllAttributes" element={<AllAttributes />} />
-          <Route path="/Orders/AllOrders" element={<AllOrders />} />
-          <Route path="/Orders/TrackOrder" element={<TrackOrder />} />
-          <Route path="/Users" element={<Users />} />
+          <Route
+            path="/Products/AllProducts"
+            element={<ProtectedRoutes component={AllProducts} />}
+          />
+          <Route
+            path="/Category/AddCategory"
+            element={<ProtectedRoutes component={AddCategory} />}
+          />
+          <Route
+            path="/Category/AllCategory"
+            element={<ProtectedRoutes component={AllCategory} />}
+          />
+          <Route
+            path="/Attributes/AddAttributes"
+            element={<ProtectedRoutes component={AddAttributes} />}
+          />
+          <Route
+            path="/Attributes/AllAttributes"
+            element={<ProtectedRoutes component={AllAttributes} />}
+          />
+          <Route
+            path="/Orders/AllOrders"
+            element={<ProtectedRoutes component={AllOrders} />}
+          />
+          <Route
+            path="/Orders/TrackOrder"
+            element={<ProtectedRoutes component={TrackOrder} />}
+          />
+          <Route
+            path="/Users"
+            element={<ProtectedRoutes component={Users} />}
+          />
           <Route path="*" element={<NotFound404 />} />
         </Routes>
       </Router>

@@ -10,8 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function SearchBar() {
   const products = useSelector((state) => state.Products.data);
-  const [imageURLs, setImageURLs] = useState({});
-  const [imgLoading, setImgLoading] = useState(true);
+  const [imgLoading, setImgLoading] = useState(false);
   const dispatch = useDispatch();
   const [updatedProducts, setUpdatedProducts] = useState([]);
   const [search, setSearch] = useState("");
@@ -30,39 +29,40 @@ export default function SearchBar() {
     setUpdatedProducts(filteredProducts);
   }, [search, products]);
 
-  const fetchImageURLs = async () => {
-    setImgLoading(true);
-    const urls = {};
-    for (const product of products) {
-      try {
-        const imageURL = await getFirstImageURL(product.imagesID);
-        urls[product.imagesID] = imageURL;
-      } catch (error) {
-        console.error("Error fetching image URL:", error);
-      }
-    }
-    setImageURLs(urls);
-    setImgLoading(false);
-  };
+  //const [imageURLs, setImageURLs] = useState({});
+  // const fetchImageURLs = async () => {
+  //   setImgLoading(true);
+  //   const urls = {};
+  //   for (const product of products) {
+  //     try {
+  //       const imageURL = await getFirstImageURL(product.imagesID);
+  //       urls[product.imagesID] = imageURL;
+  //     } catch (error) {
+  //       console.error("Error fetching image URL:", error);
+  //     }
+  //   }
+  //   setImageURLs(urls);
+  //   setImgLoading(false);
+  // };
 
-  useEffect(() => {
-    if (products && products.length > 0) {
-      fetchImageURLs();
-    }
-  }, [products]);
+  // useEffect(() => {
+  //   if (products && products.length > 0) {
+  //     fetchImageURLs();
+  //   }
+  // }, [products]);
 
-  const getFirstImageURL = async (productId) => {
-    try {
-      const imageRef = ref(storage, `images/${productId}`);
-      const imageList = await listAll(imageRef);
-      const firstImageRef = imageList.items[0];
-      const imageURL = await getDownloadURL(firstImageRef);
-      return imageURL;
-    } catch (error) {
-      console.error("Error fetching first image URL:", error);
-      throw error;
-    }
-  };
+  // const getFirstImageURL = async (productId) => {
+  //   try {
+  //     const imageRef = ref(storage, `images/${productId}`);
+  //     const imageList = await listAll(imageRef);
+  //     const firstImageRef = imageList.items[0];
+  //     const imageURL = await getDownloadURL(firstImageRef);
+  //     return imageURL;
+  //   } catch (error) {
+  //     console.error("Error fetching first image URL:", error);
+  //     throw error;
+  //   }
+  // };
   return (
     <div className="SearchBar">
       <div className="search-container">
@@ -97,7 +97,7 @@ export default function SearchBar() {
                       </div>
                     ) : (
                       <img
-                        src={imageURLs[e.imagesID]}
+                        src={e.images[0]}
                         className="search-img"
                         alt={e.title}
                       />

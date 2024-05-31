@@ -31,8 +31,8 @@ export default function AddProductDetails() {
   const [isLoading, setLoading] = useState(false);
   const colorsArray = useSelector((state) => state.Products.arrayColors);
   const sizesArray = useSelector((state) => state.Products.arraySizes);
-  const categoryArray = useSelector((state) => state.Products.arrayCategory);
   const brandArray = useSelector((state) => state.Products.arrayBrands);
+  const categoryArray = useSelector((state) => state.Products.arrayCategory);
   const [data, setData] = useState({
     id: "",
     title: "",
@@ -44,7 +44,7 @@ export default function AddProductDetails() {
     size: "",
     categories: {
       category: "",
-      subCategory: "",
+      subCategory: null,
     },
     imagesID: "",
     images: [],

@@ -11,8 +11,8 @@ import { CiSearch } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsFirebase } from "../../../Redux/ProductsSlice";
-import { remove, ref as dbRef, push, set } from "firebase/database";
-import { database, storage } from "../../../firebase";
+import { remove, ref as dbRef } from "firebase/database";
+import { database } from "../../../firebase";
 
 export default function AllCategoryDetails() {
   const [loading, setLoading] = useState(false);
