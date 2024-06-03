@@ -51,7 +51,6 @@ const ProductsSlice = createSlice({
   reducers: {
     setPriceRange: (state, action) => {
       const { min, max } = action.payload;
-      console.log("s", action.payload);
       state.filteredPrice.minPrice = min;
       state.filteredPrice.maxPrice = max;
     },

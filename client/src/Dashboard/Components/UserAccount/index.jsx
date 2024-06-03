@@ -7,7 +7,6 @@ export default function UserAccount({ userDetails }) {
   const [showAccount, setShowAccount] = useState(false);
   return (
     <div className={style.alignAdmin}>
-      <span></span>
       <div
         onClick={() => {
           setShowAccount(!showAccount);
@@ -15,15 +14,12 @@ export default function UserAccount({ userDetails }) {
         className={style.UserAccount}
       >
         <div>
-          <img
-            src="/src/Dashboard/Assets/user-1.png"
-            className={style.adminPicture}
-          ></img>
+          <img src={userDetails.avatar} className={style.adminPicture}></img>
         </div>
         <div className={style.adminDetails}>
           <label
             className={style.adminUsername}
-          >{`${userDetails.firstName} ${userDetails.lastName} `}</label>
+          >{`${userDetails.firstName}  `}</label>
           <label className={style.adminRole}>Admin</label>
         </div>
         {showAccount && (

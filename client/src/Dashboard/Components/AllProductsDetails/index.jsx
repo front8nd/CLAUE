@@ -180,7 +180,6 @@ export default function AllProductsDetails() {
     try {
       const productRef = dbRef(database, `products/${post.firebaseId}`);
       await remove(productRef);
-      console.log(productRef);
       const directoryRef = ref(storage, `images/${post.imagesID}`);
       await deleteFilesInDirectory(directoryRef);
       dispatch(getProductsFirebase());

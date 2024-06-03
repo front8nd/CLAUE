@@ -8,6 +8,24 @@
   top: 75px;
   transition: margin-left 0.6s ease, width 0.6s ease;
   background-color: $backdrop;
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    place-content: center;
+    margin-left: 280px;
+    width: calc(100% - 320px);
+  }
+  .loadingFull {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    place-content: center;
+    margin-left: 280px;
+    width: 100%;
+  }
 }
 
 .UsersDetailsFull {
@@ -59,7 +77,7 @@
 }
 
 .udICON {
-  color: black;
+  color: red;
   font-size: 20px;
   cursor: pointer;
   &:hover {
@@ -67,11 +85,11 @@
   }
 }
 .udICONEdit {
-  color: black;
+  color: $Main;
   font-size: 20px;
   cursor: pointer;
   &:hover {
-    color: blue;
+    color: $Main;
   }
 }
 .pageHeader {

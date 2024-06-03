@@ -43,7 +43,6 @@ export default function Navbar() {
       }
     }
   };
-  console.log(userDetails);
   useEffect(() => {
     getUserDetails();
   }, []);

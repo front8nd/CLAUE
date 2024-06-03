@@ -25,7 +25,6 @@ export default function MobileMenu() {
     }
   };
   useEffect(() => {}, [dispatch]);
-  console.log(useState);
   return (
     showMobileMenu && (
       <>

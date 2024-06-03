@@ -21,7 +21,7 @@ export default function DashboardHomepage() {
     } else {
       setLoading(false);
     }
-  }, [dispatch, products.length]);
+  }, [products.length, dispatch]);
   return (
     <div className="bgColor">
       <SidebarToggler>
