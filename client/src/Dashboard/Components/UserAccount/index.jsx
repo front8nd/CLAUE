@@ -20,7 +20,7 @@ export default function UserAccount({ userDetails }) {
           <label
             className={style.adminUsername}
           >{`${userDetails.firstName}  `}</label>
-          <label className={style.adminRole}>Admin</label>
+          <label className={style.adminRole}>{userDetails.role}</label>
         </div>
         {showAccount && (
           <div className={style.userAccountMenu}>
