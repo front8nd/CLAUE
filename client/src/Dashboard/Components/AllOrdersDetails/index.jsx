@@ -90,7 +90,9 @@ export default function AllOrdersDetails() {
   const fetchStripeData = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5174/api/stripe-data");
+      const response = await fetch(
+        "https://arrowtheme-project.vercel.app/api/stripe-data"
+      );
       const balanceTransactions = await response.json();
       setStripeData(balanceTransactions);
     } catch (error) {
