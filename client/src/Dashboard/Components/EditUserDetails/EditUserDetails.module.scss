@@ -1,6 +1,6 @@
 @import "../../GlobalStyle/style.scss";
 
-.TrackOrderDetails {
+.EditUserDetails {
   margin-left: 280px;
   width: calc(100% - 320px);
   padding: 30px;
@@ -8,10 +8,27 @@
   top: 75px;
   transition: margin-left 0.6s ease, width 0.6s ease;
   background-color: $backdrop;
-  height: 80vh;
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    place-content: center;
+    margin-left: 280px;
+    width: calc(100% - 320px);
+  }
+  .loadingFull {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    place-content: center;
+    margin-left: 280px;
+    width: 100%;
+  }
 }
 
-.TrackOrderDetailsFull {
+.EditUserDetailsFull {
   margin-left: 0;
   width: 100%;
   transition: margin-left 0.6s ease, width 0.6s ease;
@@ -25,6 +42,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   margin: 10px;
 }
+
 .cardTitle {
   padding-bottom: 10px;
   margin-left: 10px;
@@ -34,27 +52,6 @@
   font-weight: bold;
   display: contents;
 }
-
-.toTitle {
-  font-size: 14px;
-  margin: 10px 0;
-  font-weight: bold;
-  &::after {
-    content: " *";
-    color: red;
-  }
-}
-
-.toContainer {
-  width: 50%;
-}
-
-.toButton {
-  height: 50px;
-  width: -webkit-fill-available;
-  margin: 10px 0;
-}
-
 .pageHeader {
   display: flex;
   justify-content: space-between;
@@ -63,14 +60,12 @@
   margin-bottom: 30px;
   padding: 0 15px;
 }
-
-.apInputBox {
+.auInput {
   outline: 0;
   box-shadow: none;
   width: 100%;
   padding: 14px 22px;
   font-size: 14px;
-  font-family: Inter, sans-serif;
   font-weight: 400;
   line-height: 20px;
   background-color: transparent;
@@ -79,21 +74,58 @@
   color: $Heading;
   overflow: hidden;
   margin-bottom: 0;
-  max-width: 50%;
-  display: flex;
-  justify-content: space-between;
+  &::placeholder {
+    color: $Note;
+  }
 }
-.apInput {
-  outline: none;
-  border: none;
-  width: 100%;
-}
-.apInputIcon {
-  vertical-align: middle;
-  font-size: 22px;
-  color: $Main;
+
+.auTitle {
+  font-size: 14px;
+  margin: 10px 0;
   font-weight: bold;
+  &::after {
+    content: " *";
+    color: red;
+  }
 }
+.auRole {
+  width: max-content;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 4px 16px;
+  gap: 5px;
+  border-radius: 1000px;
+  background: #f0f5f9;
+  transition: all 0.3s ease;
+  i {
+    font-size: 18px;
+  }
+}
+.auRoleActive {
+  width: max-content;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 4px 16px;
+  gap: 5px;
+  border-radius: 1000px;
+  background: $Main;
+  color: white;
+  transition: all 0.3s ease;
+  i {
+    font-size: 18px;
+  }
+}
+.auRoleBox {
+  display: flex;
+  gap: 10px;
+}
+
 .apButton {
   width: 100%;
   max-width: 200px;
@@ -129,59 +161,9 @@
     min-height: 18px;
   }
 }
-.apTextContainer {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 10px;
-  margin: 20px 0;
-}
-.apNote {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
-  color: $Body-Text;
-  min-width: 18px;
-  min-height: 18px;
-  text-wrap: wrap;
-}
-.apNoteICON {
-  font-size: 18px;
-  color: $Main;
-  flex-shrink: 0;
-  min-width: 18px;
-  min-height: 18px;
-}
-.apContainer {
-  display: flex;
-  align-items: center;
-  margin: 20px 0;
-  gap: 20px;
-}
-.toContainer {
-  width: 100%;
-}
-.toTable {
-  th {
-    font-weight: bold;
-    text-wrap: nowrap;
-    padding-right: 20px;
-    text-align: left;
-  }
-  td {
-    text-wrap: wrap;
-  }
-}
 @media screen and (max-width: 612px) {
-  .TrackOrderDetails {
+  .EditUserDetails {
     margin-left: 0;
-    width: 100%;
-  }
-  .cardBG {
-    margin-left: 0;
-    width: 100%;
-  }
-  .toContainer {
     width: 100%;
   }
   .pageHeader {
@@ -192,15 +174,5 @@
     margin-bottom: 20px;
     padding: 0 15px;
     flex-direction: column;
-  }
-  .apContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px 0;
-    gap: 20px;
-  }
-  .apInputBox {
-    width: 100%;
   }
 }

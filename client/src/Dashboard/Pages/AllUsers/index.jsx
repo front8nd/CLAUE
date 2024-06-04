@@ -3,11 +3,11 @@ import Navbar from "../../Layouts/Navbar";
 import Sidebar from "../../Layouts/Sidebar";
 import { SidebarToggler } from "../../ContextHooks/sidebarToggler";
 import style from "./Users.module.scss";
-import UsersDetails from "../../Components/UsersDetails";
+import AllUsersDetails from "../../Components/AllUsersDetails";
 import Loading from "../../../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../../Redux/UserSlice";
-export default function Users() {
+export default function AllUsers() {
   const [loading, setLoading] = useState(null);
   const userList = useSelector((state) => state.User.usersList);
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ export default function Users() {
             <Loading />
           </div>
         ) : (
-          <UsersDetails />
+          <AllUsersDetails />
         )}
       </SidebarToggler>
     </div>

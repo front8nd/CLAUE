@@ -246,21 +246,49 @@ export default function Sidebar() {
             </ul>
           </div>
         )}
-        <Link className={style.SidebarLink} to="/Users/">
-          <div
-            onClick={() => handleMenuItemClick("Users")}
-            className={
-              expandMenuItem === "Users"
-                ? style.sidebarMenuActive
-                : style.sidebarMenu
-            }
-          >
-            <div className={style.sidebarMenuItem}>
-              <FaRegUser className={style.sidebarMenuIcon} />
-              <span>Users</span>
-            </div>
+        <div
+          onClick={() => handleMenuItemClick("Users")}
+          className={
+            expandMenuItem === "Users"
+              ? style.sidebarMenuActive
+              : style.sidebarMenu
+          }
+        >
+          <div className={style.sidebarMenuItem}>
+            <FaRegUser className={style.sidebarMenuIcon} />
+            <span>Users</span>
           </div>
-        </Link>
+          <IoIosArrowDown className={style.arrowIcon} />
+        </div>
+        {expandMenuItem === "Users" && (
+          <div className={style.sidebarSubMenu}>
+            <ul>
+              <Link
+                onClick={() => handleSubMenuItemClick("AllUsers")}
+                className={
+                  expandSubMenuItem === "AllUsers"
+                    ? style.SidebarLinkActive
+                    : style.SidebarLink
+                }
+                to="/Users/AllUsers/"
+              >
+                <li className={style.sidebarSubMenuList}>All Users</li>
+              </Link>
+              <Link
+                onClick={() => handleSubMenuItemClick("AddUser")}
+                className={
+                  expandSubMenuItem === "AddUser"
+                    ? style.SidebarLinkActive
+                    : style.SidebarLink
+                }
+                to="/Users/AddUser/"
+              >
+                <li className={style.sidebarSubMenuList}>Add User</li>
+              </Link>
+            </ul>
+          </div>
+        )}
+
         <div style={{ margin: "10px" }} className={style.sidebarMenuLabel}>
           Contact Us
         </div>

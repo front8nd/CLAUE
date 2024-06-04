@@ -241,7 +241,16 @@ export default function AddProductDetails() {
     setLoading(false);
   };
   console.log(data);
+  // Custom Message Pop
 
+  const [messageApi, contextHolder] = message.useMessage();
+  const openMessage = ({ content, type }) => {
+    messageApi.open({
+      key: "messageBox",
+      type: type,
+      content: content,
+    });
+  };
   return (
     <div
       className={

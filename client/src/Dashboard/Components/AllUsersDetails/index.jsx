@@ -14,17 +14,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../../Redux/UserSlice";
 import { remove, ref as dbRef } from "firebase/database";
 import { deleteObject, ref, listAll } from "firebase/storage";
-export default function UsersDetails() {
+import { useNavigate } from "react-router-dom";
+export default function AllUsersDetails() {
   const usersList = useSelector((state) => state.User.usersList);
   const dispatch = useDispatch();
+  const navigation = useNavigate();
   const { sidebarVisible } = useSidebarToggler();
   const [loading, setLoading] = useState(false);
   const columns = [
     {
-      title: "Users",
+      title: "User",
       dataIndex: "title",
       key: "title",
-      width: "20%",
       sorter: (a, b) => a.title.localeCompare(b.title),
       sortDirections: ["descend", "ascend"],
 
@@ -54,6 +55,7 @@ export default function UsersDetails() {
             textToHighlight={
               record ? `${record.firstName} ${record.lastName}`.toString() : ""
             }
+            className={style.truncate}
           />
         </div>
       ),
@@ -62,28 +64,38 @@ export default function UsersDetails() {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: "30%",
       render: (text, record) => {
-        return <span>{record.email}</span>;
+        return <span className={style.truncate}>{record.email}</span>;
       },
     },
     {
-      title: "ID",
-      dataIndex: "id",
+      title: "Username",
+      dataIndex: "username",
       key: "id",
-      width: "30%",
       render: (text, record) => {
-        return <span>{record.id}</span>;
+        return <span className={style.truncate}>{text}</span>;
+      },
+    },
+    {
+      title: "Role",
+      dataIndex: "role",
+      key: "id",
+      render: (text, record) => {
+        return <span className={style.truncate}>{text}</span>;
       },
     },
     {
       title: "Action",
       key: "action",
-      width: "10%",
       render: (record) => (
         <Space size="middle">
           <Tooltip title="Edit User Account" color={"blue"}>
-            <FaRegEdit className={style.udICONEdit} />
+            <FaRegEdit
+              onClick={() => {
+                navigation("/Users/EditUser/", { state: record });
+              }}
+              className={style.udICONEdit}
+            />
           </Tooltip>
           <Tooltip
             onClick={() => {
@@ -145,7 +157,7 @@ export default function UsersDetails() {
       content: content,
     });
   };
-
+  console.log(usersList);
   return (
     <div
       className={

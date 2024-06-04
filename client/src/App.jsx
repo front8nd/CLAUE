@@ -26,7 +26,9 @@ import AddCategory from "./Dashboard/Pages/AddCategory/index.jsx";
 import AllCategory from "./Dashboard/Pages/AllCategory/index.jsx";
 import AddAttributes from "./Dashboard/Pages/AddAttributes/index.jsx";
 import AllAttributes from "./Dashboard/Pages/AllAttributes/index.jsx";
-import Users from "./Dashboard/Pages/Users/index.jsx";
+import AllUsers from "./Dashboard/Pages/AllUsers/index.jsx";
+import AddUser from "./Dashboard/Pages/AddUser/index.jsx";
+import EditUser from "./Dashboard/Pages/EditUser/index.jsx";
 import AllOrders from "./Dashboard/Pages/AllOrders/index.jsx";
 import TrackOrder from "./Dashboard/Pages/TrackOrder/index.jsx";
 import EditProducts from "./Dashboard/Pages/EditProducts/index.jsx";
@@ -97,8 +99,16 @@ function App() {
             element={<ProtectedRoutes component={TrackOrder} />}
           />
           <Route
-            path="/Users"
-            element={<ProtectedRoutes component={Users} />}
+            path="/Users/AllUsers"
+            element={<ProtectedRoutes component={AllUsers} />}
+          />
+          <Route
+            path="/Users/AddUser"
+            element={<ProtectedRoutes component={AddUser} />}
+          />
+          <Route
+            path="/Users/EditUser"
+            element={<ProtectedRoutes component={EditUser} />}
           />
           <Route path="*" element={<NotFound404 />} />
         </Routes>

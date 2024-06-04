@@ -34,6 +34,7 @@ export default function RegisterNewUser() {
     username: "",
     avatar: "",
     avatarID: "",
+    role: "user",
   });
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -180,6 +181,7 @@ export default function RegisterNewUser() {
           username: user.username,
           avatar: user.avatar,
           avatarID: user.avatarID,
+          role: user.role,
         });
       }
       setRegisMSG("Registration Successful, redirecting to login Page");
