@@ -113,6 +113,12 @@
   text-align: start;
   background-color: #f6f8fbcc !important;
   border: none !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: fit-content;
+  min-width: 60px;
+  text-transform: capitalize;
 }
 .customTable thead th:first-child {
   border-top-left-radius: 20px !important;

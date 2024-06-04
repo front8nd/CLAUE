@@ -26,16 +26,13 @@ export default function StripeCheckout() {
   );
 
   const fetchClientSecret = useCallback(() => {
-    return fetch(
-      "https://arrowtheme-project.vercel.app/create-checkout-session",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(productsArray),
-      }
-    )
+    return fetch("http://localhost:5174/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(productsArray),
+    })
       .then((res) => res.json())
       .then((data) => data.clientSecret);
   }, []);

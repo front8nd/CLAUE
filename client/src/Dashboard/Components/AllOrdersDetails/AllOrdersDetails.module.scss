@@ -22,9 +22,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   place-content: center;
-  margin-left: 280px;
   width: 100%;
 }
 
@@ -126,7 +124,26 @@
   margin-bottom: 30px;
   padding: 0 15px;
 }
-
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: fit-content;
+  min-width: 100px;
+  text-transform: capitalize;
+  list-style: none;
+}
+.apICONView {
+  color: $Main;
+  font-size: 20px;
+  cursor: pointer;
+  flex-shrink: 0;
+  min-width: 20px;
+  min-height: 20px;
+  &:hover {
+    color: $Main;
+  }
+}
 @media screen and (max-width: 612px) {
   .AllOrdersDetails {
     margin-left: 0;

@@ -40,7 +40,6 @@ app.post("/create-checkout-session", async (req, res) => {
       return_url: `http://localhost:5173/return?session_id={CHECKOUT_SESSION_ID}`,
     });
     res.send({ clientSecret: session.client_secret });
-    //res.json({ id: session.id });
   } catch (error) {
     console.error("Error creating checkout session:", error);
     res.status(500).json({ error: "Error creating checkout session" });
@@ -56,6 +55,32 @@ app.get("/session-status", async (req, res) => {
   } catch (error) {
     console.error("Error retrieving session status:", error);
     res.status(500).json({ error: "Error retrieving session status" });
+  }
+});
+
+// Stripe Data
+
+app.get("/api/stripeData", async (req, res) => {
+  try {
+    const charges = await stripe.charges.list({ limit: 100 });
+    res.status(200).json(charges);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Stripe Track Data
+
+app.post("/api/TrackOrder", async (req, res) => {
+  const { sessionId } = req.body;
+  if (!sessionId) {
+    return res.status(400).json({ error: "sessionId is required" });
+  }
+  try {
+    const session = await stripe.checkout.sessions.listLineItems(sessionId);
+    res.status(200).json(session);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 

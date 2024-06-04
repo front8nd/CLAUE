@@ -1,11 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "api/index.jsx", "use": "@vercel/node" },
-    { "src": "api/stripeData.jsx", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/create-checkout-session", "dest": "/api/index.jsx" },
-    { "src": "/api/stripe-data", "dest": "/api/stripeData.jsx" }
-  ]
+  "builds": [{ "src": "api/index.jsx", "use": "@vercel/node" }],
+  "routes": [{ "src": "/create-checkout-session", "dest": "/api/index.jsx" }]
 }
