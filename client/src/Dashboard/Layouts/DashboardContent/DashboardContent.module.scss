@@ -1,7 +1,7 @@
 .DashboardContent {
   margin-left: 280px;
   width: calc(100% - 320px);
-  padding: 20px;
+  padding: 30px 20px;
   position: relative;
   top: 80px;
   transition: margin-left 0.6s ease, width 0.6s ease;
@@ -25,6 +25,7 @@
 @media screen and (max-width: 612px) {
   .DashboardContent {
     margin-left: 0;
+    padding: 30px 0px;
     width: 100%;
   }
 }

@@ -18,10 +18,9 @@ export default function TrackOrderDetails() {
   const fetchStripeData = async () => {
     try {
       setLoading(true);
-      const response = await axios.post(
-        "http://localhost:5174/api/TrackOrder",
-        { sessionId }
-      );
+      const response = await axios.post("http://localhost:5174/TrackOrder", {
+        sessionId,
+      });
       setStripeData(response.data);
       setLoading(false);
     } catch (error) {

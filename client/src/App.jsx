@@ -52,47 +52,96 @@ function App() {
           <Route path="/StripeCheckout" element={<StripeCheckout />} />
           <Route
             path="/dashboard/"
-            element={<ProtectedRoutes component={Dashboard} />}
+            element={
+              <ProtectedRoutes component={Dashboard} allowedRoles={["user"]} />
+            }
           />
           <Route
             path="/publish/"
-            element={<ProtectedRoutes component={PublishContent} />}
+            element={
+              <ProtectedRoutes
+                component={PublishContent}
+                allowedRoles={["admin"]}
+              />
+            }
           />
           <Route
             path="/Admin"
-            element={<ProtectedRoutes component={DashboardHomepage} />}
+            element={
+              <ProtectedRoutes
+                component={DashboardHomepage}
+                allowedRoles={["admin"]}
+              />
+            }
           />
           <Route
             path="/Products/AddProducts"
-            element={<ProtectedRoutes component={AddProducts} />}
+            element={
+              <ProtectedRoutes
+                component={AddProducts}
+                allowedRoles={["admin"]}
+              />
+            }
           />
           <Route
             path="/Products/EditProduct/:ProductID"
-            element={<ProtectedRoutes component={EditProducts} />}
+            element={
+              <ProtectedRoutes
+                component={EditProducts}
+                allowedRoles={["admin"]}
+              />
+            }
           />
           <Route
             path="/Products/AllProducts"
-            element={<ProtectedRoutes component={AllProducts} />}
+            element={
+              <ProtectedRoutes
+                component={AllProducts}
+                allowedRoles={["admin"]}
+              />
+            }
           />
           <Route
             path="/Category/AddCategory"
-            element={<ProtectedRoutes component={AddCategory} />}
+            element={
+              <ProtectedRoutes
+                component={AddCategory}
+                allowedRoles={["admin"]}
+              />
+            }
           />
           <Route
             path="/Category/AllCategory"
-            element={<ProtectedRoutes component={AllCategory} />}
+            element={
+              <ProtectedRoutes
+                component={AllCategory}
+                allowedRoles={["admin"]}
+              />
+            }
           />
           <Route
             path="/Attributes/AddAttributes"
-            element={<ProtectedRoutes component={AddAttributes} />}
+            element={
+              <ProtectedRoutes
+                component={AddAttributes}
+                allowedRoles={["admin"]}
+              />
+            }
           />
           <Route
             path="/Attributes/AllAttributes"
-            element={<ProtectedRoutes component={AllAttributes} />}
+            element={
+              <ProtectedRoutes
+                component={AllAttributes}
+                allowedRoles={["admin"]}
+              />
+            }
           />
           <Route
             path="/Orders/AllOrders"
-            element={<ProtectedRoutes component={AllOrders} />}
+            element={
+              <ProtectedRoutes component={AllOrders} allowedRoles={["admin"]} />
+            }
           />
           <Route
             path="/Orders/TrackOrder"

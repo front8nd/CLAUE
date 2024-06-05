@@ -3,7 +3,7 @@
 .AllOrdersDetails {
   margin-left: 280px;
   width: calc(100% - 320px);
-  padding: 30px;
+  padding: 30px 20px;
   position: relative;
   top: 75px;
   transition: margin-left 0.6s ease, width 0.6s ease;
@@ -144,9 +144,21 @@
     color: $Main;
   }
 }
+.aoTable {
+  th {
+    font-weight: bold;
+    text-wrap: nowrap;
+    padding-right: 20px;
+    text-align: left;
+  }
+  td {
+    text-wrap: wrap;
+  }
+}
 @media screen and (max-width: 612px) {
   .AllOrdersDetails {
     margin-left: 0;
+    padding: 30px 0;
     width: 100%;
   }
   .aoContainer {

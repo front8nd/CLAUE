@@ -15,6 +15,8 @@ import { getAllUsers } from "../../../Redux/UserSlice";
 import { remove, ref as dbRef } from "firebase/database";
 import { deleteObject, ref, listAll } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import { getAuth } from "firebase/auth";
+import axios from "axios";
 export default function AllUsersDetails() {
   const usersList = useSelector((state) => state.User.usersList);
   const dispatch = useDispatch();
@@ -115,13 +117,25 @@ export default function AllUsersDetails() {
   const deleteUser = async (record) => {
     setLoading(true);
     message.open({ content: "Deletion in Progress..", type: "loading" });
-    await deleteDoc(doc(db, "Users", record.id));
-    const directoryRef = ref(storage, `images/${record.avatarID}`);
-    console.log("x", directoryRef);
-    await deleteFilesInDirectory(directoryRef);
-    dispatch(getAllUsers());
-    message.open({ content: "Deleted Successfully", type: "success" });
-    setLoading(false);
+
+    try {
+      // Delete Account from firebase Auth
+      await axios.post("http://localhost:5174/DeleteUserAccount", {
+        uid: record.id,
+      });
+      // Delete Account Data
+      await deleteDoc(doc(db, "Users", record.id));
+      // Delete Image
+      const directoryRef = ref(storage, `images/${record.avatarID}`);
+      await deleteFilesInDirectory(directoryRef);
+      dispatch(getAllUsers());
+      message.open({ content: "Deleted Successfully", type: "success" });
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      message.open({ content: "Error Deleting User", type: "error" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const deleteFilesInDirectory = async (directoryRef) => {
@@ -196,6 +210,7 @@ export default function AllUsersDetails() {
           columns={columns}
           dataSource={filteredData}
           pagination={{ pageSize: 10 }}
+          virtual
         />
       </div>
     </div>

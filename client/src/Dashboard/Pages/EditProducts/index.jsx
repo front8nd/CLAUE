@@ -8,15 +8,12 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsFirebase } from "../../../Redux/ProductsSlice";
 import Loading from "../../../components/Loading";
-
+import { fetchLoggedInUserDetails } from "../../../Redux/UserSlice";
+import IMGLoader from "../../../components/IMGLoader";
 export default function EditProducts() {
   const url = useParams();
   const productID = url.ProductID;
-  const dispatch = useDispatch();
-  const products = useSelector((state) => state.Products.data);
-  const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState(null);
-  console.log(productID);
   useEffect(() => {
     if (products.length === 0) {
       setLoading(true);
@@ -33,6 +30,24 @@ export default function EditProducts() {
     }
   }, [productID, products]);
 
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.Products.data);
+  const userDetails = useSelector((state) => state.User.userDetail);
+  const [loading, setLoading] = useState(null);
+
+  useEffect(() => {
+    if (!userDetails || Object.keys(userDetails).length === 0) {
+      dispatch(fetchLoggedInUserDetails());
+    }
+  }, [dispatch, userDetails]);
+
+  if (loading) {
+    return (
+      <div className={style.loading}>
+        <IMGLoader />
+      </div>
+    );
+  }
   return (
     <div className={style.EditProducts}>
       <SidebarToggler>

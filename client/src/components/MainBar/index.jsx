@@ -6,35 +6,72 @@ import { VscAccount } from "react-icons/vsc";
 import { GoHeart } from "react-icons/go";
 import { CgShoppingBag } from "react-icons/cg";
 import { CgMenuLeft } from "react-icons/cg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import SearchBar from "../SearchBar";
 import { setShowSearch } from "../../Redux/ProductsSlice";
 import { IoIosLogOut } from "react-icons/io";
-import { userLoggedIn } from "../../Redux/UserSlice";
-import { auth } from "../../firebase";
+import {
+  LoggedInUserDetails,
+  fetchLoggedInUserDetails,
+  userLoggedIn,
+} from "../../Redux/UserSlice";
 import IMGLoader from "../IMGLoader";
 import { setShowMobileMenu } from "../../Redux/ProductsSlice";
+import { auth, db } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
 export default function MainBar() {
-  const userState = useSelector((state) => state.User.users);
   const dispatch = useDispatch();
+  const userState = useSelector((state) => state.User.users);
+  const navigate = useNavigate();
+  const userDetails = useSelector((state) => state.User.userDetail);
   const categoryList = useSelector((state) => state.Products.arrayCategory);
   const showSearch = useSelector((state) => state.Products.showSearch);
   const cart = useSelector((state) => state.Cart.cartItems);
+  const [loading, setLoading] = useState(null);
+
+  const getUserDetails = async () => {
+    try {
+      auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          const docRef = doc(db, "Users", user.uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            dispatch(LoggedInUserDetails(docSnap.data()));
+          }
+        }
+        setLoading(false);
+      });
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!userDetails || Object.keys(userDetails).length === 0) {
+      dispatch(fetchLoggedInUserDetails());
+    }
+  }, [dispatch, userDetails]);
 
   const logoutUser = async () => {
     try {
       const res = await auth.signOut();
       dispatch(userLoggedIn(false));
-      window.location.href = "/";
+      localStorage.clear();
+      navigate("/");
       console.log(res);
     } catch (error) {
       console.error(error);
     }
   };
 
-  if (!categoryList) {
-    return <IMGLoader />;
+  if (loading || !categoryList) {
+    return (
+      <div className={style.loading}>
+        <IMGLoader />
+      </div>
+    );
   }
   useEffect(() => {}, [dispatch]);
   return (
@@ -119,7 +156,7 @@ export default function MainBar() {
             </button>
           </Link>
         ) : (
-          <Link to={"/Admin/"}>
+          <Link to={userDetails.role === "admin" ? "/Admin/" : "/dashboard/"}>
             <button className="icon-menu-item hideMobile">
               <VscAccount />
             </button>

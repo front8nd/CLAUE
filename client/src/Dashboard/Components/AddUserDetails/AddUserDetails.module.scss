@@ -3,7 +3,7 @@
 .AddUserDetails {
   margin-left: 280px;
   width: calc(100% - 320px);
-  padding: 30px;
+  padding: 30px 20px;
   position: relative;
   top: 75px;
   transition: margin-left 0.6s ease, width 0.6s ease;
@@ -164,6 +164,7 @@
 @media screen and (max-width: 612px) {
   .AddUserDetails {
     margin-left: 0;
+    padding: 30px 0px;
     width: 100%;
   }
   .pageHeader {

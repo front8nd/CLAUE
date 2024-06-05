@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "api/index.jsx",
+  "main": "index.jsx",
   "scripts": {
-    "start": "node api/index.jsx",
-    "build": "node api/index.jsx"
+    "start": "index.jsx",
+    "build": "index.jsx"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "firebase": "^10.12.2",
+    "firebase-admin": "^12.1.1",
     "nodemon": "^3.1.2",
     "stripe": "^15.6.0"
   }

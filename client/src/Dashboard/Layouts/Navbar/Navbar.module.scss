@@ -1,4 +1,10 @@
 @import "../../GlobalStyle/style.scss";
+.loading {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  height: 100vh;
+}
 
 .Navbar {
   position: fixed;

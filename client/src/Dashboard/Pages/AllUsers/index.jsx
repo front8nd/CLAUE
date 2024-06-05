@@ -7,6 +7,8 @@ import AllUsersDetails from "../../Components/AllUsersDetails";
 import Loading from "../../../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../../Redux/UserSlice";
+import { fetchLoggedInUserDetails } from "../../../Redux/UserSlice";
+import IMGLoader from "../../../components/IMGLoader";
 export default function AllUsers() {
   const [loading, setLoading] = useState(null);
   const userList = useSelector((state) => state.User.usersList);
@@ -19,6 +21,23 @@ export default function AllUsers() {
       setLoading(false);
     }
   }, [userList.length, dispatch]);
+
+  const products = useSelector((state) => state.Products.data);
+  const userDetails = useSelector((state) => state.User.userDetail);
+
+  useEffect(() => {
+    if (!userDetails || Object.keys(userDetails).length === 0) {
+      dispatch(fetchLoggedInUserDetails());
+    }
+  }, [dispatch, userDetails]);
+
+  if (loading) {
+    return (
+      <div className={style.loading}>
+        <IMGLoader />
+      </div>
+    );
+  }
   return (
     <div className={style.Users}>
       <SidebarToggler>

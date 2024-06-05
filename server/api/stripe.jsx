@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+app.use(express.json());
+app.use(cors());
 const stripe = require("stripe")(
   "sk_test_51PFEvoSJExti6RxFrWC2YOSCzt6fSUpudtZnIv9D0OGtgwkyyNqHMO84sJQtuAtXppeYl0Sq6vBERSmW3T4Gp7GD003JPDgFHe"
 );
-app.use(express.json());
-app.use(cors());
 
 // stripe checkout
 
@@ -60,10 +60,26 @@ app.get("/session-status", async (req, res) => {
 
 // Stripe Data
 
-app.get("/api/stripeData", async (req, res) => {
+app.get("/stripeData", async (req, res) => {
   try {
-    const charges = await stripe.charges.list({ limit: 100 });
-    res.status(200).json(charges);
+    const sessions = await stripe.checkout.sessions.list({
+      limit: 10,
+    });
+    const sessionsWithLineItems = await Promise.all(
+      sessions.data.map(async (session) => {
+        const lineItems = await stripe.checkout.sessions.listLineItems(
+          session.id,
+          {
+            limit: 10,
+          }
+        );
+        return {
+          ...session,
+          lineItems: lineItems.data,
+        };
+      })
+    );
+    res.status(200).json(sessionsWithLineItems);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -71,7 +87,7 @@ app.get("/api/stripeData", async (req, res) => {
 
 // Stripe Track Data
 
-app.post("/api/TrackOrder", async (req, res) => {
+app.post("/TrackOrder", async (req, res) => {
   const { sessionId } = req.body;
   if (!sessionId) {
     return res.status(400).json({ error: "sessionId is required" });

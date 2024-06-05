@@ -10,42 +10,10 @@ import { LuMessageSquare } from "react-icons/lu";
 import { RxDashboard } from "react-icons/rx";
 import { CiSettings } from "react-icons/ci";
 import { Badge } from "antd";
-import { auth, db } from "../../../firebase";
-import { doc, getDoc } from "firebase/firestore";
-import Loading from "../../../components/Loading";
+
 export default function Navbar() {
   const { sidebarVisible, toggleSidebar } = useSidebarToggler();
-  const [userDetails, setUserDetails] = useState(null);
-  const [authChecked, setAuthChecked] = useState(false);
-  const [loading, setLoading] = useState(true);
 
-  const getUserDetails = async () => {
-    if (!authChecked) {
-      setLoading(true);
-      try {
-        auth.onAuthStateChanged(async (user) => {
-          if (user) {
-            const docRef = doc(db, "Users", user.uid);
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-              setUserDetails(docSnap.data());
-            }
-          } else {
-            setUserDetails(null);
-          }
-          setLoading(false);
-          setAuthChecked(true);
-        });
-      } catch (error) {
-        console.error("Error fetching user details:", error);
-        setLoading(false);
-        setAuthChecked(true);
-      }
-    }
-  };
-  useEffect(() => {
-    getUserDetails();
-  }, []);
   return (
     <div className={sidebarVisible === false ? style.NavbarFull : style.Navbar}>
       <div className={style.leftHeader}>
@@ -82,13 +50,9 @@ export default function Navbar() {
             <CiSettings />
           </div>
         </div>
-        {userDetails === null ? (
-          <div className={style.navbarAccount}>Retriving Data..</div>
-        ) : (
-          <div className={style.navbarAccount}>
-            <UserAccount userDetails={userDetails} />
-          </div>
-        )}
+        <div className={style.navbarAccount}>
+          <UserAccount />
+        </div>
       </div>
     </div>
   );

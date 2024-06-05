@@ -1,22 +1,23 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-export default function ProtectedRoutes(props) {
-  const isUserLoggedIn = useSelector((state) => state.User.users);
+const ProtectedRoutes = ({ component: Component, allowedRoles }) => {
   const navigate = useNavigate();
+  const isUserLoggedIn = useSelector((state) => state.User.users);
+  const userDetails = useSelector((state) => state.User.userDetail);
 
   useEffect(() => {
     if (!isUserLoggedIn) {
       navigate("/login");
+    } else if (userDetails.role) {
+      if (allowedRoles && !allowedRoles.includes(userDetails.role)) {
+        navigate("/dashboard/");
+      }
     }
-  }, [isUserLoggedIn, navigate]);
+  }, [isUserLoggedIn, userDetails, navigate, allowedRoles]);
 
-  const Component = props.component;
+  return <Component />;
+};
 
-  return (
-    <div>
-      <Component />
-    </div>
-  );
-}
+export default ProtectedRoutes;

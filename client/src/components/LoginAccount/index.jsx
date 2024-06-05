@@ -29,7 +29,7 @@ export default function LoginAccount() {
       await signInWithEmailAndPassword(auth, user.email, user.password);
       dispatch(userLoggedIn(true));
       setloginMSG("Logged In Successfully");
-      navigate("/Admin/");
+      navigate("/");
     } catch (error) {
       setloginMSG(`Login Failed: ${error}`);
       console.log(error);

@@ -2,9 +2,28 @@ import React, { useState } from "react";
 import style from "./UserAccount.module.scss";
 import { AiOutlineUser } from "react-icons/ai";
 import { TbLogout2 } from "react-icons/tb";
-
-export default function UserAccount({ userDetails }) {
+import { useDispatch, useSelector } from "react-redux";
+import { userLoggedIn } from "../../../Redux/UserSlice";
+import { auth } from "../../../firebase";
+import { useNavigate } from "react-router-dom";
+export default function UserAccount() {
   const [showAccount, setShowAccount] = useState(false);
+  const userDetails = useSelector((state) => state.User.userDetail);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await auth.signOut();
+      dispatch(userLoggedIn(false));
+      localStorage.clear();
+      navigate("/");
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className={style.alignAdmin}>
       <div
@@ -14,12 +33,16 @@ export default function UserAccount({ userDetails }) {
         className={style.UserAccount}
       >
         <div>
-          <img src={userDetails.avatar} className={style.adminPicture}></img>
+          <img
+            src={userDetails.avatar}
+            alt="avatar"
+            className={style.adminPicture}
+          ></img>
         </div>
         <div className={style.adminDetails}>
           <label
             className={style.adminUsername}
-          >{`${userDetails.firstName}  `}</label>
+          >{`${userDetails.firstName}`}</label>
           <label className={style.adminRole}>{userDetails.role}</label>
         </div>
         {showAccount && (
@@ -29,7 +52,7 @@ export default function UserAccount({ userDetails }) {
                 <AiOutlineUser className={style.UserAccountMenuIcon} />
                 Account
               </li>
-              <li>
+              <li onClick={submitHandler}>
                 <TbLogout2 className={style.UserAccountMenuIcon} />
                 Logout
               </li>

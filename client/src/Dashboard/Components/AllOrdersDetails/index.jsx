@@ -14,36 +14,32 @@ export default function AllOrdersDetails() {
   const [loading, setLoading] = useState(null);
   const columns = [
     {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-      render: (text, record) => {
-        return (
-          <Highlighter
-            highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
-            searchWords={[searchText]}
-            autoEscape
-            textToHighlight={text}
-            className={style.truncate}
-          />
-        );
-      },
-    },
-    {
       title: "Name",
-      dataIndex: "billing_details",
+      dataIndex: "customer_details",
       key: "id",
-      render: (text, record) => <p className={style.truncate}>{text.name}</p>,
+      render: (text, record) => (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text !== null ? text.name : "Not Found"}
+          className={style.truncate}
+        />
+      ),
     },
     {
       title: "Email",
-      dataIndex: "billing_details",
+      dataIndex: "customer_details",
       key: "id",
-      render: (text, record) => <p className={style.truncate}>{text.email}</p>,
+      render: (text, record) => (
+        <p className={style.truncate}>
+          {text !== null ? text.email : "Not Found"}
+        </p>
+      ),
     },
     {
       title: "Address",
-      dataIndex: "billing_details",
+      dataIndex: "customer_details",
       key: "id",
       render: (text, record) => (
         <div
@@ -54,16 +50,62 @@ export default function AllOrdersDetails() {
           }}
         >
           <ul className={style.truncate}>
-            <li>{text.address.line1}</li>
-            <li>{text.address.city}</li>
-            <li>{text.address.country}</li>
+            <li>{text !== null ? text.address.line1 : "Not Found"}</li>
+            <li>{text !== null ? text.address.city : "Not Found"}</li>
+            <li>{text !== null ? text.address.country : "Not Found"}</li>
           </ul>
         </div>
       ),
     },
     {
-      title: "Price",
-      dataIndex: "amount",
+      title: "Product",
+      dataIndex: "lineItems",
+      key: "id",
+      render: (text, record) => (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "max-content",
+          }}
+        >
+          {text.map((e) => {
+            return (
+              <>
+                <ul className={style.truncate}>
+                  <li>Title: {e !== null ? e.description : "Not Found"}</li>
+                  <li>Quanitity: {e !== null ? e.quantity : "Not Found"}</li>
+                  <li>
+                    Per Unit Price: {e !== null ? e.amount_total : "Not Found"}
+                  </li>
+                </ul>
+              </>
+            );
+          })}
+        </div>
+      ),
+    },
+    {
+      title: "SubTotal",
+      dataIndex: "amount_subtotal",
+      key: "id",
+      render: (text, record) => {
+        return <p className={style.truncate}>{Math.round(text / 80)}</p>;
+      },
+    },
+    {
+      title: "Shipping Cost",
+      dataIndex: "shipping_cost",
+      key: "id",
+      render: (text, record) => {
+        return (
+          <p className={style.truncate}>{Math.round(text.amount_total / 80)}</p>
+        );
+      },
+    },
+    {
+      title: "Total",
+      dataIndex: "amount_total",
       key: "id",
       render: (text, record) => {
         return <p className={style.truncate}>{Math.round(text / 80)}</p>;
@@ -71,32 +113,39 @@ export default function AllOrdersDetails() {
     },
     {
       title: "Payment Method",
-      dataIndex: "payment_method_details",
+      dataIndex: "payment_method_types",
       key: "id",
-      render: (text) => <p className={style.truncate}>{text.type}</p>,
+      render: (text) => <p className={style.truncate}>{text[0]}</p>,
     },
     {
       title: "Order Status",
-      dataIndex: "status",
+      dataIndex: "payment_informartion",
       key: "id",
-      render: (text) => {
+      render: (text, record) => {
         let color = "blue";
-        if (text === "succeeded") color = "green";
-        else if (text === "failed") color = "pink";
+        if (record.status === "complete") color = "green";
+        else if (record.status === "expired") color = "pink";
+        else if (record.payment_status === "paid") color = "yellow";
+        else if (record.status === "unpaid") color = "brown";
         return (
-          <Tag color={color} key={text}>
-            {text.toUpperCase()}
-          </Tag>
+          <div className={style.truncate}>
+            <Tag color={color} key={record.status}>
+              {record.status.toUpperCase()}
+            </Tag>
+            <Tag color={color} key={record.payment_status}>
+              {record.payment_status.toUpperCase()}
+            </Tag>
+          </div>
         );
       },
     },
     {
-      title: "Receipt",
+      title: "View Receipt",
       dataIndex: "receipt_url",
       key: "id",
       render: (text) => {
         return (
-          <Tooltip title="Full Receipit" color={"blue"}>
+          <Tooltip title="View Receipit" color={"blue"}>
             <Link to={`${text}`} target="_blank">
               <FaEye className={style.apICONView} />
             </Link>
@@ -113,13 +162,14 @@ export default function AllOrdersDetails() {
   const fetchStripeData = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5174/api/stripeData");
-      const balanceTransactions = await response.json();
-      setStripeData(balanceTransactions);
+      const response = await fetch("http://localhost:5174/stripeData");
+      const results = await response.json();
+      setStripeData(results);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching Stripe data:", error);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -133,14 +183,25 @@ export default function AllOrdersDetails() {
   useEffect(() => {
     if (stripeData.length !== 0) {
       setFilteredData(
-        stripeData.data.filter((item) =>
-          item.id.toLowerCase().includes(searchText.toLowerCase())
+        stripeData.filter((item) =>
+          item.customer_details !== null
+            ? item.customer_details.name
+                .toLowerCase()
+                .includes(searchText.toLowerCase())
+            : "Not Found"
         )
       );
     } else {
       setFilteredData([]);
     }
   }, [stripeData, searchText]);
+
+  const calculateTotalRevenue = (data) => {
+    return data.reduce(
+      (acc, record) => acc + Math.round(record.amount_total / 80),
+      0
+    );
+  };
 
   return (
     <div
@@ -182,6 +243,25 @@ export default function AllOrdersDetails() {
           pagination={{ pageSize: 10 }}
           virtual
           scroll={{ x: "max-content" }}
+          summary={(pageData) => {
+            let totalRevenue = calculateTotalRevenue(pageData);
+            return (
+              <Table.Summary.Row
+                style={{
+                  background: "#f8f9fc",
+                  fontWeight: "bold",
+                }}
+              >
+                <Table.Summary.Cell index={0} colSpan={5}>
+                  Total Sales
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={1}>
+                  <p className={style.truncate}>{totalRevenue}</p>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={2} colSpan={3} />
+              </Table.Summary.Row>
+            );
+          }}
         />
       </div>
     </div>

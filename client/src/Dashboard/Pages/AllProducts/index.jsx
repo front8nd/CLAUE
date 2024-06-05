@@ -7,6 +7,8 @@ import AllProductsDetails from "../../Components/AllProductsDetails";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../../components/Loading";
 import { getProductsFirebase } from "../../../Redux/ProductsSlice";
+import { fetchLoggedInUserDetails } from "../../../Redux/UserSlice";
+import IMGLoader from "../../../components/IMGLoader";
 export default function AllProducts() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.Products.data);
@@ -21,7 +23,21 @@ export default function AllProducts() {
       setLoading(false);
     }
   }, [dispatch, products.length]);
-  console.log(products);
+  const userDetails = useSelector((state) => state.User.userDetail);
+
+  useEffect(() => {
+    if (!userDetails || Object.keys(userDetails).length === 0) {
+      dispatch(fetchLoggedInUserDetails());
+    }
+  }, [dispatch, userDetails]);
+
+  if (loading) {
+    return (
+      <div className={style.loading}>
+        <IMGLoader />
+      </div>
+    );
+  }
   return (
     <div className={style.AllProducts}>
       <SidebarToggler>

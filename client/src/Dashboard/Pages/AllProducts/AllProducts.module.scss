@@ -1,3 +1,9 @@
 .AllProducts {
   display: flex;
 }
+.loading {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  height: 100vh;
+}
