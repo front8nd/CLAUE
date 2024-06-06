@@ -93,6 +93,14 @@
 .dropdown-category:hover .dropdown-menu {
   visibility: visible;
 }
+
+.loading {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  height: 100vh;
+}
+
 @media (max-width: 1200px) {
   .MainBar {
     display: flex;

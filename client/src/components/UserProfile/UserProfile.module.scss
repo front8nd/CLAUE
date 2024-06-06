@@ -1,0 +1,71 @@
+.upProfileDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.udProfilePicture {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+}
+
+.upProfileField {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  margin: 10px;
+}
+.upTitle {
+  font-weight: bold;
+  width: 50%;
+}
+
+.upInput {
+  outline: 1px solid #555;
+  border-radius: 20px;
+  border: none;
+  padding: 10px 0;
+  text-align: start;
+  max-width: 300px;
+  width: -webkit-fill-available;
+  padding-left: 10px;
+  width: 50%;
+}
+.upActionButton {
+  display: flex;
+  gap: 20px;
+  margin: 10px 0;
+}
+.upUpdate {
+  padding: 12px 24px;
+  border-radius: 20px;
+  border: none;
+  background-color: #cf9683;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+}
+
+.upDelete {
+  padding: 12px 24px;
+  border-radius: 20px;
+  border: 1px solid black;
+  background-color: transparent;
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+}

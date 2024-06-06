@@ -144,16 +144,11 @@
     color: $Main;
   }
 }
-.aoTable {
-  th {
-    font-weight: bold;
-    text-wrap: nowrap;
-    padding-right: 20px;
-    text-align: left;
-  }
-  td {
-    text-wrap: wrap;
-  }
+.aoTitle {
+  display: inline-block;
+  width: max-content;
+  min-width: 120px;
+  font-weight: bold;
 }
 @media screen and (max-width: 612px) {
   .AllOrdersDetails {

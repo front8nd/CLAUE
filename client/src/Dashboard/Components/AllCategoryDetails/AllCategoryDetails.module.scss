@@ -151,29 +151,6 @@
     min-height: 18px;
   }
 }
-.tableContainer {
-  background-color: white;
-
-  table {
-    border-collapse: collapse;
-    border-radius: 12px;
-  }
-
-  thead > tr > th {
-    padding: 12px;
-    background: $bg-table;
-  }
-
-  thead > tr {
-    border-width: 2px;
-    border-radius: 12px;
-    border-color: transparent;
-    border-style: solid;
-  }
-  &:hover {
-    border-radius: 12px;
-  }
-}
 
 @media screen and (max-width: 612px) {
   .AllCategoryDetails {

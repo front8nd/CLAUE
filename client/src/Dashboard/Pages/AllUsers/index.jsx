@@ -22,7 +22,6 @@ export default function AllUsers() {
     }
   }, [userList.length, dispatch]);
 
-  const products = useSelector((state) => state.Products.data);
   const userDetails = useSelector((state) => state.User.userDetail);
 
   useEffect(() => {
@@ -31,13 +30,6 @@ export default function AllUsers() {
     }
   }, [dispatch, userDetails]);
 
-  if (loading) {
-    return (
-      <div className={style.loading}>
-        <IMGLoader />
-      </div>
-    );
-  }
   return (
     <div className={style.Users}>
       <SidebarToggler>
@@ -45,7 +37,7 @@ export default function AllUsers() {
         <Sidebar />
         {loading === true ? (
           <div className={style.loading}>
-            <Loading />
+            <IMGLoader />
           </div>
         ) : (
           <AllUsersDetails />

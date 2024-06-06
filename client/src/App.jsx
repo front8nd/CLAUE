@@ -32,6 +32,7 @@ import EditUser from "./Dashboard/Pages/EditUser/index.jsx";
 import AllOrders from "./Dashboard/Pages/AllOrders/index.jsx";
 import TrackOrder from "./Dashboard/Pages/TrackOrder/index.jsx";
 import EditProducts from "./Dashboard/Pages/EditProducts/index.jsx";
+import Profile from "./Pages/Profile/index.jsx";
 
 function App() {
   return (
@@ -51,9 +52,15 @@ function App() {
           <Route path="/return" element={<Return />} />
           <Route path="/StripeCheckout" element={<StripeCheckout />} />
           <Route
+            path="/profile/"
+            element={
+              <ProtectedRoutes component={Profile} allowedRoles={["user"]} />
+            }
+          />
+          <Route
             path="/dashboard/"
             element={
-              <ProtectedRoutes component={Dashboard} allowedRoles={["user"]} />
+              <ProtectedRoutes component={Dashboard} allowedRoles={["admin"]} />
             }
           />
           <Route

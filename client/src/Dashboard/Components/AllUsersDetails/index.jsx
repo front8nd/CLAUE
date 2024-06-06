@@ -22,7 +22,7 @@ export default function AllUsersDetails() {
   const dispatch = useDispatch();
   const navigation = useNavigate();
   const { sidebarVisible } = useSidebarToggler();
-  const [loading, setLoading] = useState(false);
+  const loading = useSelector((state) => state.User.loading);
   const columns = [
     {
       title: "User",
@@ -112,12 +112,10 @@ export default function AllUsersDetails() {
       ),
     },
   ];
-  console.log(usersList);
+
   //Delete User
   const deleteUser = async (record) => {
-    setLoading(true);
     message.open({ content: "Deletion in Progress..", type: "loading" });
-
     try {
       // Delete Account from firebase Auth
       await axios.post("http://localhost:5174/DeleteUserAccount", {
@@ -133,8 +131,6 @@ export default function AllUsersDetails() {
     } catch (error) {
       console.error("Error deleting user:", error);
       message.open({ content: "Error Deleting User", type: "error" });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -171,7 +167,6 @@ export default function AllUsersDetails() {
       content: content,
     });
   };
-  console.log(usersList);
   return (
     <div
       className={

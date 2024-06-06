@@ -1,18 +1,38 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./AllOrdersDetails.module.scss";
 import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { GoNote } from "react-icons/go";
-import { Tag, Table, Tooltip } from "antd";
+import { Tag, Table, message } from "antd";
 import Highlighter from "react-highlight-words";
 import Pagination from "../Pagination";
 import { CiSearch } from "react-icons/ci";
-import { FaEye } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 export default function AllOrdersDetails() {
   const { sidebarVisible } = useSidebarToggler();
   const [loading, setLoading] = useState(null);
+  const [searchText, setSearchText] = useState("");
+  const [stripeData, setStripeData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+
   const columns = [
+    {
+      title: "Order Placed",
+      dataIndex: "created",
+      key: "id",
+      sorter: (a, b) => a.created - b.created,
+      render: (text, record) => {
+        const orderDate = new Date(text * 1000);
+        const formattedDate = orderDate.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+        return <div className={style.truncate}>{formattedDate}</div>;
+      },
+    },
     {
       title: "Name",
       dataIndex: "customer_details",
@@ -50,9 +70,18 @@ export default function AllOrdersDetails() {
           }}
         >
           <ul className={style.truncate}>
-            <li>{text !== null ? text.address.line1 : "Not Found"}</li>
-            <li>{text !== null ? text.address.city : "Not Found"}</li>
-            <li>{text !== null ? text.address.country : "Not Found"}</li>
+            <li>
+              <span className={style.aoTitle}>Street:</span>
+              {text !== null ? text.address.line1 : "Not Found"}
+            </li>
+            <li>
+              <span className={style.aoTitle}>City:</span>
+              {text !== null ? text.address.city : "Not Found"}
+            </li>
+            <li>
+              <span className={style.aoTitle}>Country:</span>
+              {text !== null ? text.address.country : "Not Found"}
+            </li>
           </ul>
         </div>
       ),
@@ -69,22 +98,26 @@ export default function AllOrdersDetails() {
             width: "max-content",
           }}
         >
-          {text.map((e) => {
-            return (
-              <>
-                <ul className={style.truncate}>
-                  <li>Title: {e !== null ? e.description : "Not Found"}</li>
-                  <li>Quanitity: {e !== null ? e.quantity : "Not Found"}</li>
-                  <li>
-                    Per Unit Price: {e !== null ? e.amount_total : "Not Found"}
-                  </li>
-                </ul>
-              </>
-            );
-          })}
+          <ul className={style.truncate}>
+            <li>
+              <span className={style.aoTitle}>Title:</span>
+              {text !== null ? `${text[0].description} ` : "Not Found"}
+            </li>
+            <li>
+              <span className={style.aoTitle}>Quantity:</span>
+              {text !== null ? text[0].quantity : "Not Found"}
+            </li>
+            <li>
+              <span className={style.aoTitle}>Per Unit Price:</span>
+              {text !== null
+                ? Math.round(text[0].amount_total / 80)
+                : "Not Found"}
+            </li>
+          </ul>
         </div>
       ),
     },
+    Table.EXPAND_COLUMN,
     {
       title: "SubTotal",
       dataIndex: "amount_subtotal",
@@ -104,6 +137,28 @@ export default function AllOrdersDetails() {
       },
     },
     {
+      title: "Discount",
+      dataIndex: "total_details",
+      key: "id",
+      render: (text, record) => {
+        return (
+          <p className={style.truncate}>
+            {Math.round(text.amount_discount / 80)}
+          </p>
+        );
+      },
+    },
+    {
+      title: "Tax",
+      dataIndex: "total_details",
+      key: "id",
+      render: (text, record) => {
+        return (
+          <p className={style.truncate}>{Math.round(text.amount_tax / 80)}</p>
+        );
+      },
+    },
+    {
       title: "Total",
       dataIndex: "amount_total",
       key: "id",
@@ -119,7 +174,7 @@ export default function AllOrdersDetails() {
     },
     {
       title: "Order Status",
-      dataIndex: "payment_informartion",
+      dataIndex: "payment_information",
       key: "id",
       render: (text, record) => {
         let color = "blue";
@@ -139,26 +194,35 @@ export default function AllOrdersDetails() {
         );
       },
     },
+  ];
+
+  const NestedColumns = [
     {
-      title: "View Receipt",
-      dataIndex: "receipt_url",
-      key: "id",
+      title: "Title",
+      dataIndex: "description",
+      key: "description",
       render: (text) => {
-        return (
-          <Tooltip title="View Receipit" color={"blue"}>
-            <Link to={`${text}`} target="_blank">
-              <FaEye className={style.apICONView} />
-            </Link>
-          </Tooltip>
-        );
+        return <p>{text}</p>;
+      },
+    },
+    {
+      title: "Quantity",
+      dataIndex: "quantity",
+      key: "quantity",
+      render: (text) => {
+        return <p>{text}</p>;
+      },
+    },
+    {
+      title: "Unit Price",
+      dataIndex: "amount_total",
+      key: "amount_total",
+      render: (text) => {
+        return <p>{Math.round(text / 80)}</p>;
       },
     },
   ];
 
-  // Stripe Data
-
-  const [stripeData, setStripeData] = useState([]);
-  console.log(stripeData);
   const fetchStripeData = async () => {
     setLoading(true);
     try {
@@ -176,10 +240,6 @@ export default function AllOrdersDetails() {
     fetchStripeData();
   }, []);
 
-  // Custom Search Bar
-  const [searchText, setSearchText] = useState("");
-  const [filteredData, setFilteredData] = useState(null);
-
   useEffect(() => {
     if (stripeData.length !== 0) {
       setFilteredData(
@@ -188,7 +248,7 @@ export default function AllOrdersDetails() {
             ? item.customer_details.name
                 .toLowerCase()
                 .includes(searchText.toLowerCase())
-            : "Not Found"
+            : false
         )
       );
     } else {
@@ -243,6 +303,20 @@ export default function AllOrdersDetails() {
           pagination={{ pageSize: 10 }}
           virtual
           scroll={{ x: "max-content" }}
+          rowKey={(record) => record.id}
+          expandable={{
+            expandedRowRender: (record) => (
+              <Table
+                className="customTable expandTable"
+                columns={NestedColumns}
+                dataSource={record.lineItems}
+                pagination={false}
+                rowKey={(lineItem) => lineItem.id}
+              />
+            ),
+            rowExpandable: (record) =>
+              record.lineItems && record.lineItems.length > 0,
+          }}
           summary={(pageData) => {
             let totalRevenue = calculateTotalRevenue(pageData);
             return (
@@ -252,7 +326,7 @@ export default function AllOrdersDetails() {
                   fontWeight: "bold",
                 }}
               >
-                <Table.Summary.Cell index={0} colSpan={5}>
+                <Table.Summary.Cell index={0} colSpan={10}>
                   Total Sales
                 </Table.Summary.Cell>
                 <Table.Summary.Cell index={1}>
