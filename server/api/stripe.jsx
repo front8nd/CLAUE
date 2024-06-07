@@ -4,7 +4,7 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 const stripe = require("stripe")(
-  "sk_test_51PFEvoSJExti6RxFrWC2YOSCzt6fSUpudtZnIv9D0OGtgwkyyNqHMO84sJQtuAtXppeYl0Sq6vBERSmW3T4Gp7GD003JPDgFHe"
+  "sk_test_51PP1mWHHqMpc9WkZyjQQEqzP9jD1pVHz3QLcD1nCHrCZ7EJ4IbJ0kp6FG8FBT7ohU40tlMhsbN0ldSc44kQygh6m00PliPlebW"
 );
 
 // stripe checkout
@@ -28,10 +28,10 @@ app.post("/create-checkout-session", async (req, res) => {
       line_items: lineItems,
       shipping_options: [
         {
-          shipping_rate: "shr_1PGEa2SJExti6RxFRSxeQ77h",
+          shipping_rate: "shr_1PP1wqHHqMpc9WkZuCIsuUL3",
         },
         {
-          shipping_rate: "shr_1PGGYaSJExti6RxFL9AfpHMY",
+          shipping_rate: "shr_1PP1xFHHqMpc9WkZXtDwjxAg",
         },
       ],
       allow_promotion_codes: true,
@@ -97,6 +97,39 @@ app.post("/TrackOrder", async (req, res) => {
     res.status(200).json(session);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint to fetch customer and their orders with line items
+app.post("/customerOrders", async (req, res) => {
+  const { email } = req.body;
+  try {
+    const sessions = await stripe.checkout.sessions.list({
+      limit: 10,
+    });
+
+    // Filter charges by email
+    const filteredSessions = sessions.data.filter(
+      (e) => e?.customer_details?.email == email
+    );
+    const sessionsWithLineItems = await Promise.all(
+      filteredSessions.map(async (session) => {
+        const lineItems = await stripe.checkout.sessions.listLineItems(
+          session.id,
+          {
+            limit: 10,
+          }
+        );
+        return {
+          ...session,
+          lineItems: lineItems.data,
+        };
+      })
+    );
+    res.json(sessionsWithLineItems);
+  } catch (error) {
+    console.error("Error fetching customer orders:", error);
+    res.status(500).send(error.message);
   }
 });
 

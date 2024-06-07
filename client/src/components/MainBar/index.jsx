@@ -23,14 +23,15 @@ export default function MainBar() {
   const categoryList = useSelector((state) => state.Products.arrayCategory);
   const showSearch = useSelector((state) => state.Products.showSearch);
   const cart = useSelector((state) => state.Cart.cartItems);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         await dispatch(fetchLoggedInUserDetails());
+        dispatch(userLoggedIn(true));
+      } else {
+        dispatch(userLoggedIn(false));
       }
-      setLoading(false);
     });
     return () => unsubscribe();
   }, [dispatch]);

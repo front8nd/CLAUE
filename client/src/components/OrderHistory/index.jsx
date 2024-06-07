@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import style from "./AllOrdersDetails.module.scss";
-import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
+import style from "./OrderHistory.module.scss";
 import { GoNote } from "react-icons/go";
 import { Tag, Table, message } from "antd";
 import Highlighter from "react-highlight-words";
-import Pagination from "../Pagination";
 import { CiSearch } from "react-icons/ci";
-
-export default function AllOrdersDetails() {
-  const { sidebarVisible } = useSidebarToggler();
+import { useSelector } from "react-redux";
+import axios from "axios";
+export default function OrderHistory() {
   const [loading, setLoading] = useState(null);
+  const userDetails = useSelector((state) => state.User.userDetail);
   const [searchText, setSearchText] = useState("");
   const [stripeData, setStripeData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -222,13 +221,15 @@ export default function AllOrdersDetails() {
       },
     },
   ];
-
   const fetchStripeData = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5174/stripeData");
-      const results = await response.json();
-      setStripeData(results);
+      const response = await axios.post(
+        "http://localhost:5174/customerOrders",
+        { email: userDetails.email }
+      );
+      console.log(response);
+      setStripeData(response.data);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching Stripe data:", error);
@@ -236,10 +237,6 @@ export default function AllOrdersDetails() {
     }
   };
 
-  useEffect(() => {
-    fetchStripeData();
-  }, []);
-  console.log(stripeData);
   useEffect(() => {
     if (stripeData.length !== 0) {
       setFilteredData(
@@ -262,20 +259,11 @@ export default function AllOrdersDetails() {
       0
     );
   };
-
+  useEffect(() => {
+    fetchStripeData();
+  }, [userDetails]);
   return (
-    <div
-      className={
-        sidebarVisible === false
-          ? `${style.AllOrdersDetails} ${style.AllOrdersDetailsFull} `
-          : style.AllOrdersDetails
-      }
-    >
-      <div className={style.pageHeader}>
-        <p className={style.cardTitle}>All Orders</p>
-        <Pagination />
-      </div>
-
+    <div>
       <div className={style.cardBG}>
         <div className={style.aoContainer}>
           <GoNote className={style.aoICON} />

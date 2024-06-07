@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../Layouts/Navbar";
 import Sidebar from "../../Layouts/Sidebar";
 import { SidebarToggler } from "../../ContextHooks/sidebarToggler";
@@ -7,7 +7,7 @@ import EditUserDetails from "../../Components/EditUserDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLoggedInUserDetails } from "../../../Redux/UserSlice";
 import IMGLoader from "../../../components/IMGLoader";
-export default function AllUsers() {
+export default function EditUsers() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.Products.data);
   const userDetails = useSelector((state) => state.User.userDetail);

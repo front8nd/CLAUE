@@ -1,24 +1,15 @@
-.upProfileDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.udProfilePicture {
-  height: 150px;
-  width: 150px;
-  border-radius: 50%;
-}
-
 .upProfileField {
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 16px;
-  margin: 10px;
+  margin: 15px 10px;
 }
 .upTitle {
   font-weight: bold;
-  width: 50%;
+}
+.upTitle {
+  font-weight: bold;
 }
 
 .upInput {
@@ -30,26 +21,36 @@
   max-width: 300px;
   width: -webkit-fill-available;
   padding-left: 10px;
-  width: 50%;
 }
 .upActionButton {
   display: flex;
   justify-content: flex-end;
-  margin: 20px 0;
 }
-.upUpdate {
+.upDelete {
   padding: 12px 24px;
   border-radius: 20px;
-  border: none;
-  background-color: #cf9683;
-  color: white;
+  border: 1px solid black;
+  background-color: transparent;
+  color: black;
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
   width: 100%;
   max-width: 300px;
+  margin: 20px 0;
   &:hover {
-    background-color: black;
+    background-color: red;
+    border: 1px solid transparent;
     color: white;
   }
+}
+.upInput {
+  outline: 1px solid #555;
+  border-radius: 20px;
+  border: none;
+  padding: 10px 0;
+  text-align: start;
+  max-width: 300px;
+  width: -webkit-fill-available;
+  padding-left: 10px;
 }

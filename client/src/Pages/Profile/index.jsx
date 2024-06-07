@@ -21,39 +21,6 @@ export default function Profile() {
     });
     return () => unsubscribe();
   }, [dispatch]);
-  console.log(userDetails);
-
-  // const [loading, setLoading] = useState(true);
-  // const [userDetails, setUserDetails] = useState(null);
-  // const [authChecked, setAuthChecked] = useState(false);
-  // const getUserDetails = async () => {
-  //   if (!authChecked) {
-  //     setLoading(true);
-  //     try {
-  //       auth.onAuthStateChanged(async (user) => {
-  //         if (user) {
-  //           const docRef = doc(db, "Users", user.uid);
-  //           const docSnap = await getDoc(docRef);
-  //           if (docSnap.exists()) {
-  //             setUserDetails(docSnap.data());
-  //           }
-  //         } else {
-  //           setUserDetails(null);
-  //         }
-  //         setLoading(false);
-  //         setAuthChecked(true);
-  //       });
-  //     } catch (error) {
-  //       console.error("Error fetching user details:", error);
-  //       setLoading(false);
-  //       setAuthChecked(true);
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getUserDetails();
-  // }, []);
 
   return (
     <>
@@ -67,7 +34,7 @@ export default function Profile() {
             <ProfileHeader userDetails={userDetails} />
           </div>
           <div className="dashboard">
-            <ProfileLayout userDetails={userDetails} />
+            <ProfileLayout />
           </div>
         </div>
       )}

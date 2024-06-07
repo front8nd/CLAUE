@@ -3,8 +3,13 @@ import style from "./ProfileLayout.module.scss";
 import { CgProfile } from "react-icons/cg";
 import { MdHistory } from "react-icons/md";
 import { MdFindInPage } from "react-icons/md";
+import { TbPasswordUser } from "react-icons/tb";
+import { AiOutlineUserDelete } from "react-icons/ai";
 
 import UserProfile from "../../components/UserProfile";
+import UserPassword from "../../components/UserPassword";
+import UserDelete from "../../components/UserDelete";
+import OrderHistory from "../../components/OrderHistory";
 
 export default function ProfileLayout() {
   const [active, setActive] = useState("Profile");
@@ -23,6 +28,32 @@ export default function ProfileLayout() {
           <p>Profile</p>
         </div>
         <div
+          onClick={() => setActive("UserPassword")}
+          className={
+            active === "UserPassword"
+              ? style.sidebarMenuActive
+              : style.sidebarMenu
+          }
+        >
+          <i>
+            <TbPasswordUser />
+          </i>
+          <p>Change Password</p>
+        </div>
+        <div
+          onClick={() => setActive("UserDelete")}
+          className={
+            active === "UserDelete"
+              ? style.sidebarMenuActive
+              : style.sidebarMenu
+          }
+        >
+          <i>
+            <AiOutlineUserDelete />
+          </i>
+          <p>Delete Account</p>
+        </div>
+        {/* <div
           onClick={() => setActive("TrackOrder")}
           className={
             active === "TrackOrder"
@@ -34,7 +65,7 @@ export default function ProfileLayout() {
             <MdFindInPage />
           </i>
           <p>Track Order</p>
-        </div>
+        </div> */}
         <div
           onClick={() => setActive("OrderHistory")}
           className={
@@ -51,6 +82,9 @@ export default function ProfileLayout() {
       </div>
       <div className={style.content}>
         {active === "Profile" ? <UserProfile /> : ""}
+        {active === "UserPassword" ? <UserPassword /> : ""}
+        {active === "UserDelete" ? <UserDelete /> : ""}
+        {active === "OrderHistory" ? <OrderHistory /> : ""}
       </div>
     </div>
   );

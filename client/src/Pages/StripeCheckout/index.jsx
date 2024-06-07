@@ -22,7 +22,7 @@ export default function StripeCheckout() {
   }));
 
   const stripePromise = loadStripe(
-    "pk_test_51PFEvoSJExti6RxFb0GcUovTMkyMpM2O8128KIcUcoeuWT9zNyiwZqd19TUaQVcoG9losCICqDEqBXZ0d7sDP3zs006AluPK6T"
+    "pk_test_51PP1mWHHqMpc9WkZ1h5t39PqDVryiyMWN69ZKO0yCfBgYD5A3t2WQpC7Tt0AiGHkOitKnqAM3hmEbXJntsPK8WHO00McrLlT6S"
   );
 
   const fetchClientSecret = useCallback(() => {

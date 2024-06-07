@@ -291,7 +291,7 @@ export default function EditUserDetails() {
                 required
                 value={data.email}
               ></Input>
-              <p className={style.auTitle}>Password</p>
+              {/* <p className={style.auTitle}>Password</p>
               <Input
                 className={style.auInput}
                 placeholder="Enter Password"
@@ -313,7 +313,7 @@ export default function EditUserDetails() {
               ></Input>
               {passwordError && (
                 <p className="sa-password-error">{passwordError}</p>
-              )}
+              )} */}
               <p className={style.auTitle}>Upload Avatar</p>
               <div className="apdImgSize">
                 <Upload

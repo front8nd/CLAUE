@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./UserProfile.module.scss";
-import { Divider } from "antd";
-import { auth, db } from "../../firebase";
+import { Divider, Image, Upload, message } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { auth, db, storage } from "../../firebase";
 import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
-import { Image, Upload, message } from "antd";
 import {
   ref,
   getDownloadURL,
@@ -12,10 +13,6 @@ import {
   listAll,
   deleteObject,
 } from "firebase/storage";
-import { storage } from "../../firebase";
-import { v4 as uuidv4 } from "uuid";
-import { PlusOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
 import {
   EmailAuthProvider,
   deleteUser,
@@ -25,7 +22,10 @@ import {
   updatePassword,
   updateProfile,
 } from "firebase/auth";
+import { fetchLoggedInUserDetails } from "../../Redux/UserSlice";
 import IMGLoader from "../IMGLoader";
+import { v4 as uuidv4 } from "uuid";
+
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -36,30 +36,52 @@ const getBase64 = (file) =>
 
 export default function UserProfile() {
   const userDetails = useSelector((state) => state.User.userDetail);
-  const [loading, setLoading] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState({
-    fname: userDetails.firstName,
-    lname: userDetails.lastName,
-    email: userDetails.email,
-    password: "",
-    confirmPassword: "",
-    username: userDetails.username,
-    avatar: userDetails.avatar,
-    avatarID: userDetails.avatarID,
-    role: userDetails.role,
+    fname: "",
+    lname: "",
+    email: "",
+    username: "",
+    avatar: "",
+    avatarID: "",
   });
+
+  const [loading, setLoading] = useState(null);
+
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+  const [fileList, setFileList] = useState([]);
+  console.log(userDetails);
+  useEffect(() => {
+    if (userDetails) {
+      setData({
+        fname: userDetails.firstName,
+        lname: userDetails.lastName,
+        email: userDetails.email,
+        username: userDetails.username,
+        avatar: userDetails.avatar,
+        avatarID: userDetails.avatarID,
+      });
+
+      if (userDetails.avatar) {
+        const transformedFileList = [
+          {
+            uid: uuidv4(),
+            name: `image-${uuidv4()}.png`,
+            status: "done",
+            url: userDetails.avatar,
+          },
+        ];
+        setFileList(transformedFileList);
+      }
+    }
+  }, [userDetails]);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
-
-  // Image Upload
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState("");
-  const [fileList, setFileList] = useState([]);
 
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
@@ -70,20 +92,6 @@ export default function UserProfile() {
   };
 
   const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
-
-  useEffect(() => {
-    if (data.avatar) {
-      const transformedFileList = [
-        {
-          uid: uuidv4(),
-          name: `image-${uuidv4()}.png`,
-          status: "done",
-          url: data.avatar,
-        },
-      ];
-      setFileList(transformedFileList);
-    }
-  }, [data.avatar]);
 
   const uploadButton = (
     <div>
@@ -135,7 +143,6 @@ export default function UserProfile() {
     );
   };
 
-  // Delete Images
   const handleDeleteImages = async (record) => {
     try {
       message.loading("Deleting, Please wait..");
@@ -150,16 +157,13 @@ export default function UserProfile() {
         return url;
       });
 
-      const deletedUrls = await Promise.all(deletePromises);
+      await Promise.all(deletePromises);
 
-      setData((prevData) => ({
-        ...prevData,
-        avatar: "",
-      }));
+      setData((prevData) => ({ ...prevData, avatar: "" }));
 
       message.info("Deletion Successful");
     } catch (error) {
-      console.error(`Error deleting old images`, error);
+      console.error("Error deleting old images", error);
     }
   };
 
@@ -167,10 +171,8 @@ export default function UserProfile() {
     e.preventDefault();
     try {
       message.loading({ content: "Processing...", key: "updatable" });
-
       const auth = getAuth();
       const user = auth.currentUser;
-      console.log(user);
       if (!user) {
         message.error({
           content: "No authenticated user found!",
@@ -180,29 +182,24 @@ export default function UserProfile() {
         return;
       }
 
-      // // Update email if it has changed
-      // if (user.email !== data.email) {
-      //   await updateEmail(user, data.email);
-      // }
-
-      // Update password if it has changed and is not empty
-      if (data.password && data.password === data.confirmPassword) {
-        await updatePassword(user, data.password);
+      if (user.email !== data.email) {
+        try {
+          await updateEmail(user, data.email);
+          message.success({
+            content: "Email Updated Successfully",
+            key: "success",
+          });
+          setLoading(true);
+        } catch (error) {
+          message.error({
+            content: `Cannot Update Email: ${error.message}`,
+            key: "error",
+          });
+          return;
+        }
       }
 
-      // // Update profile
-      // await updateProfile(user, {
-      //   displayName: `${data.fname} ${data.lname}`,
-      //   photoURL: data.avatar,
-      // });
-
-      message.success({
-        content: "User updated successfully!",
-        key: "updatable",
-        duration: 2,
-      });
-
-      if (userDetails.id) {
+      if (userDetails?.id) {
         await setDoc(
           doc(db, "Users", userDetails.id),
           {
@@ -212,10 +209,15 @@ export default function UserProfile() {
             username: data.username,
             avatar: data.avatar,
             avatarID: data.avatarID,
-            role: data.role,
           },
           { merge: true }
         );
+        message.success({
+          content: "Profile updated successfully!",
+          key: "updatable",
+          duration: 2,
+        });
+        setLoading(true);
       }
     } catch (error) {
       console.error(error);
@@ -226,93 +228,23 @@ export default function UserProfile() {
       });
     }
   };
-
-  const handleDeleteUser = async () => {
-    try {
-      message.loading({ content: "Deleting Account.", key: "loading" });
-      const auth = getAuth();
-      const user = auth.currentUser;
-
-      if (!user) {
-        message.error("No authenticated user found.");
-        return;
-      }
-
-      const email = prompt("Please enter your email:");
-      const password = prompt("Please enter your password:");
-
-      if (!email || !password) {
-        message.error("Email and password are required for reauthentication.");
-        return;
-      }
-
-      const credential = EmailAuthProvider.credential(email, password);
-      await reauthenticateWithCredential(user, credential);
-      await deleteUser(user);
-      await deleteDoc(doc(db, "Users", userDetails.id));
-      const directoryRef = ref(storage, `images/${data.avatarID}`);
-      await deleteFilesInDirectory(directoryRef);
-
-      message.success({ content: "Deleted Successfully", key: "success" });
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-      if (error.code === "auth/wrong-password") {
-        message.error("Wrong password. Please try again.");
-      } else if (error.code === "auth/user-not-found") {
-        message.error("User not found. Please try again.");
-      } else if (error.code === "auth/requires-recent-login") {
-        message.error(
-          "This operation requires a recent login. Please log in again and try."
-        );
-      } else {
-        message.error({ content: "Failed to delete account.", key: "error" });
-      }
-    }
-  };
-
-  const deleteFilesInDirectory = async (directoryRef) => {
-    const { items } = await listAll(directoryRef);
-    const deletePromises = items.map(async (item) => {
-      if (item.isDirectory) {
-        await deleteFilesInDirectory(item);
-      } else {
-        await deleteObject(item);
-      }
-    });
-    await Promise.all(deletePromises);
-  };
-  const [passwordError, setPasswordError] = useState("");
-  const passwordValidator = () => {
-    if (
-      data.password &&
-      data.confirmPassword &&
-      data.password !== data.confirmPassword
-    ) {
-      setPasswordError("Passwords do not match, please confirm your password!");
-    } else if (data.password && data.confirmPassword) {
-      const lowerCase = /[a-z]/g;
-      const upperCase = /[A-Z]/g;
-      const numbers = /[0-9]/g;
-      if (!data.password.match(lowerCase)) {
-        setPasswordError("Password should contain lowercase letters!");
-      } else if (!data.password.match(upperCase)) {
-        setPasswordError("Password should contain uppercase letters!");
-      } else if (!data.password.match(numbers)) {
-        setPasswordError("Password should contain numbers also!");
-      } else if (data.password.length < 10) {
-        setPasswordError("Password length should be more than 10.");
-      } else {
-        setPasswordError("Password is strong!");
-      }
-    }
-  };
-
   useEffect(() => {
-    passwordValidator();
-  }, [data.password, data.confirmPassword]);
+    const fetchUserProfile = async () => {
+      try {
+        const user = auth.currentUser;
+        if (user) {
+          dispatch(fetchLoggedInUserDetails());
+        }
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
 
-  if (loading) return <IMGLoader />;
+    if (loading) {
+      fetchUserProfile();
+    }
+  }, [dispatch, loading]);
+
   return (
     <div className={style.upContainer}>
       <div className={style.upProfileDetails}>
@@ -356,31 +288,7 @@ export default function UserProfile() {
             onChange={changeHandler}
           ></input>
         </div>
-        <div className={style.upProfileField}>
-          <p className={style.upTitle}>Password:</p>
-          <input
-            className={style.upInput}
-            placeholder="Enter Password"
-            name="password"
-            value={data.password}
-            onChange={changeHandler}
-          ></input>
-        </div>
-        <div className={style.upProfileField}>
-          <p className={style.upTitle}>Confirm Password:</p>
-          <input
-            className={style.upInput}
-            placeholder="Enter Password Again"
-            name="confirmPassword"
-            value={data.confirmPassword}
-            onChange={changeHandler}
-          ></input>
-        </div>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          {passwordError && (
-            <p className="sa-password-error">{passwordError}</p>
-          )}
-        </div>
+
         <div className={style.upProfileField}>
           <p className={style.upTitle}>Upload Avatar</p>
           <div className="apdImgSize">
@@ -411,9 +319,6 @@ export default function UserProfile() {
         </div>
       </div>
       <div className={style.upActionButton}>
-        <button onClick={handleDeleteUser} className={style.upDelete}>
-          Delete Profile
-        </button>
         <button onClick={SubmitHandler} className={style.upUpdate}>
           Update Profile
         </button>

@@ -42,7 +42,7 @@ export const fetchLoggedInUserDetails = createAsyncThunk(
             const docRef = doc(db, "Users", user.uid);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
-              resolve(docSnap.data());
+              resolve({ ...docSnap.data(), id: docRef.id });
             } else {
               reject("No such document!");
             }

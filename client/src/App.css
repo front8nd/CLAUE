@@ -162,3 +162,16 @@
 .bgColor {
   background-color: #f2f7fb !important;
 }
+.ant-btn-primary {
+  background-color: #cf9683;
+}
+
+.ant-btn-primary:hover {
+  background-color: #99533b !important;
+}
+.ant-btn-default:hover {
+  background: #ffffff !important;
+  border-color: #99533b !important;
+  color: #99533b !important;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+}

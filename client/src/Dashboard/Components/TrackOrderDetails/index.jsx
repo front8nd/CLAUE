@@ -14,7 +14,6 @@ export default function TrackOrderDetails() {
 
   // Stripe Data
   const [stripeData, setStripeData] = useState([]);
-  console.log(stripeData);
   const fetchStripeData = async () => {
     try {
       setLoading(true);
