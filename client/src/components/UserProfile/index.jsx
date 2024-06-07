@@ -3,16 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import style from "./UserProfile.module.scss";
 import { Divider } from "antd";
 import { auth, db } from "../../firebase";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  getDocs,
-  setDoc,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { Image, Upload, message } from "antd";
 import {
   ref,
@@ -35,7 +26,6 @@ import {
   updateProfile,
 } from "firebase/auth";
 import IMGLoader from "../IMGLoader";
-import { query } from "firebase/database";
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -145,11 +135,38 @@ export default function UserProfile() {
     );
   };
 
-  // Update Profile
+  // Delete Images
+  const handleDeleteImages = async (record) => {
+    try {
+      message.loading("Deleting, Please wait..");
+      const folderRef = ref(storage, `images/${record.avatarID}`);
+      const result = await listAll(folderRef);
+      const filesToDelete = result.items.filter((item) =>
+        item.name.includes(file.name)
+      );
+      const deletePromises = filesToDelete.map(async (fileRef) => {
+        const url = await getDownloadURL(fileRef);
+        await deleteObject(fileRef);
+        return url;
+      });
+
+      const deletedUrls = await Promise.all(deletePromises);
+
+      setData((prevData) => ({
+        ...prevData,
+        avatar: "",
+      }));
+
+      message.info("Deletion Successful");
+    } catch (error) {
+      console.error(`Error deleting old images`, error);
+    }
+  };
+
   const SubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      message.loading({ content: "Processing...", key: "loading" });
+      message.loading({ content: "Processing...", key: "updatable" });
 
       const auth = getAuth();
       const user = auth.currentUser;
@@ -157,37 +174,48 @@ export default function UserProfile() {
       if (!user) {
         message.error({
           content: "No authenticated user found!",
-          key: "error",
+          key: "updatable",
+          duration: 2,
         });
         return;
       }
 
-      // Find the document based on user's email
-      const querySnapshot = await getDocs(
-        query(collection(db, "Users"), where("email", "==", user.email))
-      );
+      // // Update email if it has changed
+      // if (user.email !== data.email) {
+      //   await updateEmail(user, data.email);
+      // }
 
-      if (!querySnapshot.empty) {
-        const docRef = querySnapshot.docs[0].ref;
-        await updateDoc(docRef, {
-          email: data.email,
-          firstName: data.fname,
-          lastName: data.lname,
-          username: data.username,
-          avatar: data.avatar,
-          avatarID: data.avatarID,
-          role: data.role,
-        });
+      // Update password if it has changed and is not empty
+      if (data.password && data.password === data.confirmPassword) {
+        await updatePassword(user, data.password);
+      }
 
-        message.success({
-          content: "User updated successfully!",
-          key: "success",
-        });
-      } else {
-        message.error({
-          content: "User document not found!",
-          key: "error",
-        });
+      // // Update profile
+      // await updateProfile(user, {
+      //   displayName: `${data.fname} ${data.lname}`,
+      //   photoURL: data.avatar,
+      // });
+
+      message.success({
+        content: "User updated successfully!",
+        key: "updatable",
+        duration: 2,
+      });
+
+      if (userDetails.id) {
+        await setDoc(
+          doc(db, "Users", userDetails.id),
+          {
+            email: data.email,
+            firstName: data.fname,
+            lastName: data.lname,
+            username: data.username,
+            avatar: data.avatar,
+            avatarID: data.avatarID,
+            role: data.role,
+          },
+          { merge: true }
+        );
       }
     } catch (error) {
       console.error(error);
@@ -199,7 +227,6 @@ export default function UserProfile() {
     }
   };
 
-  //Delete Profile
   const handleDeleteUser = async () => {
     try {
       message.loading({ content: "Deleting Account.", key: "loading" });
@@ -255,36 +282,6 @@ export default function UserProfile() {
     });
     await Promise.all(deletePromises);
   };
-
-  // Delete Images
-  const handleDeleteImages = async (record) => {
-    try {
-      message.loading("Deleting, Please wait..");
-      const folderRef = ref(storage, `images/${record.avatarID}`);
-      const result = await listAll(folderRef);
-      const filesToDelete = result.items.filter((item) =>
-        item.name.includes(file.name)
-      );
-      const deletePromises = filesToDelete.map(async (fileRef) => {
-        const url = await getDownloadURL(fileRef);
-        await deleteObject(fileRef);
-        return url;
-      });
-
-      const deletedUrls = await Promise.all(deletePromises);
-
-      setData((prevData) => ({
-        ...prevData,
-        avatar: "",
-      }));
-
-      message.info("Deletion Successful");
-    } catch (error) {
-      console.error(`Error deleting old images`, error);
-    }
-  };
-
-  // Password Validator
   const [passwordError, setPasswordError] = useState("");
   const passwordValidator = () => {
     if (
