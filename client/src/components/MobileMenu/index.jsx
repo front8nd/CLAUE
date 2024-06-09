@@ -9,10 +9,11 @@ import { VscAccount } from "react-icons/vsc";
 import { auth } from "../../firebase";
 import { userLoggedIn } from "../../Redux/UserSlice";
 export default function MobileMenu() {
+  const dispatch = useDispatch();
+  const userDetails = useSelector((state) => state.User.userDetail);
   const userState = useSelector((state) => state.User.users);
   const categoryList = useSelector((state) => state.Products.arrayCategory);
   const showMobileMenu = useSelector((state) => state.Products.showMobileMenu);
-  const dispatch = useDispatch();
   const [hide, setHide] = useState(false);
   const logoutUser = async () => {
     try {
@@ -24,7 +25,19 @@ export default function MobileMenu() {
       console.error(error);
     }
   };
-  useEffect(() => {}, [dispatch]);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        await dispatch(fetchLoggedInUserDetails());
+        dispatch(userLoggedIn(true));
+      } else {
+        dispatch(userLoggedIn(false));
+      }
+    });
+    return () => unsubscribe();
+  }, [dispatch]);
+
   return (
     showMobileMenu && (
       <>
@@ -150,7 +163,7 @@ export default function MobileMenu() {
             ) : (
               <li className="mobilemenu-list-items ">
                 <Link
-                  to={"/Admin/"}
+                  to={userDetails.role === "admin" ? "/Admin/" : "/Profile/"}
                   onClick={() => {
                     dispatch(setShowMobileMenu(false));
                   }}

@@ -53,18 +53,12 @@ export default function Return() {
   if (status === "complete") {
     return (
       <>
+        <BacktoTop />
+        <Header />
         <OrderCompleteHeader />
         <Recipt data={data} />
+        <Footer />
       </>
     );
   }
-
-  return (
-    <>
-      <BacktoTop />
-      <Header />
-      <OrderCompleteHeader />
-      <Footer />
-    </>
-  );
 }
