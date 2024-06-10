@@ -1,9 +1,48 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as echarts from "echarts";
+import { useSelector } from "react-redux";
+import Loading from "../../../components/Loading";
 
 export default function TotalSalesCard() {
+  const stripeData = useSelector((state) => state.Products.stripeData);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    if (stripeData.length !== 0) {
+      let filteredData = stripeData.filter(
+        (item) => item.customer_details !== null
+      );
+
+      filteredData.sort((a, b) => a.created - b.created);
+
+      // Combine both data updates into a single setData call
+      setData({
+        date: filteredData.map((e) => formateDate(e.created)),
+        amount: filteredData.map((e) => e.amount_total),
+      });
+      setLoading(false);
+    } else {
+      setData([]);
+      setLoading(false);
+    }
+  }, [stripeData]); // Add stripeData as a dependency
+  if (loading) return <Loading />;
+  console.log(stripeData);
+
+  const formateDate = (date) => {
+    const orderDate = new Date(date * 1000);
+    const formattedDate = orderDate.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    return formattedDate;
+  };
+
   useEffect(() => {
     var chartDom = document.getElementById("TotalSalesCard");
+
     if (chartDom) {
       var myChart = echarts.init(chartDom);
       var option = {
@@ -31,7 +70,7 @@ export default function TotalSalesCard() {
           {
             type: "category",
             boundaryGap: false,
-            data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            data: data.date || [], // Ensure data.date is an array
           },
         ],
         yAxis: [
@@ -65,7 +104,7 @@ export default function TotalSalesCard() {
             emphasis: {
               focus: "series",
             },
-            data: [10, 20, 30, 40, 50, 60, 70],
+            data: data.amount || [], // Ensure data.amount is an array
           },
         ],
       };
@@ -82,7 +121,7 @@ export default function TotalSalesCard() {
         myChart.dispose();
       };
     }
-  }, []);
+  }, [data]); // Add data as a dependency
 
   return (
     <div>

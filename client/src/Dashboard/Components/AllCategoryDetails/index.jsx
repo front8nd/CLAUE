@@ -202,7 +202,7 @@ export default function AllCategoryDetails() {
           </div>
           <Button
             onClick={() => {
-              navigation("/Category/AddCategory");
+              navigation("/category/addcategory");
             }}
             className={style.apButton}
           >

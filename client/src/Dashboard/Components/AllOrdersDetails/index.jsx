@@ -109,9 +109,7 @@ export default function AllOrdersDetails() {
             </li>
             <li>
               <span className={style.aoTitle}>Per Unit Price:</span>
-              {text !== null
-                ? Math.round(text[0].amount_total / 80)
-                : "Not Found"}
+              {text !== null ? Math.round(text[0].amount_total) : "Not Found"}
             </li>
           </ul>
         </div>
@@ -123,7 +121,7 @@ export default function AllOrdersDetails() {
       dataIndex: "amount_subtotal",
       key: "id",
       render: (text, record) => {
-        return <p className={style.truncate}>{Math.round(text / 80)}</p>;
+        return <p className={style.truncate}>{Math.round(text)}</p>;
       },
     },
     {
@@ -132,7 +130,7 @@ export default function AllOrdersDetails() {
       key: "id",
       render: (text, record) => {
         return (
-          <p className={style.truncate}>{Math.round(text.amount_total / 80)}</p>
+          <p className={style.truncate}>{Math.round(text.amount_total)}</p>
         );
       },
     },
@@ -142,9 +140,7 @@ export default function AllOrdersDetails() {
       key: "id",
       render: (text, record) => {
         return (
-          <p className={style.truncate}>
-            {Math.round(text.amount_discount / 80)}
-          </p>
+          <p className={style.truncate}>{Math.round(text.amount_discount)}</p>
         );
       },
     },
@@ -153,9 +149,7 @@ export default function AllOrdersDetails() {
       dataIndex: "total_details",
       key: "id",
       render: (text, record) => {
-        return (
-          <p className={style.truncate}>{Math.round(text.amount_tax / 80)}</p>
-        );
+        return <p className={style.truncate}>{Math.round(text.amount_tax)}</p>;
       },
     },
     {
@@ -163,7 +157,7 @@ export default function AllOrdersDetails() {
       dataIndex: "amount_total",
       key: "id",
       render: (text, record) => {
-        return <p className={style.truncate}>{Math.round(text / 80)}</p>;
+        return <p className={style.truncate}>{Math.round(text)}</p>;
       },
     },
     {
@@ -218,7 +212,7 @@ export default function AllOrdersDetails() {
       dataIndex: "amount_total",
       key: "amount_total",
       render: (text) => {
-        return <p>{Math.round(text / 80)}</p>;
+        return <p>{Math.round(text)}</p>;
       },
     },
   ];
@@ -229,6 +223,7 @@ export default function AllOrdersDetails() {
       const response = await fetch("http://localhost:5174/stripeData");
       const results = await response.json();
       setStripeData(results);
+      localStorage.setItem("SalesCard", JSON.stringify(results));
       setLoading(false);
     } catch (error) {
       console.error("Error fetching Stripe data:", error);
@@ -258,7 +253,7 @@ export default function AllOrdersDetails() {
 
   const calculateTotalRevenue = (data) => {
     return data.reduce(
-      (acc, record) => acc + Math.round(record.amount_total / 80),
+      (acc, record) => acc + Math.round(record.amount_total),
       0
     );
   };

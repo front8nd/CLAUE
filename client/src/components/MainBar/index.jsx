@@ -129,7 +129,7 @@ export default function MainBar() {
             </button>
           </Link>
         ) : (
-          <Link to={userDetails.role === "admin" ? "/Admin/" : "/Profile/"}>
+          <Link to={userDetails.role === "admin" ? "/admin/" : "/profile/"}>
             <button className="icon-menu-item hideMobile">
               <VscAccount />
             </button>

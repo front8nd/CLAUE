@@ -163,7 +163,7 @@ export default function MobileMenu() {
             ) : (
               <li className="mobilemenu-list-items ">
                 <Link
-                  to={userDetails.role === "admin" ? "/Admin/" : "/Profile/"}
+                  to={userDetails.role === "admin" ? "/admin/" : "/profile/"}
                   onClick={() => {
                     dispatch(setShowMobileMenu(false));
                   }}

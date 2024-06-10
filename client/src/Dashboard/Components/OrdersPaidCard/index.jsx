@@ -1,7 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as echarts from "echarts";
+import { useSelector } from "react-redux";
+import Loading from "../../../components/Loading";
 
 export default function OrdersPaidCard() {
+  const stripeData = useSelector((state) => state.Products.stripeData);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    if (stripeData.length !== 0) {
+      const filteredData = stripeData.filter(
+        (item) => item.customer_details !== null
+      );
+      filteredData.sort((a, b) => a.created - b.created);
+
+      setData({
+        date: filteredData.map((e) => formateDate(e.created)),
+        items: filteredData.map((e) => e.lineItems.length),
+      });
+      setLoading(false);
+    } else {
+      setData([]);
+      setLoading(false);
+    }
+  }, [stripeData]);
+  console.log("x", data);
+  const formateDate = (date) => {
+    const orderDate = new Date(date * 1000);
+    const formattedDate = orderDate.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    return formattedDate;
+  };
+  if (loading) return <Loading />;
+  console.log(stripeData);
   useEffect(() => {
     var chartDom = document.getElementById("OrdersPaidCard");
     if (chartDom) {
@@ -30,7 +67,7 @@ export default function OrdersPaidCard() {
           {
             type: "category",
             boundaryGap: false,
-            data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            data: data.date || [],
           },
         ],
         yAxis: [
@@ -64,7 +101,7 @@ export default function OrdersPaidCard() {
             emphasis: {
               focus: "series",
             },
-            data: [140, 232, 101, 264, 90, 340, 250],
+            data: data.items || [],
           },
         ],
       };
@@ -81,7 +118,7 @@ export default function OrdersPaidCard() {
         myChart.dispose();
       };
     }
-  }, []);
+  }, [data]);
 
   return (
     <div>

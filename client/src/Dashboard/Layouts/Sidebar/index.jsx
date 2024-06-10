@@ -17,6 +17,11 @@ import { FaInstagram } from "react-icons/fa";
 import ContactSVG from "../../Assets/contact.svg";
 import Logo from "../../Assets/logo.png";
 import { IoHomeOutline } from "react-icons/io5";
+import { CgProfile } from "react-icons/cg";
+import { TbPasswordUser } from "react-icons/tb";
+import { AiOutlineUserDelete } from "react-icons/ai";
+import { MdHistory } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 export default function Sidebar() {
   const url = useLocation();
@@ -25,6 +30,7 @@ export default function Sidebar() {
   const { sidebarVisible, toggleSidebar } = useSidebarToggler();
   const [expandMenuItem, setExpandMenuItem] = useState(urlParent);
   const [expandSubMenuItem, setExpandSubMenuItem] = useState(urlSub);
+  const userDetails = useSelector((state) => state.User.userDetail);
 
   const handleMenuItemClick = (menuItem) => {
     setExpandMenuItem(menuItem);
@@ -38,6 +44,94 @@ export default function Sidebar() {
     return null;
   }
 
+  if (userDetails.role === "user")
+    return (
+      <div className={style.sidebar}>
+        <div className={style.sidebarHeaderContainer}>
+          <div className={style.sidebarHeader}>
+            <img src={Logo} alt="Logo" style={{ marginLeft: "20px" }} />
+            <RiMenuFoldLine
+              onClick={() => toggleSidebar()}
+              className={style.sidebarCloseIcon}
+            />
+          </div>
+        </div>
+        <div className={style.sidebarMainMenu}>
+          <div className={style.sidebarMenuLabel}>MAIN HOME</div>
+          <Link className={style.SidebarLink} to="/">
+            <div
+              onClick={() => handleMenuItemClick("homepage")}
+              className={style.sidebarMenu}
+            >
+              <div className={style.sidebarMenuItem}>
+                <IoHomeOutline className={style.sidebarMenuIcon} />
+                <span>Homepage</span>
+              </div>
+            </div>
+          </Link>
+          <Link className={style.SidebarLink} to="/profile">
+            <div
+              onClick={() => handleMenuItemClick("profile")}
+              className={
+                expandMenuItem === "profile"
+                  ? style.sidebarMenuActive
+                  : style.sidebarMenu
+              }
+            >
+              <div className={style.sidebarMenuItem}>
+                <CgProfile className={style.sidebarMenuIcon} />
+                <span>Profile</span>
+              </div>
+            </div>
+          </Link>
+          <Link className={style.SidebarLink} to="/password">
+            <div
+              onClick={() => handleMenuItemClick("password")}
+              className={
+                expandMenuItem === "password"
+                  ? style.sidebarMenuActive
+                  : style.sidebarMenu
+              }
+            >
+              <div className={style.sidebarMenuItem}>
+                <TbPasswordUser className={style.sidebarMenuIcon} />
+                <span>Change Password</span>
+              </div>
+            </div>
+          </Link>
+          <Link className={style.SidebarLink} to="/delete">
+            <div
+              onClick={() => handleMenuItemClick("delete")}
+              className={
+                expandMenuItem === "delete"
+                  ? style.sidebarMenuActive
+                  : style.sidebarMenu
+              }
+            >
+              <div className={style.sidebarMenuItem}>
+                <AiOutlineUserDelete className={style.sidebarMenuIcon} />
+                <span>Delete Account</span>
+              </div>
+            </div>
+          </Link>
+          <Link className={style.SidebarLink} to="/orderhistory">
+            <div
+              onClick={() => handleMenuItemClick("orderhistory")}
+              className={
+                expandMenuItem === "orderhistory"
+                  ? style.sidebarMenuActive
+                  : style.sidebarMenu
+              }
+            >
+              <div className={style.sidebarMenuItem}>
+                <MdHistory className={style.sidebarMenuIcon} />
+                <span>Order History</span>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </div>
+    );
   return (
     <div className={style.sidebar}>
       <div className={style.sidebarHeaderContainer}>
@@ -51,11 +145,11 @@ export default function Sidebar() {
       </div>
       <div className={style.sidebarMainMenu}>
         <div className={style.sidebarMenuLabel}>MAIN HOME</div>
-        <Link className={style.SidebarLink} to="/Admin/">
+        <Link className={style.SidebarLink} to="/admin/">
           <div
-            onClick={() => handleMenuItemClick("Admin")}
+            onClick={() => handleMenuItemClick("admin")}
             className={
-              expandMenuItem === "Admin"
+              expandMenuItem === "admin"
                 ? style.sidebarMenuActive
                 : style.sidebarMenu
             }
@@ -68,7 +162,7 @@ export default function Sidebar() {
         </Link>
         <Link className={style.SidebarLink} to="/">
           <div
-            onClick={() => handleMenuItemClick("Admin")}
+            onClick={() => handleMenuItemClick("homepage")}
             className={style.sidebarMenu}
           >
             <div className={style.sidebarMenuItem}>
@@ -77,11 +171,12 @@ export default function Sidebar() {
             </div>
           </div>
         </Link>
+
         <div className={style.sidebarMenuLabel}>All Pages</div>
         <div
-          onClick={() => handleMenuItemClick("Products")}
+          onClick={() => handleMenuItemClick("products")}
           className={
-            expandMenuItem === "Products"
+            expandMenuItem === "products"
               ? style.sidebarMenuActive
               : style.sidebarMenu
           }
@@ -92,28 +187,28 @@ export default function Sidebar() {
           </div>
           <IoIosArrowDown className={style.arrowIcon} />
         </div>
-        {expandMenuItem === "Products" && (
+        {expandMenuItem === "products" && (
           <div className={style.sidebarSubMenu}>
             <ul>
               <Link
-                onClick={() => handleSubMenuItemClick("AddProducts")}
+                onClick={() => handleSubMenuItemClick("addproducts")}
                 className={
-                  expandSubMenuItem === "AddProducts"
+                  expandSubMenuItem === "addproducts"
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/Products/AddProducts/"
+                to="/products/addproducts/"
               >
                 <li className={style.sidebarSubMenuList}>Add New Product</li>
               </Link>
               <Link
-                onClick={() => handleSubMenuItemClick("AllProducts")}
+                onClick={() => handleSubMenuItemClick("allproducts")}
                 className={
-                  expandSubMenuItem === "AllProducts"
+                  expandSubMenuItem === "allproducts"
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/Products/AllProducts/"
+                to="/products/allproducts/"
               >
                 <li className={style.sidebarSubMenuList}>All Products</li>
               </Link>
@@ -121,9 +216,9 @@ export default function Sidebar() {
           </div>
         )}
         <div
-          onClick={() => handleMenuItemClick("Category")}
+          onClick={() => handleMenuItemClick("category")}
           className={
-            expandMenuItem === "Category"
+            expandMenuItem === "category"
               ? style.sidebarMenuActive
               : style.sidebarMenu
           }
@@ -134,28 +229,28 @@ export default function Sidebar() {
           </div>
           <IoIosArrowDown className={style.arrowIcon} />
         </div>
-        {expandMenuItem === "Category" && (
+        {expandMenuItem === "category" && (
           <div className={style.sidebarSubMenu}>
             <ul>
               <Link
-                onClick={() => handleSubMenuItemClick("AddCategory")}
+                onClick={() => handleSubMenuItemClick("addcategory")}
                 className={
-                  expandSubMenuItem === "AddCategory"
+                  expandSubMenuItem === "addcategory"
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/Category/AddCategory/"
+                to="/category/addcategory/"
               >
                 <li className={style.sidebarSubMenuList}>Add New Category</li>
               </Link>
               <Link
-                onClick={() => handleSubMenuItemClick("AllCategory")}
+                onClick={() => handleSubMenuItemClick("allcategory")}
                 className={
-                  expandSubMenuItem === "AllCategory"
+                  expandSubMenuItem === "allcategory"
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/Category/AllCategory/"
+                to="/category/allcategory/"
               >
                 <li className={style.sidebarSubMenuList}>All Categories</li>
               </Link>
@@ -163,9 +258,9 @@ export default function Sidebar() {
           </div>
         )}
         <div
-          onClick={() => handleMenuItemClick("Attributes")}
+          onClick={() => handleMenuItemClick("attributes")}
           className={
-            expandMenuItem === "Attributes"
+            expandMenuItem === "attributes"
               ? style.sidebarMenuActive
               : style.sidebarMenu
           }
@@ -176,28 +271,28 @@ export default function Sidebar() {
           </div>
           <IoIosArrowDown className={style.arrowIcon} />
         </div>
-        {expandMenuItem === "Attributes" && (
+        {expandMenuItem === "attributes" && (
           <div className={style.sidebarSubMenu}>
             <ul>
               <Link
-                onClick={() => handleSubMenuItemClick("AddAttributes")}
+                onClick={() => handleSubMenuItemClick("addattributes")}
                 className={
-                  expandSubMenuItem === "AddAttributes"
+                  expandSubMenuItem === "addattributes"
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/Attributes/AddAttributes/"
+                to="/attributes/addattributes/"
               >
                 <li className={style.sidebarSubMenuList}>Add Attributes</li>
               </Link>
               <Link
-                onClick={() => handleSubMenuItemClick("AllAttributes")}
+                onClick={() => handleSubMenuItemClick("allattributes")}
                 className={
-                  expandSubMenuItem === "AllAttributes"
+                  expandSubMenuItem === "allattributes"
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/Attributes/AllAttributes/"
+                to="/attributes/allattributes/"
               >
                 <li className={style.sidebarSubMenuList}>All Attributes</li>
               </Link>
@@ -205,9 +300,9 @@ export default function Sidebar() {
           </div>
         )}
         <div
-          onClick={() => handleMenuItemClick("Orders")}
+          onClick={() => handleMenuItemClick("orders")}
           className={
-            expandMenuItem === "Orders"
+            expandMenuItem === "orders"
               ? style.sidebarMenuActive
               : style.sidebarMenu
           }
@@ -218,28 +313,28 @@ export default function Sidebar() {
           </div>
           <IoIosArrowDown className={style.arrowIcon} />
         </div>
-        {expandMenuItem === "Orders" && (
+        {expandMenuItem === "orders" && (
           <div className={style.sidebarSubMenu}>
             <ul>
               <Link
-                onClick={() => handleSubMenuItemClick("AllOrders")}
+                onClick={() => handleSubMenuItemClick("allorders")}
                 className={
-                  expandSubMenuItem === "AllOrders"
+                  expandSubMenuItem === "allorders"
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/Orders/AllOrders/"
+                to="/orders/allorders/"
               >
                 <li className={style.sidebarSubMenuList}>All Orders</li>
               </Link>
               <Link
-                onClick={() => handleSubMenuItemClick("TrackOrder")}
+                onClick={() => handleSubMenuItemClick("trackorder")}
                 className={
-                  expandSubMenuItem === "TrackOrder"
+                  expandSubMenuItem === "trackorder"
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/Orders/TrackOrder/"
+                to="/orders/trackorder/"
               >
                 <li className={style.sidebarSubMenuList}>Track Order</li>
               </Link>
@@ -247,9 +342,9 @@ export default function Sidebar() {
           </div>
         )}
         <div
-          onClick={() => handleMenuItemClick("Users")}
+          onClick={() => handleMenuItemClick("users")}
           className={
-            expandMenuItem === "Users"
+            expandMenuItem === "users"
               ? style.sidebarMenuActive
               : style.sidebarMenu
           }
@@ -260,35 +355,34 @@ export default function Sidebar() {
           </div>
           <IoIosArrowDown className={style.arrowIcon} />
         </div>
-        {expandMenuItem === "Users" && (
+        {expandMenuItem === "users" && (
           <div className={style.sidebarSubMenu}>
             <ul>
               <Link
-                onClick={() => handleSubMenuItemClick("AllUsers")}
+                onClick={() => handleSubMenuItemClick("allusers")}
                 className={
-                  expandSubMenuItem === "AllUsers"
+                  expandSubMenuItem === "allusers"
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/Users/AllUsers/"
+                to="/users/allusers/"
               >
                 <li className={style.sidebarSubMenuList}>All Users</li>
               </Link>
               <Link
-                onClick={() => handleSubMenuItemClick("AddUser")}
+                onClick={() => handleSubMenuItemClick("adduser")}
                 className={
-                  expandSubMenuItem === "AddUser"
+                  expandSubMenuItem === "adduser"
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/Users/AddUser/"
+                to="/users/adduser/"
               >
                 <li className={style.sidebarSubMenuList}>Add User</li>
               </Link>
             </ul>
           </div>
         )}
-
         <div style={{ margin: "10px" }} className={style.sidebarMenuLabel}>
           Contact Us
         </div>

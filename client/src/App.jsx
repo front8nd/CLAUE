@@ -32,7 +32,10 @@ import EditUser from "./Dashboard/Pages/EditUser/index.jsx";
 import AllOrders from "./Dashboard/Pages/AllOrders/index.jsx";
 import TrackOrder from "./Dashboard/Pages/TrackOrder/index.jsx";
 import EditProducts from "./Dashboard/Pages/EditProducts/index.jsx";
-import Profile from "./Pages/Profile/index.jsx";
+import Profile from "./Dashboard/Pages/Profile/index.jsx";
+import Password from "./Dashboard/Pages/Password/index.jsx";
+import Delete from "./Dashboard/Pages/Delete/index.jsx";
+import OrderHistory from "./Dashboard/Pages/OrderHistory/index.jsx";
 
 function App() {
   return (
@@ -46,15 +49,36 @@ function App() {
           <Route path="/login/" element={<Login />} />
           <Route path="/register/" element={<Register />} />
           <Route path="/category/:categoryName" element={<Category />} />
-          <Route path="/Shop/" element={<Shop />} />
-          <Route path="/Checkout/" element={<Checkout />} />
+          <Route path="/shop/" element={<Shop />} />
+          <Route path="/checkout/" element={<Checkout />} />
           <Route path="/search/:searchQuery" element={<Search />} />
           <Route path="/return" element={<Return />} />
-          <Route path="/StripeCheckout" element={<StripeCheckout />} />
+          <Route path="/stripeCheckout" element={<StripeCheckout />} />
           <Route
-            path="/profile/"
+            path="/profile"
             element={
               <ProtectedRoutes component={Profile} allowedRoles={["user"]} />
+            }
+          />
+          <Route
+            path="/password"
+            element={
+              <ProtectedRoutes component={Password} allowedRoles={["user"]} />
+            }
+          />
+          <Route
+            path="/delete"
+            element={
+              <ProtectedRoutes component={Delete} allowedRoles={["user"]} />
+            }
+          />
+          <Route
+            path="/orderhistory"
+            element={
+              <ProtectedRoutes
+                component={OrderHistory}
+                allowedRoles={["user"]}
+              />
             }
           />
           <Route
@@ -73,7 +97,7 @@ function App() {
             }
           />
           <Route
-            path="/Admin"
+            path="/admin"
             element={
               <ProtectedRoutes
                 component={DashboardHomepage}
@@ -82,7 +106,7 @@ function App() {
             }
           />
           <Route
-            path="/Products/AddProducts"
+            path="/products/addproducts"
             element={
               <ProtectedRoutes
                 component={AddProducts}
@@ -91,7 +115,7 @@ function App() {
             }
           />
           <Route
-            path="/Products/EditProduct/:ProductID"
+            path="/products/editproduct/:ProductID"
             element={
               <ProtectedRoutes
                 component={EditProducts}
@@ -109,7 +133,7 @@ function App() {
             }
           />
           <Route
-            path="/Category/AddCategory"
+            path="/category/addcategory"
             element={
               <ProtectedRoutes
                 component={AddCategory}
@@ -118,7 +142,7 @@ function App() {
             }
           />
           <Route
-            path="/Category/AllCategory"
+            path="/category/allcategory"
             element={
               <ProtectedRoutes
                 component={AllCategory}
@@ -127,7 +151,7 @@ function App() {
             }
           />
           <Route
-            path="/Attributes/AddAttributes"
+            path="/attributes/addattributes"
             element={
               <ProtectedRoutes
                 component={AddAttributes}
@@ -136,7 +160,7 @@ function App() {
             }
           />
           <Route
-            path="/Attributes/AllAttributes"
+            path="/attributes/allattributes"
             element={
               <ProtectedRoutes
                 component={AllAttributes}
@@ -145,26 +169,37 @@ function App() {
             }
           />
           <Route
-            path="/Orders/AllOrders"
+            path="/orders/allorders"
             element={
               <ProtectedRoutes component={AllOrders} allowedRoles={["admin"]} />
             }
           />
           <Route
-            path="/Orders/TrackOrder"
-            element={<ProtectedRoutes component={TrackOrder} />}
+            path="/orders/trackorder"
+            element={
+              <ProtectedRoutes
+                component={TrackOrder}
+                allowedRoles={["admin"]}
+              />
+            }
           />
           <Route
-            path="/Users/AllUsers"
-            element={<ProtectedRoutes component={AllUsers} />}
+            path="/users/allusers"
+            element={
+              <ProtectedRoutes component={AllUsers} allowedRoles={["admin"]} />
+            }
           />
           <Route
-            path="/Users/AddUser"
-            element={<ProtectedRoutes component={AddUser} />}
+            path="/users/adduser"
+            element={
+              <ProtectedRoutes component={AddUser} allowedRoles={["admin"]} />
+            }
           />
           <Route
-            path="/Users/EditUser"
-            element={<ProtectedRoutes component={EditUser} />}
+            path="/users/edituser"
+            element={
+              <ProtectedRoutes component={EditUser} allowedRoles={["admin"]} />
+            }
           />
           <Route path="*" element={<NotFound404 />} />
         </Routes>

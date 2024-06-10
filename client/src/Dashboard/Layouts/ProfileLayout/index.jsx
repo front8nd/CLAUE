@@ -5,11 +5,10 @@ import { MdHistory } from "react-icons/md";
 import { MdFindInPage } from "react-icons/md";
 import { TbPasswordUser } from "react-icons/tb";
 import { AiOutlineUserDelete } from "react-icons/ai";
-
-import UserProfile from "../../components/UserProfile";
-import UserPassword from "../../components/UserPassword";
-import UserDelete from "../../components/UserDelete";
-import OrderHistory from "../../components/OrderHistory";
+import UserProfile from "../../Components/UserProfile";
+import UserPassword from "../../Components/UserPassword";
+import UserDelete from "../../Components/UserDelete";
+import OrderHistory from "../../Components/OrderHistory";
 
 export default function ProfileLayout() {
   const [active, setActive] = useState("Profile");
@@ -53,19 +52,7 @@ export default function ProfileLayout() {
           </i>
           <p>Delete Account</p>
         </div>
-        {/* <div
-          onClick={() => setActive("TrackOrder")}
-          className={
-            active === "TrackOrder"
-              ? style.sidebarMenuActive
-              : style.sidebarMenu
-          }
-        >
-          <i>
-            <MdFindInPage />
-          </i>
-          <p>Track Order</p>
-        </div> */}
+
         <div
           onClick={() => setActive("OrderHistory")}
           className={

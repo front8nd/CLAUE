@@ -14,10 +14,10 @@ export default function Pagination() {
           title: "Home",
         },
         {
-          title: <p>{urlParent} </p>,
+          title: <p style={{ textTransform: "capitalize" }}>{urlParent} </p>,
         },
         {
-          title: <p>{urlSub}</p>,
+          title: <p style={{ textTransform: "capitalize" }}>{urlSub}</p>,
         },
       ]}
     />

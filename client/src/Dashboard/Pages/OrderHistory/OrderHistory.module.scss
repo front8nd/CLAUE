@@ -1,0 +1,12 @@
+@import "../../GlobalStyle/style.scss";
+.OrderHistory {
+  display: flex;
+  min-height: 80vh;
+}
+
+.loading {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  height: 100vh;
+}

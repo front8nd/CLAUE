@@ -9,10 +9,14 @@ import Loading from "../../../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLoggedInUserDetails } from "../../../Redux/UserSlice";
 import IMGLoader from "../../../components/IMGLoader";
-import { getProductsFirebase } from "../../../Redux/ProductsSlice";
+import {
+  getProductsFirebase,
+  setStripeData,
+} from "../../../Redux/ProductsSlice";
 export default function DashboardHomepage() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.Products.data);
+  const stripeData = useSelector((state) => state.Products.stripeData);
   const userDetails = useSelector((state) => state.User.userDetail);
   const [loading, setLoading] = useState(null);
 
@@ -30,6 +34,25 @@ export default function DashboardHomepage() {
       dispatch(fetchLoggedInUserDetails());
     }
   }, [dispatch, userDetails]);
+
+  const fetchStripeData = async () => {
+    if (stripeData.length === 0) {
+      setLoading(true);
+      try {
+        const response = await fetch("http://localhost:5174/stripeData");
+        const results = await response.json();
+        dispatch(setStripeData(results));
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching Stripe data:", error);
+        setLoading(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchStripeData();
+  }, []);
 
   if (loading) {
     return (

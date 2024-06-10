@@ -245,7 +245,7 @@ export default function AllProductsDetails() {
           </div>
           <Button
             onClick={() => {
-              navigation("/Products/AddProducts");
+              navigation("/products/addproducts");
             }}
             className={style.apButton}
           >

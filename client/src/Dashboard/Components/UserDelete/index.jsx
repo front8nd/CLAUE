@@ -11,9 +11,13 @@ import {
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { db, storage } from "../../firebase";
-import { fetchLoggedInUserDetails } from "../../Redux/UserSlice";
+import { db, storage } from "../../../firebase";
+import { fetchLoggedInUserDetails } from "../../../Redux/UserSlice";
+import Pagination from "../Pagination";
+import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 export default function UserDelete() {
+  const { sidebarVisible } = useSidebarToggler();
+
   const [loading, setLoading] = useState(null);
   const userDetails = useSelector((state) => state.User.userDetail);
   const dispatch = useDispatch();
@@ -113,49 +117,64 @@ export default function UserDelete() {
     }
   }, [dispatch, loading]);
   return (
-    <div>
-      <>
-        <Modal
-          title="Delete Account"
-          open={isModalOpen}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
-          <p>Please enter your email and password to continue</p>
-          <div className={style.upProfileField}>
-            <p className={style.upTitle}>Email:</p>
-            <input
-              className={style.upInput}
-              placeholder="Enter Email"
-              name="email"
-              value={data.email}
-              onChange={changeHandler}
-            ></input>
+    <>
+      <Modal
+        title="Delete Account"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>Please enter your email and password to continue</p>
+        <div className={style.upProfileField}>
+          <p className={style.upTitle}>Email:</p>
+          <input
+            className={style.upInput}
+            placeholder="Enter Email"
+            name="email"
+            value={data.email}
+            onChange={changeHandler}
+          ></input>
+        </div>
+        <div className={style.upProfileField}>
+          <p className={style.upTitle}>Password:</p>
+          <input
+            className={style.upInput}
+            placeholder="Enter Password"
+            name="password"
+            value={data.password}
+            onChange={changeHandler}
+          ></input>
+        </div>
+      </Modal>
+
+      <div
+        className={
+          sidebarVisible === false
+            ? `${style.UserDelete} ${style.UserDeleteFull} `
+            : style.UserDelete
+        }
+      >
+        <div className={style.pageHeader}>
+          <p className={style.cardTitle}>Delete Account</p>
+          <Pagination />
+        </div>
+        <div className={style.cardBG}>
+          <div className={style.upContainer}>
+            <div className={style.upProfileField}>
+              <p className={style.upTitle}>
+                We regret to inform you that your account will be deleted. This
+                action is irreversible and will result in the loss of all your
+                data associated with our service.
+                <div className={style.upActionButton}>
+                  <button onClick={showModal} className={style.upDelete}>
+                    Delete Profile
+                  </button>
+                </div>
+              </p>
+            </div>
           </div>
-          <div className={style.upProfileField}>
-            <p className={style.upTitle}>Password:</p>
-            <input
-              className={style.upInput}
-              placeholder="Enter Password"
-              name="password"
-              value={data.password}
-              onChange={changeHandler}
-            ></input>
-          </div>
-        </Modal>
-      </>
-      <div className={style.upProfileField}>
-        <p className={style.upTitle}>
-          We regret to inform you that your account will be deleted. This action
-          is irreversible and will result in the loss of all your data
-          associated with our service.
-          <div className={style.upActionButton}>
-            <button onClick={showModal} className={style.upDelete}>
-              Delete Profile
-            </button>
-          </div>
-        </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

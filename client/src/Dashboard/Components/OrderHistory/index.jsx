@@ -6,7 +6,11 @@ import Highlighter from "react-highlight-words";
 import { CiSearch } from "react-icons/ci";
 import { useSelector } from "react-redux";
 import axios from "axios";
-export default function OrderHistory() {
+import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
+import Pagination from "../Pagination";
+export default function UserOrderHistory() {
+  const { sidebarVisible } = useSidebarToggler();
+
   const [loading, setLoading] = useState(null);
   const userDetails = useSelector((state) => state.User.userDetail);
   const [searchText, setSearchText] = useState("");
@@ -263,15 +267,18 @@ export default function OrderHistory() {
     fetchStripeData();
   }, [userDetails]);
   return (
-    <div>
+    <div
+      className={
+        sidebarVisible === false
+          ? `${style.OrderHistory} ${style.OrderHistoryFull} `
+          : style.OrderHistory
+      }
+    >
+      <div className={style.pageHeader}>
+        <p className={style.cardTitle}>Order History</p>
+        <Pagination />
+      </div>
       <div className={style.cardBG}>
-        <div className={style.aoContainer}>
-          <GoNote className={style.aoICON} />
-          <p className={style.aoNote}>
-            Tip search by order ID: Each product is provided with a unique ID,
-            which you can rely on to find the exact product you need.
-          </p>
-        </div>
         <div className={style.apContainer}>
           <div className={style.apInputBox}>
             <input

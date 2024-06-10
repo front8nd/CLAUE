@@ -47,6 +47,7 @@ const ProductsSlice = createSlice({
     showEditPage: false,
     showMobileMenu: false,
     editData: [],
+    stripeData: [],
   },
   reducers: {
     setPriceRange: (state, action) => {
@@ -84,6 +85,9 @@ const ProductsSlice = createSlice({
     },
     setEditData: (state, action) => {
       state.editData = action.payload;
+    },
+    setStripeData: (state, action) => {
+      state.stripeData = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -180,6 +184,7 @@ export const {
   setShowEditPage,
   setShowMobileMenu,
   setEditData,
+  setStripeData,
 } = ProductsSlice.actions;
 
 export default ProductsSlice.reducer;

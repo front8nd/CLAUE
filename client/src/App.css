@@ -175,3 +175,10 @@
   color: #99533b !important;
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
 }
+
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}

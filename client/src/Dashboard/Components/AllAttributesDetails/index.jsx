@@ -319,7 +319,7 @@ export default function AllAttributesDetails() {
               </div>
               <Button
                 onClick={() => {
-                  navigation("/Attributes/AddAttributes");
+                  navigation("/attributes/addattributes");
                 }}
                 className={style.apButton}
               >

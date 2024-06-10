@@ -4,9 +4,13 @@ import { useNavigate } from "react-router-dom";
 import style from "./UserPassword.module.scss";
 import { message } from "antd";
 import { getAuth, updatePassword } from "firebase/auth";
-import { fetchLoggedInUserDetails } from "../../Redux/UserSlice";
+import { fetchLoggedInUserDetails } from "../../../Redux/UserSlice";
+import Pagination from "../Pagination";
+import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 
 export default function UserPassword() {
+  const { sidebarVisible } = useSidebarToggler();
+
   const [loading, setLoading] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -119,34 +123,50 @@ export default function UserPassword() {
     }
   }, [dispatch, loading]);
   return (
-    <div>
-      <div className={style.upProfileField}>
-        <p className={style.upTitle}>Password:</p>
-        <input
-          className={style.upInput}
-          placeholder="Enter Password"
-          name="password"
-          value={data.password}
-          onChange={changeHandler}
-        ></input>
+    <div
+      className={
+        sidebarVisible === false
+          ? `${style.UserPassword} ${style.UserPasswordFull} `
+          : style.UserPassword
+      }
+    >
+      <div className={style.pageHeader}>
+        <p className={style.cardTitle}>Change Password</p>
+        <Pagination />
       </div>
-      <div className={style.upProfileField}>
-        <p className={style.upTitle}>Confirm Password:</p>
-        <input
-          className={style.upInput}
-          placeholder="Enter Password Again"
-          name="confirmPassword"
-          value={data.confirmPassword}
-          onChange={changeHandler}
-        ></input>
-      </div>
-      <div className={style.upActionButton}>
-        {passwordError && <p className="sa-password-error">{passwordError}</p>}
-      </div>
-      <div className={style.upActionButton}>
-        <button onClick={SubmitHandler} className={style.upUpdate}>
-          Update Profile
-        </button>
+      <div className={style.cardBG}>
+        <div className={style.upContainer}>
+          <div className={style.upProfileField}>
+            <p className={style.upTitle}>Password:</p>
+            <input
+              className={style.upInput}
+              placeholder="Enter Password"
+              name="password"
+              value={data.password}
+              onChange={changeHandler}
+            ></input>
+          </div>
+          <div className={style.upProfileField}>
+            <p className={style.upTitle}>Confirm Password:</p>
+            <input
+              className={style.upInput}
+              placeholder="Enter Password Again"
+              name="confirmPassword"
+              value={data.confirmPassword}
+              onChange={changeHandler}
+            ></input>
+          </div>
+          <div className={style.upActionButton}>
+            {passwordError && (
+              <p className="sa-password-error">{passwordError}</p>
+            )}
+          </div>
+          <div className={style.upActionButton}>
+            <button onClick={SubmitHandler} className={style.upUpdate}>
+              Update Profile
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

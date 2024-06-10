@@ -4,7 +4,7 @@ import style from "./UserProfile.module.scss";
 import { Divider, Image, Upload, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { auth, db, storage } from "../../firebase";
+import { auth, db, storage } from "../../../firebase";
 import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import {
   ref,
@@ -22,9 +22,11 @@ import {
   updatePassword,
   updateProfile,
 } from "firebase/auth";
-import { fetchLoggedInUserDetails } from "../../Redux/UserSlice";
-import IMGLoader from "../IMGLoader";
+import { fetchLoggedInUserDetails } from "../../../Redux/UserSlice";
 import { v4 as uuidv4 } from "uuid";
+import Pagination from "../Pagination";
+import { GoNote } from "react-icons/go";
+import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -35,6 +37,7 @@ const getBase64 = (file) =>
   });
 
 export default function UserProfile() {
+  const { sidebarVisible } = useSidebarToggler();
   const userDetails = useSelector((state) => state.User.userDetail);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -246,84 +249,98 @@ export default function UserProfile() {
   }, [dispatch, loading]);
 
   return (
-    <div className={style.upContainer}>
-      <div className={style.upProfileDetails}>
-        <div className={style.upProfileField}>
-          <p className={style.upTitle}>First Name: </p>
-          <input
-            className={style.upInput}
-            placeholder="Enter First Name"
-            name="fname"
-            value={data.fname}
-            onChange={changeHandler}
-          ></input>
-        </div>
-        <div className={style.upProfileField}>
-          <p className={style.upTitle}>Last Name:</p>
-          <input
-            className={style.upInput}
-            placeholder="Enter Last Name"
-            name="lname"
-            value={data.lname}
-            onChange={changeHandler}
-          ></input>
-        </div>
-        <div className={style.upProfileField}>
-          <p className={style.upTitle}>Username:</p>
-          <input
-            className={style.upInput}
-            placeholder="Enter Username"
-            name="username"
-            value={data.username}
-            onChange={changeHandler}
-          ></input>
-        </div>
-        <div className={style.upProfileField}>
-          <p className={style.upTitle}>Email:</p>
-          <input
-            className={style.upInput}
-            placeholder="Enter Email"
-            name="email"
-            value={data.email}
-            onChange={changeHandler}
-          ></input>
-        </div>
+    <div
+      className={
+        sidebarVisible === false
+          ? `${style.UserProfile} ${style.UserProfileFull} `
+          : style.UserProfile
+      }
+    >
+      <div className={style.pageHeader}>
+        <p className={style.cardTitle}>User Profile</p>
+        <Pagination />
+      </div>
+      <div className={style.cardBG}>
+        <div className={style.upContainer}>
+          <div className={style.upProfileDetails}>
+            <div className={style.upProfileField}>
+              <p className={style.upTitle}>First Name: </p>
+              <input
+                className={style.upInput}
+                placeholder="Enter First Name"
+                name="fname"
+                value={data.fname}
+                onChange={changeHandler}
+              ></input>
+            </div>
+            <div className={style.upProfileField}>
+              <p className={style.upTitle}>Last Name:</p>
+              <input
+                className={style.upInput}
+                placeholder="Enter Last Name"
+                name="lname"
+                value={data.lname}
+                onChange={changeHandler}
+              ></input>
+            </div>
+            <div className={style.upProfileField}>
+              <p className={style.upTitle}>Username:</p>
+              <input
+                className={style.upInput}
+                placeholder="Enter Username"
+                name="username"
+                value={data.username}
+                onChange={changeHandler}
+              ></input>
+            </div>
+            <div className={style.upProfileField}>
+              <p className={style.upTitle}>Email:</p>
+              <input
+                className={style.upInput}
+                placeholder="Enter Email"
+                name="email"
+                value={data.email}
+                onChange={changeHandler}
+              ></input>
+            </div>
 
-        <div className={style.upProfileField}>
-          <p className={style.upTitle}>Upload Avatar</p>
-          <div className="apdImgSize">
-            <Upload
-              customRequest={handleCustomRequest}
-              listType="picture-card"
-              fileList={fileList}
-              onPreview={handlePreview}
-              onChange={handleChange}
-              onRemove={handleDeleteImages}
-            >
-              {fileList.length === 1 ? null : uploadButton}
-            </Upload>
-            {previewImage && (
-              <Image
-                wrapperStyle={{
-                  display: "none",
-                }}
-                preview={{
-                  visible: previewOpen,
-                  onVisibleChange: (visible) => setPreviewOpen(visible),
-                  afterOpenChange: (visible) => !visible && setPreviewImage(""),
-                }}
-                src={previewImage}
-              />
-            )}
+            <div className={style.upProfileField}>
+              <p className={style.upTitle}>Upload Avatar</p>
+              <div className="apdImgSize">
+                <Upload
+                  customRequest={handleCustomRequest}
+                  listType="picture-card"
+                  fileList={fileList}
+                  onPreview={handlePreview}
+                  onChange={handleChange}
+                  onRemove={handleDeleteImages}
+                >
+                  {fileList.length === 1 ? null : uploadButton}
+                </Upload>
+                {previewImage && (
+                  <Image
+                    wrapperStyle={{
+                      display: "none",
+                    }}
+                    preview={{
+                      visible: previewOpen,
+                      onVisibleChange: (visible) => setPreviewOpen(visible),
+                      afterOpenChange: (visible) =>
+                        !visible && setPreviewImage(""),
+                    }}
+                    src={previewImage}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+          <div className={style.upActionButton}>
+            <button onClick={SubmitHandler} className={style.upUpdate}>
+              Update Profile
+            </button>
           </div>
         </div>
       </div>
-      <div className={style.upActionButton}>
-        <button onClick={SubmitHandler} className={style.upUpdate}>
-          Update Profile
-        </button>
-      </div>
-      <Divider />
     </div>
   );
 }

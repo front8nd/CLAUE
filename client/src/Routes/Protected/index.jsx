@@ -12,7 +12,7 @@ const ProtectedRoutes = ({ component: Component, allowedRoles }) => {
       navigate("/login");
     } else if (userDetails.role) {
       if (allowedRoles && !allowedRoles.includes(userDetails.role)) {
-        navigate("/profile/");
+        navigate("/NotAuthorized/");
       }
     }
   }, [isUserLoggedIn, userDetails, navigate, allowedRoles]);
