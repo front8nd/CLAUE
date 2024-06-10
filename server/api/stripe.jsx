@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const router = express.Router();
+
 app.use(express.json());
 app.use(cors());
 const stripe = require("stripe")(
@@ -9,7 +11,7 @@ const stripe = require("stripe")(
 
 // stripe checkout
 
-app.post("/create-checkout-session", async (req, res) => {
+router.post("/create-checkout-session", async (req, res) => {
   const products = req.body;
   const lineItems = products.map((product) => ({
     price_data: {
@@ -46,7 +48,7 @@ app.post("/create-checkout-session", async (req, res) => {
   }
 });
 
-app.get("/session-status", async (req, res) => {
+router.get("/session-status", async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.retrieve(
       req.query.session_id
@@ -60,7 +62,7 @@ app.get("/session-status", async (req, res) => {
 
 // Stripe Data
 
-app.get("/stripeData", async (req, res) => {
+router.get("/stripeData", async (req, res) => {
   try {
     const sessions = await stripe.checkout.sessions.list({
       limit: 10,
@@ -87,7 +89,7 @@ app.get("/stripeData", async (req, res) => {
 
 // Stripe Track Data
 
-app.post("/TrackOrder", async (req, res) => {
+router.post("/TrackOrder", async (req, res) => {
   const { sessionId } = req.body;
   if (!sessionId) {
     return res.status(400).json({ error: "sessionId is required" });
@@ -101,7 +103,7 @@ app.post("/TrackOrder", async (req, res) => {
 });
 
 // Endpoint to fetch customer and their orders with line items
-app.post("/customerOrders", async (req, res) => {
+router.post("/customerOrders", async (req, res) => {
   const { email } = req.body;
   try {
     const sessions = await stripe.checkout.sessions.list({
@@ -133,6 +135,4 @@ app.post("/customerOrders", async (req, res) => {
   }
 });
 
-app.listen(5174, () => {
-  console.log("Server started on port 5174");
-});
+module.exports = router;
