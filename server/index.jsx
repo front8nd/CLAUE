@@ -1,10 +1,8 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
-app.use(express.json());
-app.use(cors());
 
-const PORT = process.env.PORT || 5174;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+app.get("/", (req, res) => res.send("Express on Vercel"));
+
+app.listen(5174, () => console.log("Server ready on port 3000."));
+
+module.exports = app;
