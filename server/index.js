@@ -10,7 +10,7 @@ app.use(cors());
 app.use("/api/stripe", stripeRoutes);
 app.use("/api/firebase", firebaseRoutes);
 
-const PORT = process.env.PORT || 5174;
+const PORT = 5174;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
