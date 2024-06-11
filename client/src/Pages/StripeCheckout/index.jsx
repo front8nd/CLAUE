@@ -28,13 +28,16 @@ export default function StripeCheckout() {
   );
 
   const fetchClientSecret = useCallback(() => {
-    return fetch(`${url}:5174/api/stripe/create-checkout-session`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(productsArray),
-    })
+    return fetch(
+      `${import.meta.VITE_BASE_SERVER_URL}/api/stripe/create-checkout-session`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productsArray),
+      }
+    )
       .then((res) => res.json())
       .then((data) => data.clientSecret);
   }, []);
