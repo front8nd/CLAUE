@@ -18,11 +18,14 @@ import { useNavigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import axios from "axios";
 export default function AllUsersDetails() {
+  const url = import.meta.env.VITE_BASE_SERVER_URL;
+
   const usersList = useSelector((state) => state.User.usersList);
   const dispatch = useDispatch();
   const navigation = useNavigate();
   const { sidebarVisible } = useSidebarToggler();
   const loading = useSelector((state) => state.User.loading);
+  const [load, setLoad] = useState(false);
   const columns = [
     {
       title: "User",
@@ -114,11 +117,13 @@ export default function AllUsersDetails() {
   ];
 
   //Delete User
+
   const deleteUser = async (record) => {
     message.open({ content: "Deletion in Progress..", type: "loading" });
     try {
+      setLoad(true);
       // Delete Account from firebase Auth
-      await axios.post("http://localhost:5174/api/firebase/DeleteUserAccount", {
+      await axios.post(`${url}/api/firebase/DeleteUserAccount`, {
         uid: record.id,
       });
       // Delete Account Data
@@ -128,9 +133,11 @@ export default function AllUsersDetails() {
       await deleteFilesInDirectory(directoryRef);
       dispatch(getAllUsers());
       message.open({ content: "Deleted Successfully", type: "success" });
+      setLoad(false);
     } catch (error) {
       console.error("Error deleting user:", error);
       message.open({ content: "Error Deleting User", type: "error" });
+      setLoad(false);
     }
   };
 

@@ -13,6 +13,7 @@ export default function AllOrdersDetails() {
   const [searchText, setSearchText] = useState("");
   const [stripeData, setStripeData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const url = import.meta.env.VITE_BASE_SERVER_URL;
 
   const columns = [
     {
@@ -220,9 +221,7 @@ export default function AllOrdersDetails() {
   const fetchStripeData = async () => {
     setLoading(true);
     try {
-      const response = await fetch(
-        "http://localhost:5174/api/stripe/stripeData"
-      );
+      const response = await fetch(`${url}/api/stripe/stripeData`);
       const results = await response.json();
       setStripeData(results);
       localStorage.setItem("SalesCard", JSON.stringify(results));
@@ -236,7 +235,6 @@ export default function AllOrdersDetails() {
   useEffect(() => {
     fetchStripeData();
   }, []);
-  console.log(stripeData);
   useEffect(() => {
     if (stripeData.length !== 0) {
       setFilteredData(
@@ -252,7 +250,7 @@ export default function AllOrdersDetails() {
       setFilteredData([]);
     }
   }, [stripeData, searchText]);
-
+  console.log(filteredData);
   const calculateTotalRevenue = (data) => {
     return data.reduce(
       (acc, record) => acc + Math.round(record.amount_total),

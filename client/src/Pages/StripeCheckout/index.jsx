@@ -12,7 +12,6 @@ import Footer from "../../Layouts/Footer";
 
 export default function StripeCheckout() {
   const url = import.meta.env.VITE_BASE_SERVER_URL;
-  console.log(url);
   const cartItemsDetails = useSelector((state) => state.Cart.cartItemsDetails);
   const productsArray = cartItemsDetails.map((item) => ({
     id: item.firebaseId,

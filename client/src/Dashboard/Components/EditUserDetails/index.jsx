@@ -35,7 +35,6 @@ export default function EditUserDetails() {
   const dispatch = useDispatch();
   const location = useLocation();
   const [toggle, setToggler] = useState(location.state.role);
-  console.log(location);
   // Data
   const [data, setData] = useState({
     fname: location.state.firstName,

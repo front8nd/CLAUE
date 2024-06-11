@@ -19,6 +19,7 @@ export default function DashboardHomepage() {
   const stripeData = useSelector((state) => state.Products.stripeData);
   const userDetails = useSelector((state) => state.User.userDetail);
   const [loading, setLoading] = useState(null);
+  const url = import.meta.env.VITE_BASE_SERVER_URL;
 
   useEffect(() => {
     if (products.length === 0) {
@@ -39,9 +40,7 @@ export default function DashboardHomepage() {
     if (stripeData.length === 0) {
       setLoading(true);
       try {
-        const response = await fetch(
-          "http://localhost:5174/api/stripe/stripeData"
-        );
+        const response = await fetch(`${url}/api/stripe/stripeData`);
         const results = await response.json();
         dispatch(setStripeData(results));
         setLoading(false);
@@ -54,7 +53,7 @@ export default function DashboardHomepage() {
 
   useEffect(() => {
     fetchStripeData();
-  }, []);
+  }, [stripeData]);
 
   if (loading) {
     return (

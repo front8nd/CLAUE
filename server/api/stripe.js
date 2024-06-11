@@ -33,7 +33,7 @@ router.post("/create-checkout-session", async (req, res) => {
       allow_promotion_codes: true,
       mode: "payment",
       ui_mode: "embedded",
-      return_url: `http://localhost:5173/return?session_id={CHECKOUT_SESSION_ID}`,
+      return_url: `/return?session_id={CHECKOUT_SESSION_ID}`,
     });
     res.send({ clientSecret: session.client_secret });
   } catch (error) {
@@ -91,7 +91,7 @@ router.post("/customerOrders", async (req, res) => {
     const sessions = await stripe.checkout.sessions.list({ limit: 10 });
 
     const filteredSessions = sessions.data.filter(
-      (e) => e?.customer_details?.email == email
+      (e) => e?.customer_details?.email.toLowerCase() == email.toLowerCase()
     );
     const sessionsWithLineItems = await Promise.all(
       filteredSessions.map(async (session) => {
@@ -107,6 +107,7 @@ router.post("/customerOrders", async (req, res) => {
         };
       })
     );
+    console.log(filteredSessions);
     res.json(sessionsWithLineItems);
   } catch (error) {
     console.error("Error fetching customer orders:", error);

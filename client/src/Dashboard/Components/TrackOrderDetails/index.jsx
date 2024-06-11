@@ -11,6 +11,7 @@ export default function TrackOrderDetails() {
   const { sidebarVisible } = useSidebarToggler();
   const [sessionId, setsessionId] = useState(null);
   const [loading, setLoading] = useState(null);
+  const url = import.meta.env.VITE_BASE_SERVER_URL;
 
   // Stripe Data
   const [stripeData, setStripeData] = useState([]);
@@ -19,12 +20,9 @@ export default function TrackOrderDetails() {
       setLoading(true);
       openMessage({ content: "Fetching..", type: "loading" });
 
-      const response = await axios.post(
-        "http://localhost:5174/api/stripe/TrackOrder",
-        {
-          sessionId,
-        }
-      );
+      const response = await axios.post(`${url}/api/stripe/TrackOrder`, {
+        sessionId,
+      });
       setStripeData(response.data);
       setLoading(false);
       openMessage({ content: "Completed", type: "success" });

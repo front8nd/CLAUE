@@ -28,7 +28,7 @@ export default function TotalSalesCard() {
     }
   }, [stripeData]); // Add stripeData as a dependency
   if (loading) return <Loading />;
-  console.log(stripeData);
+  console.log("sales", stripeData);
 
   const formateDate = (date) => {
     const orderDate = new Date(date * 1000);

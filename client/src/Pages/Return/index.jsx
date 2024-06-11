@@ -24,10 +24,12 @@ export default function Return() {
   const urlParams = new URLSearchParams(queryString);
   const sessionId = urlParams.get("session_id");
   const dispatch = useDispatch();
+  const url = import.meta.env.VITE_BASE_SERVER_URL;
+
   const fetchData = async () => {
     try {
       const res = await fetch(
-        `http://localhost:5174/api/stripe/session-status?session_id=${sessionId}`
+        `${url}/api/stripe/session-status?session_id=${sessionId}`
       );
       const data = await res.json();
       setStatus(data.status);

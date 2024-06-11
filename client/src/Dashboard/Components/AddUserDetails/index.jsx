@@ -194,7 +194,7 @@ export default function AddUserDetails() {
       }
       message.open({ content: "Added", type: "success" });
       dispatch(getAllUsers());
-      navigate("/Users/AllUsers");
+      navigate("/users/all");
       console.log(data);
     } catch (error) {
       console.log(error);
