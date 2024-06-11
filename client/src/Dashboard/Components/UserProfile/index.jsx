@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./UserProfile.module.scss";
-import { Divider, Image, Upload, message } from "antd";
+import { Button, Divider, Image, Upload, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { auth, db, storage } from "../../../firebase";
@@ -335,9 +335,15 @@ export default function UserProfile() {
             </div>
           </div>
           <div className={style.upActionButton}>
-            <button onClick={SubmitHandler} className={style.upUpdate}>
+            <Button
+              type="primary"
+              className={style.adpButton}
+              htmlType="submit"
+              iconPosition="end"
+              onClick={SubmitHandler}
+            >
               Update Profile
-            </button>
+            </Button>
           </div>
         </div>
       </div>

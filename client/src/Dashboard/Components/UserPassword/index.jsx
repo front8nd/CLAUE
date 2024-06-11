@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import style from "./UserPassword.module.scss";
-import { message } from "antd";
+import { Button, message } from "antd";
 import { getAuth, updatePassword } from "firebase/auth";
 import { fetchLoggedInUserDetails } from "../../../Redux/UserSlice";
 import Pagination from "../Pagination";
@@ -162,9 +162,13 @@ export default function UserPassword() {
             )}
           </div>
           <div className={style.upActionButton}>
-            <button onClick={SubmitHandler} className={style.upUpdate}>
+            <Button
+              type="primary"
+              onClick={SubmitHandler}
+              className={style.upUpdate}
+            >
               Update Profile
-            </button>
+            </Button>
           </div>
         </div>
       </div>

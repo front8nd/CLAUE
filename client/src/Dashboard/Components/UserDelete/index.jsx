@@ -166,9 +166,13 @@ export default function UserDelete() {
                 action is irreversible and will result in the loss of all your
                 data associated with our service.
                 <div className={style.upActionButton}>
-                  <button onClick={showModal} className={style.upDelete}>
+                  <Button
+                    type="primary"
+                    onClick={showModal}
+                    className={style.upDelete}
+                  >
                     Delete Profile
-                  </button>
+                  </Button>
                 </div>
               </p>
             </div>

@@ -10,7 +10,6 @@ import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import Pagination from "../Pagination";
 export default function UserOrderHistory() {
   const { sidebarVisible } = useSidebarToggler();
-
   const [loading, setLoading] = useState(null);
   const userDetails = useSelector((state) => state.User.userDetail);
   const [searchText, setSearchText] = useState("");

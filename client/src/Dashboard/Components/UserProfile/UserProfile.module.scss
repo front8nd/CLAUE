@@ -53,19 +53,29 @@
   margin: 10px;
 }
 .upTitle {
+  font-size: 14px;
+  margin: 10px 0;
   font-weight: bold;
   width: 50%;
 }
 
 .upInput {
-  outline: 1px solid #555;
-  border-radius: 20px;
-  border: none;
-  padding: 10px 0;
-  text-align: start;
-  max-width: 300px;
-  width: -webkit-fill-available;
-  padding-left: 10px;
+  outline: 0;
+  box-shadow: none;
+  width: 100%;
+  padding: 14px 22px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  background-color: transparent;
+  border: 1px solid $Input;
+  border-radius: 12px;
+  color: $Heading;
+  overflow: hidden;
+  margin-bottom: 0;
+  &::placeholder {
+    color: $Note;
+  }
   width: 50%;
 }
 .upActionButton {
@@ -73,21 +83,10 @@
   justify-content: flex-end;
   margin: 20px 0;
 }
-.upUpdate {
-  padding: 12px 24px;
-  border-radius: 20px;
-  border: none;
-  background-color: #cf9683;
-  color: white;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  width: 100%;
-  max-width: 300px;
-  &:hover {
-    background-color: black;
-    color: white;
-  }
+.adpButton {
+  height: 50px;
+  width: 30%;
+  margin: 10px 0;
 }
 .pageHeader {
   display: flex;
@@ -118,5 +117,22 @@
     margin-bottom: 20px;
     padding: 0 15px;
     flex-direction: column;
+  }
+  .adpButton {
+    height: 50px;
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
+@media screen and (max-width: 412px) {
+  .upProfileField {
+    display: flex;
+    align-items: flex-start;
+    font-size: 16px;
+    flex-direction: column;
+  }
+  .upInput {
+    width: 80%;
   }
 }
