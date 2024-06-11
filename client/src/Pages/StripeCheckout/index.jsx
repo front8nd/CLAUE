@@ -28,7 +28,7 @@ export default function StripeCheckout() {
   );
 
   const fetchClientSecret = useCallback(() => {
-    return fetch(`http://localhost:5174/api/stripe/create-checkout-session`, {
+    return fetch(`${url}/api/stripe/create-checkout-session`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
