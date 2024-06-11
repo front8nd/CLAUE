@@ -14,6 +14,11 @@ export default function EditProducts() {
   const url = useParams();
   const productID = url.ProductID;
   const [product, setProduct] = useState(null);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.Products.data);
+  const userDetails = useSelector((state) => state.User.userDetail);
+  const [loading, setLoading] = useState(null);
+
   useEffect(() => {
     if (products.length === 0) {
       setLoading(true);
@@ -29,11 +34,6 @@ export default function EditProducts() {
       setProduct(foundProduct);
     }
   }, [productID, products]);
-
-  const dispatch = useDispatch();
-  const products = useSelector((state) => state.Products.data);
-  const userDetails = useSelector((state) => state.User.userDetail);
-  const [loading, setLoading] = useState(null);
 
   useEffect(() => {
     if (!userDetails || Object.keys(userDetails).length === 0) {

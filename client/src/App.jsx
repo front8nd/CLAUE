@@ -73,7 +73,7 @@ function App() {
             }
           />
           <Route
-            path="/orderhistory"
+            path="/orders"
             element={
               <ProtectedRoutes
                 component={OrderHistory}
@@ -106,7 +106,7 @@ function App() {
             }
           />
           <Route
-            path="/products/addproducts"
+            path="/products/add"
             element={
               <ProtectedRoutes
                 component={AddProducts}
@@ -115,7 +115,7 @@ function App() {
             }
           />
           <Route
-            path="/products/editproduct/:ProductID"
+            path="/products/edit/:ProductID"
             element={
               <ProtectedRoutes
                 component={EditProducts}
@@ -124,7 +124,7 @@ function App() {
             }
           />
           <Route
-            path="/Products/AllProducts"
+            path="/products/all"
             element={
               <ProtectedRoutes
                 component={AllProducts}
@@ -133,7 +133,7 @@ function App() {
             }
           />
           <Route
-            path="/category/addcategory"
+            path="/category/add"
             element={
               <ProtectedRoutes
                 component={AddCategory}
@@ -142,7 +142,7 @@ function App() {
             }
           />
           <Route
-            path="/category/allcategory"
+            path="/category/all"
             element={
               <ProtectedRoutes
                 component={AllCategory}
@@ -151,7 +151,7 @@ function App() {
             }
           />
           <Route
-            path="/attributes/addattributes"
+            path="/attributes/add"
             element={
               <ProtectedRoutes
                 component={AddAttributes}
@@ -160,7 +160,7 @@ function App() {
             }
           />
           <Route
-            path="/attributes/allattributes"
+            path="/attributes/all"
             element={
               <ProtectedRoutes
                 component={AllAttributes}
@@ -169,13 +169,13 @@ function App() {
             }
           />
           <Route
-            path="/orders/allorders"
+            path="/orders/all"
             element={
               <ProtectedRoutes component={AllOrders} allowedRoles={["admin"]} />
             }
           />
           <Route
-            path="/orders/trackorder"
+            path="/orders/track"
             element={
               <ProtectedRoutes
                 component={TrackOrder}
@@ -184,19 +184,19 @@ function App() {
             }
           />
           <Route
-            path="/users/allusers"
+            path="/users/all"
             element={
               <ProtectedRoutes component={AllUsers} allowedRoles={["admin"]} />
             }
           />
           <Route
-            path="/users/adduser"
+            path="/users/add"
             element={
               <ProtectedRoutes component={AddUser} allowedRoles={["admin"]} />
             }
           />
           <Route
-            path="/users/edituser"
+            path="/users/edit"
             element={
               <ProtectedRoutes component={EditUser} allowedRoles={["admin"]} />
             }

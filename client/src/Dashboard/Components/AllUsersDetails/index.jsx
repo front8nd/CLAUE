@@ -94,7 +94,7 @@ export default function AllUsersDetails() {
           <Tooltip title="Edit User Account" color={"blue"}>
             <FaRegEdit
               onClick={() => {
-                navigation("/Users/EditUser/", { state: record });
+                navigation("/users/edit/", { state: record });
               }}
               className={style.udICONEdit}
             />

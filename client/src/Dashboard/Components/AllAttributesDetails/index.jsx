@@ -29,8 +29,6 @@ export default function AllAttributesDetails() {
       dataIndex: colorsArray.color,
       key: colorsArray.color,
       width: "20%",
-      sorter: (a, b) => a.title.localeCompare(b.title),
-      sortDirections: ["descend", "ascend"],
       render: (text, record) => (
         <div
           style={{
@@ -84,8 +82,6 @@ export default function AllAttributesDetails() {
       dataIndex: sizesArray.size,
       key: sizesArray.size,
       width: "20%",
-      sorter: (a, b) => a.title.localeCompare(b.title),
-      sortDirections: ["descend", "ascend"],
       render: (text, record) => (
         <div
           style={{
@@ -138,8 +134,7 @@ export default function AllAttributesDetails() {
       dataIndex: brandArray.brand,
       key: brandArray.brand,
       width: "20%",
-      sorter: (a, b) => a.title.localeCompare(b.title),
-      sortDirections: ["descend", "ascend"],
+
       render: (text, record) => (
         <div
           style={{

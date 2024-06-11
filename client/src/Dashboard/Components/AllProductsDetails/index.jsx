@@ -144,7 +144,7 @@ export default function AllProductsDetails() {
           <Tooltip title="Edit" color={"green"}>
             <CiEdit
               onClick={() => {
-                navigation(`/Products/EditProduct/${record.id}`);
+                navigation(`/products/edit/${record.id}`);
               }}
               className={style.apICONEdit}
             />
@@ -245,7 +245,7 @@ export default function AllProductsDetails() {
           </div>
           <Button
             onClick={() => {
-              navigation("/products/addproducts");
+              navigation("/products/add");
             }}
             className={style.apButton}
           >

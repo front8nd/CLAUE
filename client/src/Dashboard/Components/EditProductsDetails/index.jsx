@@ -270,7 +270,7 @@ export default function EditProductDetails({ product }) {
     });
     setFileList([]);
     setLoading(false);
-    navigation("/Products/AllProducts/");
+    navigation("/products/all/");
   };
 
   return (

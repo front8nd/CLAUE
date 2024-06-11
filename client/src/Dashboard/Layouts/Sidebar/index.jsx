@@ -114,11 +114,11 @@ export default function Sidebar() {
               </div>
             </div>
           </Link>
-          <Link className={style.SidebarLink} to="/orderhistory">
+          <Link className={style.SidebarLink} to="/orders">
             <div
-              onClick={() => handleMenuItemClick("orderhistory")}
+              onClick={() => handleMenuItemClick("orders")}
               className={
-                expandMenuItem === "orderhistory"
+                expandMenuItem === "orders"
                   ? style.sidebarMenuActive
                   : style.sidebarMenu
               }
@@ -191,30 +191,31 @@ export default function Sidebar() {
           <div className={style.sidebarSubMenu}>
             <ul>
               <Link
-                onClick={() => handleSubMenuItemClick("addproducts")}
                 className={
-                  expandSubMenuItem === "addproducts"
+                  url.pathname.includes("/products/add/")
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/products/addproducts/"
+                onClick={() => handleSubMenuItemClick("addproducts")}
+                to="/products/add/"
               >
                 <li className={style.sidebarSubMenuList}>Add New Product</li>
               </Link>
               <Link
-                onClick={() => handleSubMenuItemClick("allproducts")}
                 className={
-                  expandSubMenuItem === "allproducts"
+                  url.pathname.includes("/products/all/")
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/products/allproducts/"
+                onClick={() => handleSubMenuItemClick("allproducts")}
+                to="/products/all/"
               >
                 <li className={style.sidebarSubMenuList}>All Products</li>
               </Link>
             </ul>
           </div>
         )}
+
         <div
           onClick={() => handleMenuItemClick("category")}
           className={
@@ -235,22 +236,22 @@ export default function Sidebar() {
               <Link
                 onClick={() => handleSubMenuItemClick("addcategory")}
                 className={
-                  expandSubMenuItem === "addcategory"
+                  url.pathname.includes("/category/add/")
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/category/addcategory/"
+                to="/category/add/"
               >
                 <li className={style.sidebarSubMenuList}>Add New Category</li>
               </Link>
               <Link
                 onClick={() => handleSubMenuItemClick("allcategory")}
                 className={
-                  expandSubMenuItem === "allcategory"
+                  url.pathname.includes("/category/all/")
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/category/allcategory/"
+                to="/category/all/"
               >
                 <li className={style.sidebarSubMenuList}>All Categories</li>
               </Link>
@@ -277,22 +278,22 @@ export default function Sidebar() {
               <Link
                 onClick={() => handleSubMenuItemClick("addattributes")}
                 className={
-                  expandSubMenuItem === "addattributes"
+                  url.pathname.includes("/attributes/add/")
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/attributes/addattributes/"
+                to="/attributes/add/"
               >
                 <li className={style.sidebarSubMenuList}>Add Attributes</li>
               </Link>
               <Link
                 onClick={() => handleSubMenuItemClick("allattributes")}
                 className={
-                  expandSubMenuItem === "allattributes"
+                  url.pathname.includes("/attributes/all/")
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/attributes/allattributes/"
+                to="/attributes/all/"
               >
                 <li className={style.sidebarSubMenuList}>All Attributes</li>
               </Link>
@@ -319,22 +320,22 @@ export default function Sidebar() {
               <Link
                 onClick={() => handleSubMenuItemClick("allorders")}
                 className={
-                  expandSubMenuItem === "allorders"
+                  url.pathname.includes("/orders/all/")
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/orders/allorders/"
+                to="/orders/all/"
               >
                 <li className={style.sidebarSubMenuList}>All Orders</li>
               </Link>
               <Link
                 onClick={() => handleSubMenuItemClick("trackorder")}
                 className={
-                  expandSubMenuItem === "trackorder"
+                  url.pathname.includes("/orders/track/")
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/orders/trackorder/"
+                to="/orders/track/"
               >
                 <li className={style.sidebarSubMenuList}>Track Order</li>
               </Link>
@@ -361,22 +362,22 @@ export default function Sidebar() {
               <Link
                 onClick={() => handleSubMenuItemClick("allusers")}
                 className={
-                  expandSubMenuItem === "allusers"
+                  url.pathname.includes("/users/all/")
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/users/allusers/"
+                to="/users/all/"
               >
                 <li className={style.sidebarSubMenuList}>All Users</li>
               </Link>
               <Link
                 onClick={() => handleSubMenuItemClick("adduser")}
                 className={
-                  expandSubMenuItem === "adduser"
+                  url.pathname.includes("/users/add/")
                     ? style.SidebarLinkActive
                     : style.SidebarLink
                 }
-                to="/users/adduser/"
+                to="/users/add/"
               >
                 <li className={style.sidebarSubMenuList}>Add User</li>
               </Link>

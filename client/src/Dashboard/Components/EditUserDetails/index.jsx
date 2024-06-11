@@ -217,7 +217,7 @@ export default function EditUserDetails() {
         });
       }
       dispatch(getAllUsers());
-      navigate("/Users/AllUsers");
+      navigate("/users/all");
     } catch (error) {
       console.error(error);
       message.error({
@@ -238,7 +238,7 @@ export default function EditUserDetails() {
       }
     >
       <div className={style.pageHeader}>
-        <p className={style.cardTitle}>Add User</p>
+        <p className={style.cardTitle}>Edit User</p>
         <Pagination />
       </div>
       <div className={style.cardBG}>
