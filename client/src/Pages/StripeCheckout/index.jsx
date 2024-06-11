@@ -9,9 +9,11 @@ import StripeCheckoutHeader from "../../components/StripeCheckoutHeader";
 import BacktoTop from "../../components/BacktoTop";
 import Header from "../../Layouts/Header";
 import Footer from "../../Layouts/Footer";
-export default function StripeCheckout() {
-  const cartItemsDetails = useSelector((state) => state.Cart.cartItemsDetails);
 
+export default function StripeCheckout() {
+  const url = import.meta.env.VITE_BASE_SERVER_URL;
+  console.log(url);
+  const cartItemsDetails = useSelector((state) => state.Cart.cartItemsDetails);
   const productsArray = cartItemsDetails.map((item) => ({
     id: item.firebaseId,
     title: item.title,
@@ -26,7 +28,7 @@ export default function StripeCheckout() {
   );
 
   const fetchClientSecret = useCallback(() => {
-    return fetch("http://localhost:5174/api/stripe/create-checkout-session", {
+    return fetch(`${url}:5174/api/stripe/create-checkout-session`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

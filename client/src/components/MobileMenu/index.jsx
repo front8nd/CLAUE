@@ -7,7 +7,7 @@ import { setShowMobileMenu } from "../../Redux/ProductsSlice";
 import { IoIosArrowDown } from "react-icons/io";
 import { VscAccount } from "react-icons/vsc";
 import { auth } from "../../firebase";
-import { userLoggedIn } from "../../Redux/UserSlice";
+import { fetchLoggedInUserDetails, userLoggedIn } from "../../Redux/UserSlice";
 export default function MobileMenu() {
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.User.userDetail);
