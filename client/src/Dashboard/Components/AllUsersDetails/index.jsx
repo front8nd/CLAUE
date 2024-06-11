@@ -118,7 +118,7 @@ export default function AllUsersDetails() {
     message.open({ content: "Deletion in Progress..", type: "loading" });
     try {
       // Delete Account from firebase Auth
-      await axios.post("http://localhost:5174/DeleteUserAccount", {
+      await axios.post("http://localhost:5174/api/firebase/DeleteUserAccount", {
         uid: record.id,
       });
       // Delete Account Data

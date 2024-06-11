@@ -229,7 +229,7 @@ export default function UserOrderHistory() {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:5174/customerOrders",
+        "http://localhost:5174/api/stripe/customerOrders",
         { email: userDetails.email }
       );
       console.log(response);

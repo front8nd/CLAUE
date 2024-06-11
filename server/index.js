@@ -7,7 +7,6 @@ const firebaseRoutes = require("./api/firebase");
 app.use(express.json());
 app.use(cors());
 
-// Use the route handlers
 app.use("/api/stripe", stripeRoutes);
 app.use("/api/firebase", firebaseRoutes);
 

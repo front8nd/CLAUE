@@ -1,7 +1,7 @@
 {
   "version": 2,
   "routes": [
-    { "src": "/api/stripe/(.*)", "dest": "/api/stripe.jsx" },
-    { "src": "/api/firebase/(.*)", "dest": "/api/firebase.jsx" }
+    { "src": "/api/stripe/(.*)", "dest": "/api/stripe.js" },
+    { "src": "/api/firebase/(.*)", "dest": "/api/firebase.js" }
   ]
 }

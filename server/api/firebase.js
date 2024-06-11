@@ -1,16 +1,7 @@
 const express = require("express");
-const app = express();
-const cors = require("cors");
-const bodyParser = require("body-parser");
 const router = express.Router();
-
-app.use(bodyParser.json());
-
-app.use(cors());
-
-var admin = require("firebase-admin");
-
-var serviceAccount = require("./serviceAccountKey.json");
+const admin = require("firebase-admin");
+const serviceAccount = require("../serviceAccountKey.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),

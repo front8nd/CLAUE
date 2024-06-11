@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.jsx",
+  "main": "index.js",
   "scripts": {
-    "start": "index.jsx",
-    "build": "index.jsx"
+    "start": "index.js",
+    "build": "index.js"
   },
   "keywords": [],
   "author": "",

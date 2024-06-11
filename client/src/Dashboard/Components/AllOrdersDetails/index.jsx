@@ -220,7 +220,9 @@ export default function AllOrdersDetails() {
   const fetchStripeData = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5174/stripeData");
+      const response = await fetch(
+        "http://localhost:5174/api/stripe/stripeData"
+      );
       const results = await response.json();
       setStripeData(results);
       localStorage.setItem("SalesCard", JSON.stringify(results));

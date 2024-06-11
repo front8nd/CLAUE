@@ -39,7 +39,9 @@ export default function DashboardHomepage() {
     if (stripeData.length === 0) {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:5174/stripeData");
+        const response = await fetch(
+          "http://localhost:5174/api/stripe/stripeData"
+        );
         const results = await response.json();
         dispatch(setStripeData(results));
         setLoading(false);

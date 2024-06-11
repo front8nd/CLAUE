@@ -19,9 +19,12 @@ export default function TrackOrderDetails() {
       setLoading(true);
       openMessage({ content: "Fetching..", type: "loading" });
 
-      const response = await axios.post("http://localhost:5174/TrackOrder", {
-        sessionId,
-      });
+      const response = await axios.post(
+        "http://localhost:5174/api/stripe/TrackOrder",
+        {
+          sessionId,
+        }
+      );
       setStripeData(response.data);
       setLoading(false);
       openMessage({ content: "Completed", type: "success" });
