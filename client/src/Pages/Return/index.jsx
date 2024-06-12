@@ -29,7 +29,7 @@ export default function Return() {
   const fetchData = async () => {
     try {
       const res = await fetch(
-        `http://localhost:5174/api/stripe/session-status?session_id=${sessionId}`
+        `${url}/api/stripe/session-status?session_id=${sessionId}`
       );
       const data = await res.json();
       setStatus(data.status);

@@ -33,7 +33,7 @@ router.post("/create-checkout-session", async (req, res) => {
       allow_promotion_codes: true,
       mode: "payment",
       ui_mode: "embedded",
-      return_url: `/return?session_id={CHECKOUT_SESSION_ID}`,
+      return_url: `https://claue.vercel.app/return?session_id={CHECKOUT_SESSION_ID}`,
     });
     res.send({ clientSecret: session.client_secret });
   } catch (error) {
