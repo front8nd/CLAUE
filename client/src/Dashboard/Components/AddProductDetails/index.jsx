@@ -5,7 +5,7 @@ import { useSidebarToggler } from "../../ContextHooks/sidebarToggler";
 import { Input, Button, message, Space, Image, Upload, DatePicker } from "antd";
 import { FiUploadCloud } from "react-icons/fi";
 import Pagination from "../Pagination";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { POST_Products } from "../../../API/POST_request";
 import {
   ref,
@@ -16,6 +16,7 @@ import {
 } from "firebase/storage";
 import { storage } from "../../../firebase";
 import { v4 as uuidv4 } from "uuid";
+import { getProductsFirebase } from "../../../Redux/ProductsSlice";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -26,6 +27,7 @@ const getBase64 = (file) =>
   });
 
 export default function AddProductDetails() {
+  const dispatch = useDispatch();
   const { TextArea } = Input;
   const { sidebarVisible } = useSidebarToggler();
   const [isLoading, setLoading] = useState(false);
@@ -219,6 +221,7 @@ export default function AddProductDetails() {
     setLoading(true);
     const newData = { ...data, id: uuidv4() };
     await POST_Products(newData);
+    dispatch(getProductsFirebase());
     message.info("Post Added");
     setData({
       id: "",

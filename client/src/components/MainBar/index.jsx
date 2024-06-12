@@ -135,9 +135,9 @@ export default function MainBar() {
             </button>
           </Link>
         )}
-        <button className="icon-menu-item hideMobile">
+        {/* <button className="icon-menu-item hideMobile">
           <GoHeart />
-        </button>
+        </button> */}
         <Link to={"/cart/"}>
           <button className="icon-menu-item">
             <div className="shopping-notification">{cart.length}</div>
